@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 
-import book1 from "../../../../public/book1.jpeg";
+import book1 from "../../../public/book1.jpeg";
 import Link from "next/link";
 
 const BookCard = () => {

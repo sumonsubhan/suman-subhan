@@ -5,19 +5,19 @@ import { FaArrowRightLong } from "react-icons/fa6";
 const videos = [
   {
     id: 1,
-    link: "https://www.youtube.com/embed/ZJSS6l2_hSE?si=6nblihnxLpHJD-Q9",
+    link: "https://www.youtube.com/embed/SCUVtGdvRqs?si=YSL_TWZOgyET-y8h",
   },
   {
     id: 2,
-    link: "https://www.youtube.com/embed/bDURdve6GLo?si=gXS7D4PceDI6gLAq",
+    link: "https://www.youtube.com/embed/SCLL_WhuDfE?si=f9zMrWoPcHlnr3NC",
   },
   {
     id: 3,
-    link: "https://www.youtube.com/embed/gmfEVDTHLYE?si=nYB7m7basqAUAtrs",
+    link: "https://www.youtube.com/embed/QCSYSkBVvbw?si=l8v3mXhw71QPj5Tq",
   },
   {
     id: 4,
-    link: "https://www.youtube.com/embed/c965xpqx9_s?si=LZ5TtUDOsMc9akDx",
+    link: "https://www.youtube.com/embed/NK3yJFc0Cgw?si=3EaUKNX63giibIQ9",
   },
 ];
 

@@ -1,7 +1,7 @@
 import React from "react";
-import NewBookSlider from "./NewBookSlider";
 import Link from "next/link";
 import { FaArrowRightLong } from "react-icons/fa6";
+import BookSlider from "../../bookSlider/BookSlider";
 
 const NewBooks = () => {
   return (
@@ -15,7 +15,7 @@ const NewBooks = () => {
           <FaArrowRightLong />
         </Link>
       </div>
-      <NewBookSlider></NewBookSlider>
+      <BookSlider></BookSlider>
     </div>
   );
 };

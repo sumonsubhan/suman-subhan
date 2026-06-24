@@ -10,9 +10,9 @@ import "swiper/css/pagination";
 
 // import required modules
 import { Autoplay, Pagination } from "swiper/modules";
-import BookCard from "./BookCard";
+import BookCard from "../bookCard/BookCard";
 
-export default function NewBookSlider() {
+export default function BookSlider() {
   return (
     <div className="">
       <Swiper
