@@ -10,7 +10,7 @@ const Navbar = () => {
     { href: "/books", label: "অক্ষরবৃত্ত" },
     { href: "/songs", label: "সুরসুধা" },
     { href: "/poems", label: "শব্দসুধা" },
-    { href: "/photos", label: "কালের ক্যানভাস" },
+    { href: "/album", label: "কালের ক্যানভাস" },
     { href: "/articles", label: "লেখালোক" },
   ];
 

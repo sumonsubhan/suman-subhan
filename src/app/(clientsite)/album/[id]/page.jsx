@@ -1,9 +1,10 @@
 import React from 'react';
 
-const Photos = () => {
+const Photos = async ({params}) => {
+    const {id} = await params;
     return (
         <div>
-            
+           
         </div>
     );
 };

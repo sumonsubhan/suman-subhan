@@ -1,4 +1,8 @@
-import Story from "@/components/books/story/Story";
+import EssaySection from "@/components/books/essay/EssaySection";
+import NovelSection from "@/components/books/novel/NovelSection";
+import PoemsSection from "@/components/books/poems/PoemSection";
+import RhymeSection from "@/components/books/rhyme/RhymeSection";
+import StorySection from "@/components/books/story/StorySection";
 import React from "react";
 
 const Books = () => {
@@ -16,7 +20,11 @@ const Books = () => {
       </div>
 
       <div>
-        <Story></Story>
+          <StorySection></StorySection>
+          <PoemsSection></PoemsSection>
+          <RhymeSection></RhymeSection>
+          <NovelSection></NovelSection>
+          <EssaySection></EssaySection>
       </div>
     </div>
   );
