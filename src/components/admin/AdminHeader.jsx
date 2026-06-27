@@ -1,14 +1,25 @@
+"use client";
+
 import Logo from "../logo/Logo";
+import { FaBars } from "react-icons/fa";
 
-export default function AdminHeader() {
+export default function AdminHeader({ onMenuClick }) {
   return (
-    <header className="h-16 border-b flex items-center justify-between px-4 md:px-6">
-      <h2 className="text-lg font-semibold">
-        <Logo></Logo>
-      </h2>
+    <header className="sticky top-0 z-30 h-16 bg-white border-b shadow-sm">
+      <div className="h-full px-4 md:px-6 flex items-center justify-between">
+        {/* Mobile Menu */}
+        <button
+          onClick={onMenuClick}
+          className="lg:hidden text-xl"
+        >
+          <FaBars />
+        </button>
 
-      <div className="flex items-center gap-3">
-        <div className="w-10 h-10 rounded-full bg-gray-200" />
+        <Logo />
+
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-full bg-gray-200" />
+        </div>
       </div>
     </header>
   );

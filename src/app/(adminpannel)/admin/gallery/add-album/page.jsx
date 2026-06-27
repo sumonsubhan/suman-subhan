@@ -1,0 +1,123 @@
+"use client";
+
+import { addAlbum } from "@/actions/addAlbum";
+import { useForm } from "react-hook-form";
+
+export default function AddAlbum() {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm();
+
+  async function onSubmit(data) {
+    const formData = new FormData();
+
+    formData.append("title", data.title);
+    formData.append("description", data.description);
+    formData.append("cover", data.cover[0]);
+
+    const result = await addAlbum(formData);
+
+    alert(result.message);
+
+    if (result.success) {
+      reset();
+    }
+  }
+
+  return (
+    <div className="max-w-2xl mx-auto">
+      <h1 className="text-3xl font-bold mb-8">
+        Add New Album
+      </h1>
+
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="space-y-6"
+      >
+        {/* Title */}
+        <div>
+          <label className="block mb-2 text-lg font-medium">
+            Album Title
+          </label>
+
+          <input
+            type="text"
+            placeholder="Album title"
+            className="input input-bordered w-full"
+            {...register("title", {
+              required: "Album title is required",
+              minLength: {
+                value: 3,
+                message: "Minimum 3 characters",
+              },
+            })}
+          />
+
+          {errors.title && (
+            <p className="text-red-500 mt-1 text-sm">
+              {errors.title.message}
+            </p>
+          )}
+        </div>
+
+        {/* Cover */}
+        <div>
+          <label className="block mb-2 text-lg font-medium">
+            Cover Photo
+          </label>
+
+          <input
+            type="file"
+            accept="image/*"
+            className="file-input file-input-bordered w-full"
+            {...register("cover", {
+              required: "Cover image is required",
+            })}
+          />
+
+          {errors.cover && (
+            <p className="text-red-500 mt-1 text-sm">
+              {errors.cover.message}
+            </p>
+          )}
+        </div>
+
+        {/* Description */}
+        <div>
+          <label className="block mb-2 text-lg font-medium">
+            Description
+          </label>
+
+          <textarea
+            rows={5}
+            placeholder="Write description..."
+            className="textarea textarea-bordered w-full"
+            {...register("description", {
+              required: "Description is required",
+              minLength: {
+                value: 10,
+                message: "Minimum 10 characters",
+              },
+            })}
+          />
+
+          {errors.description && (
+            <p className="text-red-500 mt-1 text-sm">
+              {errors.description.message}
+            </p>
+          )}
+        </div>
+
+        <button
+          disabled={isSubmitting}
+          className="btn btn-primary"
+        >
+          {isSubmitting ? "Saving..." : "Create Album"}
+        </button>
+      </form>
+    </div>
+  );
+}

@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
-import { usePathname } from "next/navigation";
-import { FaBars, FaTimes } from "react-icons/fa";
+import { FaTimes } from "react-icons/fa";
+import AdminNavLink from "./AdminNavLink";
+import { IoMdMenu } from "react-icons/io";
 
 const menuItems = [
   {
@@ -30,29 +30,22 @@ const menuItems = [
 
 export default function AdminSidebar() {
   const [open, setOpen] = useState(false);
-  const pathname = usePathname();
 
   return (
     <>
-      {/* Mobile Topbar */}
-      <div className="lg:hidden sticky top-0 z-50 h-16 bg-white border-b flex items-center justify-between px-4">
-        <h1 className="font-bold text-lg">
-          Admin Panel
-        </h1>
-
-        <button
-          onClick={() => setOpen(true)}
-          className="text-xl"
-        >
-          <FaBars />
-        </button>
-      </div>
+      {/* Mobile Menu Button */}
+      <button
+        onClick={() => setOpen(true)}
+        className="fixed top-5 left-4 z-50 lg:hidden bg-white p-2 rounded-lg shadow"
+      >
+        <IoMdMenu />
+      </button>
 
       {/* Overlay */}
       {open && (
         <div
-          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
           onClick={() => setOpen(false)}
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
         />
       )}
 
@@ -60,14 +53,12 @@ export default function AdminSidebar() {
       <aside
         className={`
           fixed top-0 left-0 z-50
-          h-screen w-72
-          bg-gray-900 text-white
+          h-screen w-72 bg-gray-900 text-white
           transition-transform duration-300
-          lg:translate-x-0
           ${open ? "translate-x-0" : "-translate-x-full"}
+          lg:translate-x-0
         `}
       >
-        {/* Sidebar Header */}
         <div className="h-16 px-6 border-b border-gray-700 flex items-center justify-between">
           <h1 className="text-xl font-bold">
             Admin Panel
@@ -81,32 +72,18 @@ export default function AdminSidebar() {
           </button>
         </div>
 
-        {/* Menu */}
         <nav className="p-4">
           <ul className="space-y-2">
-            {menuItems.map((item) => {
-              const active = pathname === item.href;
-
-              return (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    onClick={() => setOpen(false)}
-                    className={`
-                      block px-4 py-3 rounded-lg
-                      transition-colors
-                      ${
-                        active
-                          ? "bg-white text-gray-900 font-medium"
-                          : "hover:bg-gray-800"
-                      }
-                    `}
-                  >
-                    {item.name}
-                  </Link>
-                </li>
-              );
-            })}
+            {menuItems.map((item) => (
+              <li key={item.href}>
+                <AdminNavLink
+                  href={item.href}
+                  onClick={() => setOpen(false)}
+                >
+                  {item.name}
+                </AdminNavLink>
+              </li>
+            ))}
           </ul>
         </nav>
       </aside>

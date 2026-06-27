@@ -2,6 +2,7 @@ import Link from "next/link";
 import React from "react";
 import NavLink from "./NavLink";
 import Logo from "../logo/Logo";
+import { IoMdMenu } from "react-icons/io";
 
 const Navbar = () => {
   const links = [
@@ -15,19 +16,19 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="py-4">
+    <nav className="p-4">
       {/* Mobile Nav*/}
       <div className="flex items-center justify-between md:hidden">
         <Logo></Logo>
 
         <div className="dropdown dropdown-end">
           <div tabIndex={0} role="button" className="btn btn-ghost">
-            ☰
+            <IoMdMenu />
           </div>
 
           <ul
             tabIndex={0}
-            className="menu dropdown-content bg-base-100 rounded-box z-10 w-56 p-2 shadow"
+            className="menu dropdown-content bg-gray-200 rounded-box z-10 w-56 p-2 shadow"
           >
             {links.map((link) => (
               <li key={link.href}>
