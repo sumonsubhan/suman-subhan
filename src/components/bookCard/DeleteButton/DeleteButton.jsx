@@ -40,12 +40,12 @@ const DeleteButton = ({ photoId }) => {
       });
     }
   };
-  
+
   return (
     <div>
       <button
         onClick={() => handleDelete(photoId)}
-        className="text-2xl text-red-400 cursor-pointer"
+        className="btn btn-sm btn-error text-xl"
       >
         <MdDelete />
       </button>

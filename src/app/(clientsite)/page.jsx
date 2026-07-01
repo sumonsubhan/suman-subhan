@@ -2,8 +2,9 @@ import Banner from "@/components/home/banner/Banner";
 import Events from "@/components/home/events/Events";
 import NewBooks from "@/components/home/newBooks/NewBooks";
 import TrendingBooks from "@/components/home/trendingBooks/TrendingBooks";
-import Videos from "@/components/home/videos/Videos";
-import Image from "next/image";
+import Poems from "@/components/home/videos/Poems";
+import Songs from "@/components/home/videos/Songs";
+
 
 export default function Home() {
   return (
@@ -11,7 +12,8 @@ export default function Home() {
       <Banner></Banner>
       <NewBooks></NewBooks>
       <TrendingBooks></TrendingBooks>
-      <Videos></Videos>
+      <Songs></Songs>
+      <Poems></Poems>
       <Events></Events>
     </div>
   );

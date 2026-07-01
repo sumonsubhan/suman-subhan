@@ -1,83 +1,125 @@
 import Image from "next/image";
 import Link from "next/link";
-import { poems } from "@/data/poems";
+import { getPoems } from "../../../../../services/getPoems";
 
-const VideoPlayerPage = async ({ params }) => {
-  const {id} = await params;
-  const poemId = Number(id);
+export default async function VideoPlayerPage({ params }) {
+  const { id } = await params;
 
-  const currentPoem = poems.find((poem) => poem.id === poemId);
-  const relatedpoems = poems.filter((poem) => poem.id !== poemId);
+  // Current poem
+  const currentPoem = await getPoems({id});
 
   if (!currentPoem) {
     return (
-      <div className="p-10 text-center">
-        <h1>Video Not Found</h1>
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <h1 className="text-3xl font-bold">Poem Not Found</h1>
       </div>
     );
   }
 
-    
+  // All poems
+  const allPoems = await getPoems({limit:6});
+
+  // Related poems
+  const relatedPoems = allPoems
+    .filter((poem) => poem._id !== currentPoem._id)
+    .slice(0, 5);
+
+  // Convert YouTube watch URL to embed URL
+  const embedUrl = currentPoem.videoURL.includes("watch?v=")
+    ? currentPoem.videoURL.replace("watch?v=", "embed/")
+    : currentPoem.videoURL;
+
   return (
-    <div className="px-4 md:px-8 lg:px-16 py-8">
-      <div className="grid grid-cols-1 xl:grid-cols-12 gap-8">
-        {/* Main Video Section */}
+    <section className="px-4 md:px-8 lg:px-12 xl:px-20 py-10">
+      <div className="grid grid-cols-1 xl:grid-cols-12 gap-10">
+        {/* Main Content */}
         <div className="xl:col-span-8">
-          <div className="aspect-video w-full overflow-hidden rounded-lg">
+          {/* Video */}
+          <div className="aspect-video overflow-hidden rounded-2xl shadow-lg">
             <iframe
-              src={currentPoem.video}
+              src={embedUrl}
               title={currentPoem.title}
               className="w-full h-full"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             />
           </div>
 
-          <h1 className="text-2xl md:text-3xl font-bold mt-5">
+          {/* Title */}
+          <h1 className="mt-6 text-3xl md:text-4xl font-bold leading-tight">
             {currentPoem.title}
           </h1>
 
-          <p className="text-gray-600 mt-3 leading-relaxed">
+          {/* Date */}
+          <div className="flex gap-6 items-center mt-3 font-semibold text-gray-500">
+            <p className="">
+              {new Date(currentPoem.createdAt).toLocaleDateString("bn-BD", {
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+              })}
+            </p>
+            <p className="">
+              বইঃ {currentPoem.bookTitle}
+            </p>
+          </div>
+
+          {/* Description */}
+          <p className="mt-6 text-bgprimary leading-8 text-xl">
             {currentPoem.description}
           </p>
         </div>
 
         {/* Sidebar */}
-        <div className="xl:col-span-4">
-          <h2 className="text-xl font-bold mb-5">
-            আরও দেখুন
-          </h2>
+        <aside className="xl:col-span-4">
+          <div className="sticky top-24">
+            <h2 className="text-2xl font-bold mb-6">আরও দেখুন</h2>
 
-          <div className="space-y-4">
-            {relatedpoems.map((poem) => (
-              <Link
-                href={`/poems/${poem.id}`}
-                key={poem.id}
-                className="flex gap-3 p-2 rounded-lg hover:bg-gray-100 transition"
-              >
-                <Image
-                  src={poem.cover}
-                  alt={poem.title}
-                  width={160}
-                  height={90}
-                  className="rounded-lg object-cover w-[140px] h-[80px]"
-                />
+            <div className="space-y-5">
+              {relatedPoems.map((poem) => (
+                <Link
+                  key={poem._id}
+                  href={`/poems/${poem._id}`}
+                  className="group flex gap-4 rounded-xl p-2 hover:bg-gray-100 transition"
+                >
+                  <div className="relative w-40 h-24 shrink-0 overflow-hidden rounded-xl">
+                    <Image
+                      src={poem.coverImage}
+                      alt={poem.title}
+                      fill
+                      sizes="160px"
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                  </div>
 
-                <div>
-                  <h3 className="font-semibold text-sm line-clamp-2">
-                    {poem.title}
-                  </h3>
+                  <div className="flex-1">
+                    <h3 className="font-semibold line-clamp-2 group-hover:text-bgprimary transition-colors">
+                      {poem.title}
+                    </h3>
 
-                  <p className="text-xs text-gray-500 mt-1 line-clamp-2">
-                    {poem.description}
-                  </p>
-                </div>
-              </Link>
-            ))}
+                    <p className="mt-2 text-sm text-gray-500 line-clamp-2">
+                      {poem.description}
+                    </p>
+
+                    <div className="flex justify-between">
+                      <p className="mt-2 text-xs text-bgprimary">
+                        {new Date(poem.createdAt).toLocaleDateString("bn-BD", {
+                          day: "numeric",
+                          month: "short",
+                          year: "numeric",
+                        })}
+                      </p>
+                      <p className="mt-2 text-xs text-bgprimary">
+                        বইঃ {poem.bookTitle}
+                      </p>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
+        </aside>
       </div>
-    </div>
+    </section>
   );
-};
-
-export default VideoPlayerPage;
+}

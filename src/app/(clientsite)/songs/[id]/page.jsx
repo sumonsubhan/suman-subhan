@@ -4,9 +4,8 @@ import { getSongs } from "../../../../../services/getSongs";
 
 export default async function VideoPlayerPage({ params }) {
   const { id } = await params;
-
   // Current song
-  const currentSong = await getSongs(id);
+  const currentSong = await getSongs({id});
 
   if (!currentSong) {
     return (
@@ -19,7 +18,7 @@ export default async function VideoPlayerPage({ params }) {
   }
 
   // All songs
-  const allSongs = await getSongs();
+  const allSongs = await getSongs({limit:6});
 
   // Related songs
   const relatedSongs = allSongs

@@ -2,8 +2,10 @@ import React from 'react';
 import Link from 'next/link';
 import { FaArrowRightLong } from 'react-icons/fa6';
 import BookSlider from '../../bookSlider/BookSlider';
+import { getBooks } from '../../../../services/getBooks';
 
-const TrendingBooks = () => {
+const TrendingBooks = async() => {
+   const trendingBooks = await getBooks({limit:6})
     return (
     <div className="my-10">
       <div className="flex justify-between items-center mb-4">
@@ -15,7 +17,7 @@ const TrendingBooks = () => {
           <FaArrowRightLong />
         </Link>
       </div>
-        <BookSlider></BookSlider>
+        <BookSlider books={trendingBooks}></BookSlider>
     </div>
     );
 };

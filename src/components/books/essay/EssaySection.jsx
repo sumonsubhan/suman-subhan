@@ -1,11 +1,17 @@
 import NewBooks from "@/components/home/newBooks/NewBooks";
-import NewBookSlider from "@/components/bookSlider/BookSlider";
+import BookSlider from "@/components/bookSlider/BookSlider";
 import Link from "next/link";
 import React from "react";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { IoBookSharp } from "react-icons/io5";
+import { getBooks } from "../../../../services/getBooks";
 
-const EssaySection = () => {
+const EssaySection = async () => {
+  const category = "নিবন্ধ";
+  const essays = await getBooks({
+    category: category,
+    limit: 5,
+  });
   return (
     <div>
       <div className="flex justify-between items-center mt-6 mb-4">
@@ -13,14 +19,14 @@ const EssaySection = () => {
           <IoBookSharp className="text-3xl" />
           <h1 className="text-xl sm:text-2xl font-bold">প্রবন্ধ</h1>
         </div>
-        <Link className="flex items-center gap-2" href="/books">
+        <Link className="flex items-center gap-2" href={`/books/category/${category}`}>
           আরো দেখুন
           <FaArrowRightLong />
         </Link>
       </div>
 
       {/* Poems SLider */}
-      <NewBookSlider></NewBookSlider>
+      <BookSlider books={essays}></BookSlider>
     </div>
   );
 };

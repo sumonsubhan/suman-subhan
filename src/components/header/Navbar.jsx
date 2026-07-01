@@ -12,7 +12,7 @@ const Navbar = () => {
     { href: "/songs", label: "সুরসুধা" },
     { href: "/poems", label: "শব্দসুধা" },
     { href: "/album", label: "কালের ক্যানভাস" },
-    { href: "/articles", label: "লেখালোক" },
+    { href: "/article-categories", label: "লেখালোক" },
   ];
 
   return (

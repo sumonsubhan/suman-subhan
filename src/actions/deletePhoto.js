@@ -5,7 +5,6 @@ import { getDb } from "@/lib/db";
 import { ObjectId } from "mongodb";
 
 export async function deletePhoto(photoId) {
-    console.log("jhfdsjhg", photoId)
   try {
     const db = await getDb();
 

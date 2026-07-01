@@ -20,7 +20,7 @@ export async function addSong(formData) {
     const bytes = await image.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    const coverImage = await new Promise((resolve, reject) => {
+    const uploadResult = await new Promise((resolve, reject) => {
       cloudinary.uploader
         .upload_stream(
           {
@@ -28,7 +28,7 @@ export async function addSong(formData) {
           },
           (error, result) => {
             if (error) reject(error);
-            else resolve(result.secure_url);
+            else resolve(result);
           }
         )
         .end(buffer);
@@ -38,7 +38,8 @@ export async function addSong(formData) {
 
     await db.collection("songs").insertOne({
       title,
-      coverImage,
+      coverImage: uploadResult.secure_url,
+      publicId: uploadResult.public_id,
       videoURL,
       description,
       createdAt: new Date(),

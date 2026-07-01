@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @plugin "daisyui";
+@plugin "@tailwindcss/typography";
 
 @theme {
   --color-bgprimary: #040e4f;
@@ -14,9 +15,41 @@ body {
 
 
 .btn1 {
-  @apply text-sm p-2 rounded-lg hover:bg-gray-300;
+  @apply text-lg sm:text-sm lg:text-xl p-2 rounded-lg hover:bg-gray-300;
 }
 
 .active {
   @apply underline
+}
+
+@font-face {
+  font-family: "SolaimanLipi";
+  src: url("/fonts/SolaimanLipi.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SolaimanLipi";
+  src: url("/fonts/SolaimanLipi_Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+.book-content {
+  font-family: "SolaimanLipi", serif;
+}
+
+.book-content p,
+.book-content li,
+.book-content blockquote,
+.book-content h1,
+.book-content h2,
+.book-content h3,
+.book-content h4,
+.book-content h5,
+.book-content h6 {
+  font-family: "SolaimanLipi", serif;
 }

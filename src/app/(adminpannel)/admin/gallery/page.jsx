@@ -1,68 +1,85 @@
 import Link from "next/link";
-import React from "react";
-import { getAlbums } from "../../../../../services/getAlbum";
 import Image from "next/image";
+import { getAlbums } from "../../../../../services/getAlbum";
 
-const Gallery = async () => {
+const Albums = async () => {
   const albums = await getAlbums();
+
   return (
     <div>
+      {/* Header */}
       <div className="flex justify-between items-center border-b-2 border-gray-400 pb-2">
-        <h1 className="text-2xl font-bold">Gallery</h1>
-        <div className="flex gap-6">
-          <Link
-            className="px-3 py-2 rounded text-white bg-bgprimary"
-            href="/admin/gallery/add-album"
-          >
-            Add Album
-          </Link>
-        </div>
+        <h1 className="text-2xl font-bold">Albums</h1>
+
+        <Link href="/admin/gallery/add-album" className="btn btn-primary">
+          Add Album
+        </Link>
       </div>
 
+      {/* Table */}
+      <div className="mt-8 overflow-x-auto rounded-xl border border-gray-200 bg-white shadow">
+        <table className="table">
+          <thead className="bg-gray-100">
+            <tr>
+              <th>#</th>
+              <th>Cover</th>
+              <th>Title</th>
+              <th>Total Photos</th>
+              <th>Creation Date</th>
+              <th>Action</th>
+            </tr>
+          </thead>
 
-      {/* Albums */}
-      <div className="my-10">
-        <h1 className="font-bold text-xl">Your Albums</h1>
-        {/* Albums Grid */}
-        <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {albums.map((album) => (
-            <Link
-              key={album._id}
-              href={`/admin/gallery/${album._id}`}
-              className="group"
-            >
-              <div className="overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300">
-                {/* Image */}
-                <div className="relative h-[180px] md:h-[200px] overflow-hidden">
-                  <Image
-                    src={album.coverImage}
-                    alt={album.title}
-                    fill
-                    sizes="(max-width: 640px) 100vw,
-                         (max-width: 1024px) 50vw,
-                        33vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
+          <tbody>
+            {albums.length === 0 ? (
+              <tr>
+                <td colSpan={5} className="text-center py-10 text-gray-500">
+                  No album found.
+                </td>
+              </tr>
+            ) : (
+              albums.map((album, index) => (
+                <tr key={album._id}>
+                  <td>{index + 1}</td>
 
-                  {/* Overlay */}
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300" />
-                </div>
+                  <td>
+                    <Image
+                      src={album.coverImage}
+                      alt={album.title}
+                      width={70}
+                      height={50}
+                      className="rounded-lg object-cover"
+                    />
+                  </td>
 
-                {/* Content */}
-                <div className="p-5 flex justify-between items-center">
-                  <h2 className="text-xl font-bold">{album.title}</h2>
+                  <td className="font-medium">{album.title}</td>
 
-                  <p className="text-blue-800 text-sm">
-                    {album.totalImages} টি ছবি
-                  </p>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
+                  <td>{album.totalImages}</td>
+                  
+                  <td>
+                    {new Date(album.createdAt).toLocaleDateString("en-US", {
+                      day: "numeric",
+                      month: "short",
+                      year: "numeric",
+                    })}
+                  </td>
+
+                  <td>
+                    <Link
+                      href={`/admin/gallery/${album._id}`}
+                      className="btn btn-sm btn-primary"
+                    >
+                      Show Album
+                    </Link>
+                  </td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
       </div>
     </div>
   );
 };
 
-export default Gallery;
+export default Albums;

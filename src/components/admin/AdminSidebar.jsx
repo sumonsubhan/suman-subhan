@@ -15,6 +15,10 @@ const menuItems = [
     href: "/admin/books",
   },
   {
+    name: "Poems",
+    href: "/admin/poems",
+  },
+  {
     name: "Songs",
     href: "/admin/songs",
   },
