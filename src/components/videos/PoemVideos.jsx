@@ -7,7 +7,7 @@ const PoemVideos = ({poems}) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
       {poems.map((poem) => (
-        <div
+        <Link href={`/poems/${poem._id}`}
           key={poem._id}
           className="border border-gray-200 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition"
         >
@@ -21,11 +21,11 @@ const PoemVideos = ({poems}) => {
             />
 
             <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-              <Link href={`/poems/${poem._id}`}>
+              <div>
                 <button className="w-16 h-16 rounded-full bg-white flex items-center justify-center cursor-pointer hover:scale-110 transition">
                   <FaPlay className="text-red-600 ml-1" />
                 </button>
-              </Link>
+              </div>
             </div>
           </div>
 
@@ -41,7 +41,7 @@ const PoemVideos = ({poems}) => {
               <p>{poem.bookTitle}</p>
             </div>
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );

@@ -4,9 +4,11 @@ import { getDb } from "@/lib/db";
 export async function getArticles({
   id,
   categoryId,
-  limit,
+  page = 1,
+  limit = 5,
 } = {}) {
   const db = await getDb();
+  const skip = (Number(page) - 1) * Number(limit);
 
   // Fetch single article
   if (id) {
@@ -52,6 +54,15 @@ export async function getArticles({
     return article[0] || null;
   }
 
+  // count total documents
+  const total = await db.collection("articles").countDocuments(
+    categoryId
+      ? {
+          categoryId: new ObjectId(categoryId),
+        }
+      : {},
+  );
+
   // Build aggregation pipeline
   const pipeline = [];
 
@@ -85,6 +96,11 @@ export async function getArticles({
     },
   });
 
+  // Page wise skip the documnets
+  pipeline.push({
+    $skip: skip,
+  });
+
   // Limit if provided
   if (limit) {
     pipeline.push({
@@ -116,5 +132,11 @@ export async function getArticles({
     .aggregate(pipeline)
     .toArray();
 
-  return articles;
+  return {
+    articles,
+    total,
+    page: Number(page),
+    limit: Number(limit),
+    totalPages: Math.ceil(total / limit),
+  };
 }

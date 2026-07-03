@@ -2,10 +2,10 @@
 
 import { addBook } from "@/actions/addBooks";
 import TiptapEditor from "@/components/editor/TipTapEditor";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 
-const categories = ["গল্পগ্রন্থ", "কাব্যগ্রন্থ", "ছড়া", "উপন্যাস", "নিবন্ধ"];
+import { BOOK_CATEGORIES } from "@/lib/bookCategories";
 
 export default function AddBook() {
   const [message, setMessage] = useState("");
@@ -13,14 +13,28 @@ export default function AddBook() {
   const {
     register,
     control,
+    watch,
+    setValue,
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
   } = useForm({
     defaultValues: {
       content: "",
+      categorySlug: "",
     },
   });
+
+  // Set slug based on category
+  const selectedCategory = watch("category");
+
+  useEffect(() => {
+    const selected = BOOK_CATEGORIES.find(
+      (item) => item.label === selectedCategory,
+    );
+
+    setValue("categorySlug", selected?.slug || "");
+  }, [selectedCategory, setValue]);
 
   const onSubmit = async (data) => {
     console.log(data);
@@ -29,10 +43,12 @@ export default function AddBook() {
     formData.append("title", data.title);
     formData.append("bookName", data.bookName);
     formData.append("category", data.category);
+    formData.append("categorySlug", data.categorySlug);
     formData.append("coverImage", data.cover[0]);
     formData.append("shortNote", data.shortNote);
     formData.append("content", data.content);
 
+    console.log(formData);
     const result = await addBook(formData);
 
     setMessage(result.message);
@@ -92,9 +108,9 @@ export default function AddBook() {
           >
             <option value="">Select Category</option>
 
-            {categories.map((cat) => (
-              <option key={cat} value={cat}>
-                {cat}
+            {BOOK_CATEGORIES.map((category) => (
+              <option key={category.slug} value={category.label}>
+                {category.label}
               </option>
             ))}
           </select>
@@ -104,6 +120,9 @@ export default function AddBook() {
           )}
         </div>
 
+        {/* Slug */}
+        <input type="hidden" {...register("categorySlug")} />
+
         {/* Cover */}
         <div>
           <label className="font-medium">Cover Image</label>
@@ -111,7 +130,7 @@ export default function AddBook() {
           <input
             type="file"
             accept="image/*"
-            {...register("cover", {required: true})}
+            {...register("cover", { required: true })}
             className="file-input file-input-bordered w-full mt-2"
           />
           {errors.cover && (
@@ -128,14 +147,12 @@ export default function AddBook() {
 
           <textarea
             rows={4}
-            {...register("shortNote", {required: true})}
+            {...register("shortNote", { required: true })}
             className="textarea textarea-bordered w-full mt-2"
             placeholder="Write a short introduction..."
           />
           {errors.shortNote && (
-            <p className="text-red-500 text-sm mt-1">
-              Short note is required.
-            </p>
+            <p className="text-red-500 text-sm mt-1">Short note is required.</p>
           )}
         </div>
 

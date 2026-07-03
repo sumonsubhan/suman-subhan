@@ -2,11 +2,18 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { getArticles } from "../../../../../services/getArticle";
+import Pagination from "@/components/pagination/Pagination";
 
-const Articles = async ({ params }) => {
+const Articles = async ({ params, searchParams }) => {
+  const search = await searchParams;
+  const page = Number(search.page) || 1;
   const { categoryId } = await params;
 
-  const articles = await getArticles({ categoryId });
+  const { articles, totalPages } = await getArticles({
+    categoryId,
+    page,
+    limit: 5,
+  });
 
   if (articles.length === 0) {
     return (
@@ -69,14 +76,11 @@ const Articles = async ({ params }) => {
                     </span>
 
                     <span>
-                      {new Date(article.createdAt).toLocaleDateString(
-                        "bn-BD",
-                        {
-                          day: "numeric",
-                          month: "long",
-                          year: "numeric",
-                        }
-                      )}
+                      {new Date(article.createdAt).toLocaleDateString("bn-BD", {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric",
+                      })}
                     </span>
                   </div>
 
@@ -103,6 +107,12 @@ const Articles = async ({ params }) => {
           </Link>
         ))}
       </div>
+
+      <Pagination
+        page={page}
+        totalPages={totalPages}
+        baseUrl={`/article-categories/${categoryId}`}
+      />
     </section>
   );
 };

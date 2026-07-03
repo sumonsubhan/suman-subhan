@@ -8,12 +8,13 @@ export async function addBook(formData) {
     const title = formData.get("title")?.trim();
     const bookName = formData.get("bookName")?.trim();
     const category = formData.get("category");
+    const categorySlug = formData.get("categorySlug");
     const shortNote = formData.get("shortNote")?.trim();
     const content = formData.get("content");
     const coverImage = formData.get("coverImage");
 
     // Validation
-    if (!title || !bookName || !category || !shortNote || !content || !coverImage) {
+    if (!title || !bookName || !category || !categorySlug || !shortNote || !content || !coverImage) {
       return {
         success: false,
         message: "All fields are required.",
@@ -45,6 +46,7 @@ export async function addBook(formData) {
       title,
       bookName,
       category,
+      categorySlug,
       shortNote,
       content,
       coverImage: uploadedImage.secure_url,

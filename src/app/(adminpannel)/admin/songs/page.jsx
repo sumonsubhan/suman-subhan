@@ -2,29 +2,27 @@ import Image from "next/image";
 import Link from "next/link";
 import { getSongs } from "../../../../../services/getSongs";
 import DeleteSong from "@/components/admin/DeleteSong";
+import Pagination from "@/components/pagination/Pagination";
 
-
-export default async function Songs() {
-  const songs = await getSongs();
+export default async function Songs({ searchParams }) {
+  const search = await searchParams;
+  const page = Number(search.page) || 1;
+  const { songs, totalPages } = await getSongs({
+    page,
+    limit: 10,
+  });
 
   return (
     <section>
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-3xl font-bold">
-            Songs
-          </h1>
+          <h1 className="text-3xl font-bold">Songs</h1>
 
-          <p className="text-gray-500 mt-1">
-            Manage all songs from here.
-          </p>
+          <p className="text-gray-500 mt-1">Manage all songs from here.</p>
         </div>
 
-        <Link
-          href="/admin/songs/add-song"
-          className="btn btn-primary"
-        >
+        <Link href="/admin/songs/add-song" className="btn btn-primary">
           Add Song
         </Link>
       </div>
@@ -32,9 +30,7 @@ export default async function Songs() {
       {/* Empty State */}
       {songs.length === 0 ? (
         <div className="bg-white rounded-xl shadow p-12 text-center">
-          <h2 className="text-2xl font-semibold">
-            No Songs Found
-          </h2>
+          <h2 className="text-2xl font-semibold">No Songs Found</h2>
 
           <p className="mt-2 text-gray-500">
             Add your first song to get started.
@@ -69,9 +65,7 @@ export default async function Songs() {
                   </td>
 
                   <td>
-                    <h2 className="font-semibold">
-                      {song.title}
-                    </h2>
+                    <h2 className="font-semibold">{song.title}</h2>
                   </td>
 
                   <td>
@@ -100,6 +94,7 @@ export default async function Songs() {
           </table>
         </div>
       )}
+      <Pagination page={page} totalPages={totalPages} baseUrl="/admin/songs" />
     </section>
   );
 }

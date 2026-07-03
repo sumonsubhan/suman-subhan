@@ -6,7 +6,7 @@ import SongVideos from "@/components/videos/SongVideos";
 
 
 const Songs = async() => {
-  const songs = await getSongs({limit:4})
+  const {songs} = await getSongs({limit:4})
   return (
     <section className="mt-10">
       {/* Header */}

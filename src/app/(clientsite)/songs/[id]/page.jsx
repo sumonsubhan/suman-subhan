@@ -17,11 +17,11 @@ export default async function VideoPlayerPage({ params }) {
     );
   }
 
-  // All songs
-  const allSongs = await getSongs({limit:6});
+  // Recernt songs
+  const {songs} = await getSongs({limit:6});
 
   // Related songs
-  const relatedSongs = allSongs
+  const relatedSongs = songs
     .filter((song) => song._id !== currentSong._id)
     .slice(0, 5);
 

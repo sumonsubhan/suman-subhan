@@ -7,9 +7,9 @@ import { IoBookSharp } from "react-icons/io5";
 import { getBooks } from "../../../../services/getBooks";
 
 const RhymeSection = async() => {
-  const category = "ছড়া";
-  const rhymes = await getBooks({
-    category: category,
+  const categorySlug = "rhymes";
+  const {books} = await getBooks({
+    categorySlug: categorySlug,
     limit: 5
   })
   return (
@@ -19,14 +19,14 @@ const RhymeSection = async() => {
           <IoBookSharp className="text-3xl" />
           <h1 className="text-xl sm:text-2xl font-bold">ছড়া</h1>
         </div>
-        <Link className="flex items-center gap-2" href={`/books/category/${category}`}>
+        <Link className="flex items-center gap-2" href={`/books/category/${categorySlug}`}>
           আরো দেখুন
           <FaArrowRightLong />
         </Link>
       </div>
 
       {/* Poems SLider */}
-      <BookSlider books={rhymes}></BookSlider>
+      <BookSlider books={books}></BookSlider>
     </div>
   );
 };

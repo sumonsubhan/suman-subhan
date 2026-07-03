@@ -4,10 +4,11 @@ import React from 'react';
 import { FaPlay } from 'react-icons/fa';
 
 const SongVideos = ({songs}) => {
+  console.log(songs);
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {songs.map((song) => (
-          <div
+          <Link href={`/songs/${song._id}`}
             key={song._id}
             className="border border-gray-200 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition"
           >
@@ -21,11 +22,11 @@ const SongVideos = ({songs}) => {
               />
 
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                <Link href={`/songs/${song._id}`}>
+                <div>
                   <button className="w-16 h-16 rounded-full bg-white flex items-center justify-center cursor-pointer hover:scale-110 transition">
                     <FaPlay className="text-red-600 ml-1" />
                   </button>
-                </Link>
+                </div>
               </div>
             </div>
 
@@ -38,7 +39,7 @@ const SongVideos = ({songs}) => {
                 {song.description}
               </p>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     );

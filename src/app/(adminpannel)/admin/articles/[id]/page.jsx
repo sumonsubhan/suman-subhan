@@ -2,11 +2,18 @@ import Image from "next/image";
 import Link from "next/link";
 import { getArticles } from "../../../../../../services/getArticle";
 import DeleteArticle from "@/components/admin/DeleteArticle";
+import Pagination from "@/components/pagination/Pagination";
 
-export default async function CategoryArticles({ params }) {
+export default async function CategoryArticles({ params, searchParams }) {
+  const search = await searchParams;
+  const page = Number(search.page) || 1;
   const { id } = await params;
 
-  const articles = await getArticles({categoryId: id});
+  const { articles, totalPages } = await getArticles({
+    categoryId: id,
+    page,
+    limit: 10,
+  });
 
   const category = articles.length > 0 ? articles[0].category : null;
 
@@ -35,9 +42,7 @@ export default async function CategoryArticles({ params }) {
       {/* Empty State */}
       {articles.length === 0 ? (
         <div className="bg-white rounded-xl shadow text-center py-20">
-          <h2 className="text-2xl font-semibold">
-            No Articles Found
-          </h2>
+          <h2 className="text-2xl font-semibold">No Articles Found</h2>
 
           <p className="mt-2 text-gray-500">
             Upload your first article to this category.
@@ -75,9 +80,7 @@ export default async function CategoryArticles({ params }) {
 
                   {/* Caption */}
                   <td className="max-w-sm">
-                    <p className="line-clamp-2">
-                      {article.title}
-                    </p>
+                    <p className="line-clamp-2">{article.title}</p>
                   </td>
 
                   {/* Created */}
@@ -108,6 +111,13 @@ export default async function CategoryArticles({ params }) {
           </table>
         </div>
       )}
+
+      {/* Pagination */}
+      <Pagination
+        page={page}
+        totalPages={totalPages}
+        baseUrl={`/admin/articles/${id}`}
+      />
     </section>
   );
 }

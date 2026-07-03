@@ -3,12 +3,13 @@ import { getDb } from "@/lib/db";
 
 export async function getBooks({
   id,
-  category,
-  limit,
+  categorySlug,
+  page = 1,
+  limit = 10,
 } = {}) {
   const db = await getDb();
 
-  // Fetch a single book
+  // Fetch single book
   if (id) {
     const book = await db.collection("books").findOne({
       _id: new ObjectId(id),
@@ -25,23 +26,32 @@ export async function getBooks({
   // Build query
   const query = {};
 
-  if (category) {
-    query.category = category;
+  if (categorySlug) {
+    query.categorySlug = categorySlug;
   }
 
-  let cursor = db
+  const skip = (Number(page) - 1) * Number(limit);
+
+  // Total books
+  const total = await db.collection("books").countDocuments(query);
+
+  // Fetch books
+  const books = await db
     .collection("books")
     .find(query)
-    .sort({ createdAt: -1 });
+    .sort({ createdAt: -1 })
+    .skip(skip)
+    .limit(Number(limit))
+    .toArray();
 
-  if (limit) {
-    cursor = cursor.limit(limit);
-  }
-
-  const books = await cursor.toArray();
-
-  return books.map((book) => ({
-    ...book,
-    _id: book._id.toString(),
-  }));
+  return {
+    books: books.map((book) => ({
+      ...book,
+      _id: book._id.toString(),
+    })),
+    total,
+    page: Number(page),
+    limit: Number(limit),
+    totalPages: Math.ceil(total / Number(limit)),
+  };
 }

@@ -8,9 +8,9 @@ import { getBooks } from "../../../../services/getBooks";
 import BookSlider from "@/components/bookSlider/BookSlider";
 
 const StorySection = async() => {
-  const category = "গল্পগ্রন্থ";
-  const stories = await getBooks({
-  category: category,
+  const categorySlug = "story-books";
+  const {books} = await getBooks({
+  categorySlug: categorySlug,
   limit: 5,
 });
 
@@ -21,14 +21,14 @@ const StorySection = async() => {
           <IoBookSharp className="text-3xl" />
           <h1 className="text-xl sm:text-2xl font-bold">গল্প গ্রন্থ</h1>
         </div>
-        <Link className="flex items-center gap-2" href={`/books/category/${category}`}>
+        <Link className="flex items-center gap-2" href={`/books/category/${categorySlug}`}>
           আরো দেখুন
           <FaArrowRightLong />
         </Link>
       </div>
 
       {/* Story SLider */}
-      <BookSlider books={stories}></BookSlider>
+      <BookSlider books={books}></BookSlider>
     </div>
   );
 };

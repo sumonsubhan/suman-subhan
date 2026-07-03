@@ -2,10 +2,17 @@ import Image from "next/image";
 import Link from "next/link";
 import DeletePoem from "@/components/admin/DeletePoem";
 import { getPoems } from "../../../../../services/getPoems";
+import Pagination from "@/components/pagination/Pagination";
 
 
-export default async function Poems() {
-  const poems = await getPoems();
+export default async function Poems({searchParams}) {
+  const search = await searchParams;
+  const page = Number(search.page) || 1;
+
+  const {poems, totalPages} = await getPoems({
+    page,
+    limit:10,
+  });
 
   return (
     <section>
@@ -100,6 +107,12 @@ export default async function Poems() {
           </table>
         </div>
       )}
+
+      <Pagination
+        page={page}
+        totalPages={totalPages}
+        baseUrl={`/admin/poems`}
+      ></Pagination>
     </section>
   );
 }

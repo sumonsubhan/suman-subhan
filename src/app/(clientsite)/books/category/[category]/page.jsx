@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { getBooks } from "../../../../../../services/getBooks";
+import Pagination from "@/components/pagination/Pagination";
 
 function truncateText(text, maxLength = 100) {
   if (!text) return "";
@@ -10,13 +11,17 @@ function truncateText(text, maxLength = 100) {
     : text;
 }
 
-export default async function CategoryBooks({ params }) {
+export default async function CategoryBooks({ params, searchParams }) {
+  const search = await searchParams;
+  const page = Number(search.page) || 1;
+
   const { category } = await params;
+  
 
-  const decodedCategory = decodeURIComponent(category);
-
-  const books = await getBooks({
-    category: decodedCategory,
+  const {books, totalPages} = await getBooks({
+    categorySlug: category,
+    page,
+    limit:10,
   });
 
   return (
@@ -24,7 +29,7 @@ export default async function CategoryBooks({ params }) {
       {/* Header */}
       <div className="mb-10">
         <h1 className="text-3xl font-bold md:text-4xl">
-          {decodedCategory}
+          {books[0].category}
         </h1>
 
         <p className="mt-2 text-gray-600">
@@ -85,6 +90,11 @@ export default async function CategoryBooks({ params }) {
           ))}
         </div>
       )}
+      <Pagination 
+        page={page}
+        totalPages={totalPages}
+        baseUrl={`/books/category/${category}`}
+      />
     </section>
   );
 }

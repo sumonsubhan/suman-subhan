@@ -2,9 +2,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { getBooks } from "../../../../../services/getBooks";
 import DeleteBook from "@/components/admin/DeleteBook";
+import Pagination from "@/components/pagination/Pagination";
 
-export default async function Books() {
-  const books = await getBooks();
+export default async function Books({searchParams}) {
+  const search = await searchParams;
+  const page = Number(search.page) || 1;
+
+  const {books, totalPages} = await getBooks({
+    page,
+    limit: 10
+  });
 
   return (
     <div>
@@ -114,6 +121,11 @@ export default async function Books() {
           </table>
         </div>
       )}
+      <Pagination
+        page={page}
+        totalPages={totalPages}
+        baseUrl={`/admin/books`}
+      />
     </div>
   );
 }

@@ -3,7 +3,8 @@ import { getDb } from "@/lib/db";
 
 export async function getPoems({
   id,
-  limit,
+  page = 1,
+  limit = 10,
 } = {}) {
   const db = await getDb();
 
@@ -21,20 +22,28 @@ export async function getPoems({
     };
   }
 
+  const skip = (Number(page) - 1) * Number(limit);
+
+    // Total poems
+  const total = await db.collection("poems").countDocuments();
+
   // Fetch poems
-  let cursor = db
+  const poems = await db
     .collection("poems")
     .find({})
-    .sort({ createdAt: -1 });
+    .sort({ createdAt: -1 })
+    .skip(skip)
+    .limit(Number(limit))
+    .toArray();
 
-  if (limit) {
-    cursor = cursor.limit(limit);
-  }
-
-  const poems = await cursor.toArray();
-
-  return poems.map((poem) => ({
-    ...poem,
-    _id: poem._id.toString(),
-  }));
+  return {
+    poems: poems.map((poem) => ({
+      ...poem,
+      _id: poem._id.toString(),
+    })),
+    total,
+    page: Number(page),
+    limit: Number(limit),
+    totalPages: Math.ceil(total / limit),
+  };
 }

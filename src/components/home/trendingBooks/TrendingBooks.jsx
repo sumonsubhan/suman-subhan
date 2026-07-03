@@ -5,7 +5,7 @@ import BookSlider from '../../bookSlider/BookSlider';
 import { getBooks } from '../../../../services/getBooks';
 
 const TrendingBooks = async() => {
-   const trendingBooks = await getBooks({limit:6})
+   const {books} = await getBooks({limit:6})
     return (
     <div className="my-10">
       <div className="flex justify-between items-center mb-4">
@@ -17,7 +17,7 @@ const TrendingBooks = async() => {
           <FaArrowRightLong />
         </Link>
       </div>
-        <BookSlider books={trendingBooks}></BookSlider>
+        <BookSlider books={books}></BookSlider>
     </div>
     );
 };

@@ -6,7 +6,7 @@ import PoemVideos from "@/components/videos/PoemVideos";
 
 
 const Poems = async() => {
-  const poems = await getPoems({limit:4})
+const {poems} = await getPoems({limit:4})
   return (
     <section className="mt-10">
       {/* Header */}

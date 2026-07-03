@@ -17,10 +17,10 @@ export default async function VideoPlayerPage({ params }) {
   }
 
   // All poems
-  const allPoems = await getPoems({limit:6});
+  const {poems} = await getPoems({limit:6});
 
   // Related poems
-  const relatedPoems = allPoems
+  const relatedPoems = poems
     .filter((poem) => poem._id !== currentPoem._id)
     .slice(0, 5);
 
