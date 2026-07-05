@@ -1,19 +1,21 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import bannerImage from "../../../../public/asset/banner-home.jpg";
 
 const Banner = () => {
   return (
-    <div className="flex flex-col md:flex-row lg:flex-row justify-between items-center">
+    <div className="flex flex-col md:flex-row lg:flex-row justify-between gap-6 items-center">
       {/* Banner Texts */}
       <div>
         <h1 className="font-bold text-4xl">
-          শব্দের গভীরে জীবনের <br /> প্রতিচ্ছবি
+          অনুভূতির সীমান্তে শব্দের <br /> আলো
         </h1>
-        <p className="my-8">
-          <q>
-            সাহিত্য হলো মানুষের হৃদয়ের সেই প্রতিফলন, যা সময়ের <br /> গণ্ডি
-            পেরিয়ে অনন্তকালের কথা বলে।
+        <p className="mb-6 md:mb-20 mt-4 text-justify">
+          <q className="text-justify">
+            পৃথিবীর পথে পথে কুড়িয়ে পাওয়া অভিজ্ঞতার নির্যাসই হলো সাহিত্য; যা
+            ক্ষণস্থায়ী জীবনকে অমরতা দেয় <br /> আর সময়ের বুকে এঁকে যায় অবিনশ্বর
+            প্রতিচ্ছবি।
           </q>
         </p>
 
@@ -33,7 +35,7 @@ const Banner = () => {
       <div>
         <Image
           className="rounded"
-          src="https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA1LzM2Ni1tai03NzAzLWZvbi1qai5qcGc.jpg"
+          src={bannerImage}
           width={350}
           height={500}
           alt="banner-image"

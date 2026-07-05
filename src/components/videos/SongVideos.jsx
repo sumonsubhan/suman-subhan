@@ -4,7 +4,6 @@ import React from 'react';
 import { FaPlay } from 'react-icons/fa';
 
 const SongVideos = ({songs}) => {
-  console.log(songs);
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {songs.map((song) => (

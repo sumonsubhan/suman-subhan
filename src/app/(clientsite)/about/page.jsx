@@ -7,19 +7,18 @@ import { IoIosSchool } from "react-icons/io";
 import { IoBookSharp } from "react-icons/io5";
 import { FaSchool } from "react-icons/fa";
 import { TiWorld } from "react-icons/ti";
+import aboutImage from "../../../../public/asset/banner-about.jpg";
 
 const About = () => {
   return (
-    <section className="my-8 px-4 md:px-6 lg:px-10 xl:px-20">
+    <section className="my-8 px-4 md:px-6 lg:px-10 xl:px-30">
       {/* Header */}
       <div className="flex flex-col items-center text-center gap-5">
         <p className="text-sm md:text-base uppercase tracking-wider text-gray-500">
           পরিচয় ও জীবনধারা
         </p>
 
-        <h1 className="font-bold text-3xl md:text-5xl lg:text-6xl">
-          আপন আকর
-        </h1>
+        <h1 className="font-bold text-3xl md:text-5xl lg:text-6xl">আপন আকর</h1>
 
         <p className="text-base md:text-lg lg:text-xl max-w-4xl text-gray-700 leading-relaxed">
           সুমন সুবহান — কবি, কথাসাহিত্যিক এবং নিরাপত্তা বিশ্লেষক। দীর্ঘ ৩৩ বছরের
@@ -35,35 +34,31 @@ const About = () => {
         {/* Left Side */}
         <div className="w-full lg:max-w-md">
           <Image
-            src="https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA1LzM2Ni1tai03NzAzLWZvbi1qai5qcGc.jpg"
+            src={aboutImage}
             alt="সুমন সুবহান"
-            width={500}
-            height={650}
+            width={350}
+            height={500}
             className="w-full h-auto rounded-lg shadow-md object-cover"
           />
 
           {/* Quote */}
           <div className="bg-gray-100 p-6 md:p-8 mt-6 border-l-4 border-bgprimary rounded-r-lg">
             <q className="text-xl md:text-2xl lg:text-3xl leading-relaxed font-medium">
-              শব্দই আমার শক্তি, আর সত্যের সন্ধানই আমার সাহিত্য সাধনা।
+              শব্দের বুননে জীবনের সত্যকে খোঁজার এক নিরন্তর সাধনা।।
             </q>
 
-            <p className="mt-6 text-gray-600 font-medium">
-              — সুমন সুবহান
-            </p>
+            <p className="mt-6 text-gray-600 font-medium">— সুমন সুবহান</p>
           </div>
         </div>
 
         {/* Right Side */}
         <div className="flex-1">
           {/* Education */}
-          <h2 className="font-bold text-2xl md:text-3xl">
-            জীবন ও শিক্ষা
-          </h2>
+          <h2 className="font-bold text-2xl md:text-3xl">জীবন ও শিক্ষা</h2>
 
           <hr className="w-full border border-gray-300 my-6" />
 
-          <p className="text-base md:text-lg text-gray-700 leading-relaxed mb-8">
+          <p className="text-base md:text-lg text-gray-700 leading-relaxed mb-8 text-justify">
             সুমন সুবহান একজন বহুমুখী প্রতিভার অধিকারী। তাঁর শৈশব ও কৈশোর
             অতিবাহিত হয়েছে উত্তরবঙ্গের স্নিগ্ধ পরিবেশে। তাঁর শিক্ষাজীবনের
             প্রতিটি ধাপ তাঁর চারিত্রিক দৃঢ়তা এবং জ্ঞানপিপাসার পরিচয় দেয়।
@@ -73,8 +68,8 @@ const About = () => {
             <li className="flex items-start gap-4">
               <FaSchool className="text-xl mt-1 shrink-0" />
               <span>
-                <strong>রংপুর ক্যান্টনমেন্ট পাবলিক স্কুল:</strong> শৈশবের
-                প্রথম পাঠ ও শৃঙ্খলার হাতেখড়ি।
+                <strong>রংপুর ক্যান্টনমেন্ট পাবলিক স্কুল:</strong> শৈশবের প্রথম
+                পাঠ ও শৃঙ্খলার হাতেখড়ি।
               </span>
             </li>
 
@@ -97,34 +92,29 @@ const About = () => {
 
           {/* Military Life */}
           <div className="bg-gray-100 p-6 rounded-lg my-8">
-            <h2 className="text-2xl font-bold mb-4">
-              সামরিক জীবন ও দেশপ্রেম
-            </h2>
+            <h2 className="text-2xl font-bold mb-4">সামরিক জীবন ও দেশপ্রেম</h2>
 
-            <p className="text-base md:text-lg text-gray-700 leading-relaxed">
+            <p className="text-base md:text-lg text-gray-700 leading-relaxed text-justify">
               সুমন সুবহান তাঁর জীবনের শ্রেষ্ঠ ৩৩টি বছর দেশমাতৃকার সেবায় উৎসর্গ
-              করেছেন। ১৯৮০-এর দশকে শুরু হওয়া তাঁর এই সামরিক যাত্রা ছিল
-              চ্যালেঞ্জ এবং সাহসিকতার এক অনন্য গাথা। বাংলাদেশ সেনাবাহিনীর একজন
-              অভিজ্ঞ কর্মকর্তা হিসেবে তিনি বিভিন্ন গুরুত্বপূর্ণ দায়িত্ব পালন
-              করেছেন। ২০২৪ সালের ফেব্রুয়ারিতে তিনি তাঁর বর্ণাঢ্য সামরিক জীবন
-              থেকে অবসর গ্রহণ করেন। সামরিক জীবনের এই দীর্ঘ অভিজ্ঞতা তাঁর
-              সাহিত্যকর্মে গভীর দেশপ্রেম এবং শৃঙ্খলার এক বিশেষ ছাপ রেখেছে।
+              করেছেন। ৯০-র দশকে শুরু হওয়া তাঁর এই সামরিক যাত্রা ছিল চ্যালেঞ্জ
+              এবং সাহসিকতার এক অনন্য গাথা। বাংলাদেশ সেনাবাহিনীর একজন অভিজ্ঞ
+              কর্মকর্তা হিসেবে তিনি বিভিন্ন গুরুত্বপূর্ণ দায়িত্ব পালন করেছেন।
+              ২০২৪ সালের ফেব্রুয়ারিতে তিনি তাঁর বর্ণাঢ্য সামরিক জীবন থেকে অবসর
+              গ্রহণ করেন। সামরিক জীবনের এই দীর্ঘ অভিজ্ঞতা তাঁর সাহিত্যকর্মে গভীর
+              দেশপ্রেম এবং শৃঙ্খলার এক বিশেষ ছাপ রেখেছে।
             </p>
           </div>
 
           {/* Literature */}
           <div className="my-8">
-            <h2 className="text-2xl font-bold mb-4">
-              সাহিত্য ও সৃজনশীলতা
-            </h2>
+            <h2 className="text-2xl font-bold mb-4">সাহিত্য ও সৃজনশীলতা</h2>
 
-            <p className="text-base md:text-lg text-gray-700 leading-relaxed">
+            <p className="text-base md:text-lg text-gray-700 leading-relaxed text-justify">
               সেনাবাহিনীর কঠোর নিয়মের মাঝেও তাঁর ভেতরে বহমান ছিল এক সৃজনশীল
               প্রাণ। তিনি কেবল একজন যোদ্ধা নন, বরং এক নিভৃতচারী সাহিত্যিক। তাঁর
               কবিতায় ফুটে ওঠে জীবনের গভীর দর্শন, আর কথাসাহিত্যে তিনি তুলে ধরেন
               সমাজ ও মানুষের নিগূঢ় সত্য। বর্তমানে তিনি একজন নিবেদিতপ্রাণ
-              নিরাপত্তা বিশ্লেষক হিসেবেও তাঁর প্রজ্ঞা বিনিময় করে যাচ্ছেন বিভিন্ন
-              জাতীয় ও আন্তর্জাতিক প্ল্যাটফর্মে।
+              নিরাপত্তা বিশ্লেষক হিসেবেও তাঁর প্রজ্ঞা বিনিময় করে যাচ্ছেন।
             </p>
           </div>
 
@@ -133,11 +123,9 @@ const About = () => {
             <div className="bg-gray-100 p-6 rounded-lg flex flex-col gap-3 h-full">
               <IoBookSharp className="text-4xl" />
 
-              <h3 className="text-xl font-bold">
-                প্রকাশিত গ্রন্থাবলি
-              </h3>
+              <h3 className="text-xl font-bold">প্রকাশিত গ্রন্থাবলি</h3>
 
-              <p className="text-gray-700 leading-relaxed">
+              <p className="text-gray-700 leading-relaxed text-justify">
                 কবিতা থেকে উপন্যাস — প্রতিটি পদচারণায় তিনি রেখেছেন তাঁর
                 স্বকীয়তার স্বাক্ষর। তাঁর লেখায় ফুটে ওঠে ইতিহাস ও বর্তমানের
                 মেলবন্ধন।
@@ -147,11 +135,9 @@ const About = () => {
             <div className="bg-gray-100 p-6 rounded-lg flex flex-col gap-3 h-full">
               <TiWorld className="text-4xl" />
 
-              <h3 className="text-xl font-bold">
-                ভ্রমণ ও অভিজ্ঞতার প্রসার
-              </h3>
+              <h3 className="text-xl font-bold">ভ্রমণ ও অভিজ্ঞতার প্রসার</h3>
 
-              <p className="text-gray-700 leading-relaxed">
+              <p className="text-gray-700 leading-relaxed text-justify">
                 পৃথিবীর নানা প্রান্ত ঘুরে দেখার অভিজ্ঞতা তাঁকে দিয়েছে বৈশ্বিক
                 দৃষ্টিভঙ্গি। তাঁর ভ্রমণের অভিজ্ঞতাই তাঁর লেখার মূল রসদ।
               </p>

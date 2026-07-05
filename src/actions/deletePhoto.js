@@ -2,9 +2,13 @@
 
 import cloudinary from "@/lib/cloudinary";
 import { getDb } from "@/lib/db";
+import { requireAdmin } from "@/lib/requireAdmin";
 import { ObjectId } from "mongodb";
 
 export async function deletePhoto(photoId) {
+
+  await requireAdmin();
+
   try {
     const db = await getDb();
 

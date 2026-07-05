@@ -2,9 +2,13 @@
 
 import cloudinary from "@/lib/cloudinary";
 import { getDb } from "@/lib/db";
+import { requireAdmin } from "@/lib/requireAdmin";
 import { ObjectId } from "mongodb";
 
 export async function addPhoto(formData) {
+
+  await requireAdmin();
+  
   try {
     const albumId = formData.get("albumId");
     const caption = formData.get("caption")?.trim();

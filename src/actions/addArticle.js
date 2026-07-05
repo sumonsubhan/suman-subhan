@@ -2,9 +2,13 @@
 
 import cloudinary from "@/lib/cloudinary";
 import { getDb } from "@/lib/db";
+import { requireAdmin } from "@/lib/requireAdmin";
 import { ObjectId } from "mongodb";
 
 export async function addArticle(formData) {
+  
+  await requireAdmin();
+
   try {
     const categoryId = formData.get("categoryId");
     const title = formData.get("title")?.trim();

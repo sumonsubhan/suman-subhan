@@ -40,17 +40,17 @@ export default function BookSlider({ books }) {
       className="pb-12"
     >
       {books.map((book) => (
-        <SwiperSlide key={book._id} className="h-auto flex">
-          <article className="flex h-full w-full flex-col rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+        <SwiperSlide key={book._id} className="h-auto">
+          <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
             {/* Cover */}
-            <div className="flex justify-center bg-gray-50 p-4">
-              <div className="relative aspect-[3/4] w-[200px]">
+            <div className="bg-gray-50 py-2">
+              <div className="relative mx-auto aspect-[3/4] w-50">
                 <Image
                   src={book.coverImage}
                   alt={book.title}
                   fill
-                  sizes="140px"
-                  className="rounded-lg object-cover shadow-md transition duration-300 group-hover:scale-105"
+                  sizes="160px"
+                  className="rounded-lg object-cover shadow-md"
                 />
               </div>
             </div>
@@ -58,46 +58,29 @@ export default function BookSlider({ books }) {
             {/* Content */}
             <div className="flex flex-1 flex-col p-4">
               {/* Category */}
-              <div className="mb-3 text-end">
+              <div className="mb-3 flex justify-end">
                 <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-700">
                   {book.category}
                 </span>
               </div>
 
               {/* Title */}
-              <h2 className="h-14 overflow-hidden text-lg font-bold leading-7 line-clamp-2">
+              <h2 className="line-clamp-2 min-h-[52px] text-lg font-bold leading-6">
                 {book.title}
               </h2>
 
-              {/* Author */}
-              <p className="bg-gray-300 p-1 text-sm rounded max-w-fit">{book.bookName}</p>
+              {/* Book */}
+              <p className="mt-2 line-clamp-1 text-sm text-gray-500">
+                {book.bookName}
+              </p>
 
-              {/* Short Note
-              <p className="mt-3 h-[72px] overflow-hidden leading-6 text-gray-600 line-clamp-3">
-                {book.shortNote}
-              </p> */}
-
-              {/* Footer */}
-              <div className="mt-auto border-t border-gray-100 pt-4">
-                <div className="mb-4 flex items-center justify-between">
-                  <span className="text-gray-400">
-                    {new Date(book.createdAt).toLocaleDateString("bn-BD", {
-                      day: "numeric",
-                      month: "short",
-                      year: "numeric",
-                    })}
-                  </span>
-
-                  <span className="text-gray-500">✍️ সুমন সুবহান</span>
-                </div>
-
-                <Link
-                  href={`/books/${book._id}`}
-                  className="block rounded-lg bg-bgprimary py-2.5 text-center text-sm font-medium text-white transition hover:opacity-90"
-                >
-                  বইটি পড়ুন
-                </Link>
-              </div>
+              {/* Button */}
+              <Link
+                href={`/books/${book._id}`}
+                className="mt-5 rounded-lg bg-bgprimary py-2 text-center text-sm font-medium text-white transition hover:opacity-90"
+              >
+                বইটি পড়ুন
+              </Link>
             </div>
           </article>
         </SwiperSlide>

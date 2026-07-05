@@ -3,8 +3,12 @@
 import { ObjectId } from "mongodb";
 import cloudinary from "@/lib/cloudinary";
 import { getDb } from "@/lib/db";
+import { requireAdmin } from "@/lib/requireAdmin";
 
 export async function deleteBook(id, imageId) {
+  
+  await requireAdmin();
+
   try {
     const db = await getDb();
 

@@ -28,10 +28,10 @@ const EventSlide = ({ events }) => {
         className="h-full"
       >
         {events.map((event) => (
-          <SwiperSlide key={event.id}>
+          <SwiperSlide key={event._id}>
             <div className="relative w-full h-full">
               <Image
-                src={event.img}
+                src={event.coverImage}
                 alt="Event Image"
                 fill
                 className="object-cover rounded-xl"

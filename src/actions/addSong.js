@@ -2,8 +2,12 @@
 
 import cloudinary from "@/lib/cloudinary";
 import { getDb } from "@/lib/db";
+import { requireAdmin } from "@/lib/requireAdmin";
 
 export async function addSong(formData) {
+
+  await requireAdmin();
+
   try {
     const title = formData.get("title");
     const videoURL = formData.get("videoURL");

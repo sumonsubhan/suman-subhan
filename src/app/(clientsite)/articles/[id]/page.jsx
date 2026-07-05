@@ -11,7 +11,9 @@ export default async function ArticleDetails({ params }) {
       <section className="py-24 text-center">
         <h1 className="text-3xl font-bold">Article not found</h1>
 
-        <p className="mt-4 text-gray-500">The requested article does not exist.</p>
+        <p className="mt-4 text-gray-500">
+          The requested article does not exist.
+        </p>
       </section>
     );
   }
@@ -19,53 +21,57 @@ export default async function ArticleDetails({ params }) {
   return (
     <section className="py-10 lg:py-16">
       <div className="mx-auto max-w-6xl px-4">
-        {/* Book Info */}
-        <div className="grid gap-10 lg:grid-cols-[280px_1fr]">
-          {/* Cover */}
-          <div className="flex justify-center">
-            <div className="relative aspect-[3/4] w-64 overflow-hidden rounded-2xl shadow-xl">
-              <Image
-                src={article.coverImage}
-                alt={article.title}
-                fill
-                sizes="256px"
-                className="object-cover"
-                priority
-              />
-            </div>
+        {/* Article Info */}
+        <div className="mx-auto max-w-5xl">
+          {/* Banner */}
+          <div className="relative mb-8 aspect-16/6 overflow-hidden rounded-xl shadow-xl">
+            <Image
+              src={article.coverImage}
+              alt={article.title}
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover"
+            />
           </div>
 
-          {/* Details */}
-          <div className="flex flex-col justify-center">
-            <span className="mb-4 w-fit rounded-full bg-bgprimary/10 px-4 py-2 text-sm font-medium text-bgprimary">
+          <div>
+            {/* Category */}
+            <span className="inline-flex rounded-full bg-bgprimary/10 px-4 py-2 text-sm font-medium text-bgprimary">
               {article.category.title}
             </span>
 
-            <h1 className="text-4xl font-bold leading-tight md:text-5xl">
+            {/* Title */}
+            <h1 className="mt-6 text-3xl font-bold leading-tight md:text-4xl lg:text-5xl">
               {article.title}
             </h1>
 
-            <p className="mt-3 text-lg text-gray-500">✍️ সুমন সুবাহান</p>
+            {/* Meta */}
+            <div className="mt-5 flex flex-wrap items-center gap-3 text-gray-500">
+              <span className="font-medium">✍️ সুমন সুবহান</span>
 
-            <p className="mt-6 text-lg leading-8 text-gray-700">
+              <span className="hidden md:block">•</span>
+
+              <span>
+                {new Date(article.createdAt).toLocaleDateString("bn-BD", {
+                  day: "numeric",
+                  month: "long",
+                  year: "numeric",
+                })}
+              </span>
+            </div>
+
+            {/* Short Description */}
+            <p className="mt-8 text-lg leading-9 text-gray-700 text-justify">
               {article.shortNote}
             </p>
-
-            <div className="mt-8 border-t pt-5 text-sm text-gray-500">
-              প্রকাশিত:{" "}
-              {new Date(article.createdAt).toLocaleDateString("bn-BD", {
-                day: "numeric",
-                month: "long",
-                year: "numeric",
-              })}
-            </div>
           </div>
         </div>
 
         {/* Reading Area */}
         <article className="mx-auto mt-16 max-w-4xl rounded-3xl border border-[#e7dfcf] bg-[#f8f6f1] px-6 py-10 shadow-sm md:px-10 lg:px-16 lg:py-14">
           <div
-             className="
+            className="
       book-content
       prose
       prose-lg
@@ -89,9 +95,9 @@ export default async function ArticleDetails({ params }) {
       prose-blockquote:border-bgprimary
       prose-blockquote:pl-6
     "
-    dangerouslySetInnerHTML={{
-      __html: article.content,
-    }}
+            dangerouslySetInnerHTML={{
+              __html: article.content,
+            }}
           />
         </article>
       </div>

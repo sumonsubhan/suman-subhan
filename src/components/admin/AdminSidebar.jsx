@@ -30,6 +30,14 @@ const menuItems = [
     name: "Articles",
     href: "/admin/articles",
   },
+  {
+    name: "Trending-Books",
+    href: "/admin/trending-books",
+  },
+  {
+    name: "Events",
+    href: "/admin/events",
+  },
 ];
 
 export default function AdminSidebar() {

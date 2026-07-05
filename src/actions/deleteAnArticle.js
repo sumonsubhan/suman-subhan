@@ -4,8 +4,12 @@ import { ObjectId } from "mongodb";
 import { revalidatePath } from "next/cache";
 import cloudinary from "@/lib/cloudinary";
 import { getDb } from "@/lib/db";
+import { requireAdmin } from "@/lib/requireAdmin";
 
 export async function deleteArticle(id) {
+
+  await requireAdmin();
+  
   try {
     const db = await getDb();
 
