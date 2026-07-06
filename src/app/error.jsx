@@ -1,8 +1,8 @@
 "use client"
 import Link from "next/link";
-import { FaArrowRotateRight, FaHouse } from "react-icons/fa6";
+import { FaHouse } from "react-icons/fa6";
 
-export default function Error({reset }) {
+export default function Error() {
 
 
   return (
@@ -25,13 +25,6 @@ export default function Error({reset }) {
 
         {/* Buttons */}
         <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
-          <button
-            onClick={() => reset()}
-            className="inline-flex items-center justify-center gap-2 rounded-lg bg-bgprimary px-6 py-3 font-medium text-white transition hover:opacity-90"
-          >
-            <FaArrowRotateRight />
-            Try Again
-          </button>
 
           <Link
             href="/"

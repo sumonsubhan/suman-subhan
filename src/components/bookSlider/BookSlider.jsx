@@ -8,6 +8,7 @@ import "swiper/css/pagination";
 
 import Image from "next/image";
 import Link from "next/link";
+import { IoEye } from "react-icons/io5";
 
 export default function BookSlider({ books }) {
   return (
@@ -41,7 +42,7 @@ export default function BookSlider({ books }) {
     >
       {books.map((book) => (
         <SwiperSlide key={book._id} className="h-auto">
-          <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+          <Link href={`/books/${book._id}`} className="flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
             {/* Cover */}
             <div className="bg-gray-50 py-2">
               <div className="relative mx-auto aspect-[3/4] w-50">
@@ -58,10 +59,14 @@ export default function BookSlider({ books }) {
             {/* Content */}
             <div className="flex flex-1 flex-col p-4">
               {/* Category */}
-              <div className="mb-3 flex justify-end">
+              <div className="mb-3 flex justify-between">
                 <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-700">
                   {book.category}
                 </span>
+                <div className="flex items-center gap-4  bg-blue-100 px-3 py-1 text-xs font-medium text-blue-700 rounded-2xl">
+                  <IoEye />
+                  <p>{book.views}</p>
+                </div>
               </div>
 
               {/* Title */}
@@ -75,14 +80,13 @@ export default function BookSlider({ books }) {
               </p>
 
               {/* Button */}
-              <Link
-                href={`/books/${book._id}`}
+              <div
                 className="mt-5 rounded-lg bg-bgprimary py-2 text-center text-sm font-medium text-white transition hover:opacity-90"
               >
                 বইটি পড়ুন
-              </Link>
+              </div>
             </div>
-          </article>
+          </Link>
         </SwiperSlide>
       ))}
     </Swiper>

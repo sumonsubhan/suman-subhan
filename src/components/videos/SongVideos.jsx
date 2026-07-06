@@ -34,7 +34,7 @@ const SongVideos = ({songs}) => {
                 {song.title}
               </h2>
 
-              <p className="text-gray-600 text-sm line-clamp-3">
+              <p className="text-gray-600 text-sm line-clamp-2">
                 {song.description}
               </p>
             </div>

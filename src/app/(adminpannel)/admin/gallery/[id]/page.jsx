@@ -2,11 +2,20 @@ import Image from "next/image";
 import Link from "next/link";
 import { getPhotos } from "../../../../../../services/getPhotos";
 import DeleteButton from "@/components/bookCard/DeleteButton/DeleteButton";
+import Pagination from "@/components/pagination/Pagination";
 
-export default async function Photos({ params }) {
+export default async function Photos({ params, searchParams }) {
+
   const { id } = await params;
+  const search = await searchParams;
+  const page = Number(search.page) || 1;
 
-  const photos = await getPhotos(id);
+  const {photos, total, totalPages} = await getPhotos({
+    albumId: id,
+    page,
+    limit:10
+  });
+
   const album = photos.length > 0 ? photos[0].album : null;
 
   return (
@@ -19,7 +28,7 @@ export default async function Photos({ params }) {
           </h1>
 
           <p className="text-gray-500 mt-1">
-            Manage all photos in this album.
+            Total Photos: {total}
           </p>
         </div>
 
@@ -107,6 +116,12 @@ export default async function Photos({ params }) {
           </table>
         </div>
       )}
+
+      <Pagination 
+        page={page}
+        totalPages={totalPages}
+        baseUrl={`/admin/gallery/${id}`}
+      />
     </section>
   );
 }

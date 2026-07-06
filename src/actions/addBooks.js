@@ -10,15 +10,12 @@ export async function addBook(formData) {
   
   try {
     const title = formData.get("title")?.trim();
-    const bookName = formData.get("bookName")?.trim();
     const category = formData.get("category");
     const categorySlug = formData.get("categorySlug");
-    const shortNote = formData.get("shortNote")?.trim();
-    const content = formData.get("content");
     const coverImage = formData.get("coverImage");
 
     // Validation
-    if (!title || !bookName || !category || !categorySlug || !shortNote || !content || !coverImage) {
+    if (!title || !category || !categorySlug || !coverImage) {
       return {
         success: false,
         message: "All fields are required.",
@@ -48,13 +45,12 @@ export async function addBook(formData) {
 
     const result = await db.collection("books").insertOne({
       title,
-      bookName,
       category,
       categorySlug,
-      shortNote,
-      content,
       coverImage: uploadedImage.secure_url,
       coverImagePublicId: uploadedImage.public_id,
+      views:0,
+      totalContent: 0,
       createdAt: new Date(),
       updatedAt: new Date(),
     });

@@ -60,11 +60,6 @@ export default async function ArticleDetails({ params }) {
                 })}
               </span>
             </div>
-
-            {/* Short Description */}
-            <p className="mt-8 text-lg leading-9 text-gray-700 text-justify">
-              {article.shortNote}
-            </p>
           </div>
         </div>
 

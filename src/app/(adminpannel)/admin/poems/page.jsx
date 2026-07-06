@@ -9,7 +9,7 @@ export default async function Poems({searchParams}) {
   const search = await searchParams;
   const page = Number(search.page) || 1;
 
-  const {poems, totalPages} = await getPoems({
+  const {poems, totalPages, total} = await getPoems({
     page,
     limit:10,
   });
@@ -24,7 +24,7 @@ export default async function Poems({searchParams}) {
           </h1>
 
           <p className="text-gray-500 mt-1">
-            Manage all poems from here.
+            Total Poems: {total}
           </p>
         </div>
 

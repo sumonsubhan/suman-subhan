@@ -7,7 +7,7 @@ import Pagination from "@/components/pagination/Pagination";
 export default async function Songs({ searchParams }) {
   const search = await searchParams;
   const page = Number(search.page) || 1;
-  const { songs, totalPages } = await getSongs({
+  const { songs, totalPages, total } = await getSongs({
     page,
     limit: 10,
   });
@@ -19,7 +19,7 @@ export default async function Songs({ searchParams }) {
         <div>
           <h1 className="text-3xl font-bold">Songs</h1>
 
-          <p className="text-gray-500 mt-1">Manage all songs from here.</p>
+          <p className="text-gray-500 mt-1">Total Songs: {total}</p>
         </div>
 
         <Link href="/admin/songs/add-song" className="btn btn-primary">

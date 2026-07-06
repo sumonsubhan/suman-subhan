@@ -1,9 +1,10 @@
 import Image from "next/image";
 import { getBooks } from "../../../../../services/getBooks";
+import { incrementBookView } from "@/actions/incrementBookView";
 
 export default async function BookDetails({ params }) {
   const { id } = await params;
-
+  await incrementBookView(id);
   const book = await getBooks({ id });
 
   if (!book) {
@@ -45,7 +46,10 @@ export default async function BookDetails({ params }) {
               {book.title}
             </h1>
 
-            <p className="mt-3 text-lg text-gray-500">✍️ সুমন সুবাহান</p>
+            <div className="flex gap-6 items-center mt-3">
+              <p className="text-lg text-gray-500">✍️ সুমন সুবাহান</p>
+              <p>Views: {book.views}</p>
+            </div>
 
             <p className="mt-6 text-lg leading-8 text-gray-700">
               {book.shortNote}

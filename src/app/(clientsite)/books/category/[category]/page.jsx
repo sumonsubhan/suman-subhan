@@ -2,14 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { getBooks } from "../../../../../../services/getBooks";
 import Pagination from "@/components/pagination/Pagination";
-
-function truncateText(text, maxLength = 100) {
-  if (!text) return "";
-
-  return text.length > maxLength
-    ? text.slice(0, maxLength).trim() + "..."
-    : text;
-}
+import { CiPen } from "react-icons/ci";
 
 export default async function CategoryBooks({ params, searchParams }) {
   const search = await searchParams;
@@ -18,10 +11,10 @@ export default async function CategoryBooks({ params, searchParams }) {
   const { category } = await params;
   
 
-  const {books, totalPages} = await getBooks({
+  const {books,total, totalPages} = await getBooks({
     categorySlug: category,
     page,
-    limit:10,
+    limit:8,
   });
 
   return (
@@ -33,7 +26,7 @@ export default async function CategoryBooks({ params, searchParams }) {
         </h1>
 
         <p className="mt-2 text-gray-600">
-          মোট বই: {books.length}
+          মোট বই: {total}
         </p>
       </div>
 
@@ -49,7 +42,7 @@ export default async function CategoryBooks({ params, searchParams }) {
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {books.map((book) => (
             <Link
               key={book._id}
@@ -76,14 +69,21 @@ export default async function CategoryBooks({ params, searchParams }) {
                 {/* Content */}
                 <div className="flex flex-1 flex-col mt-3">
                   {/* Title */}
-                  <h2 className="min-h-10 text-lg font-bold leading-7 line-clamp-2">
+                  <h2 className="text-lg font-bold leading-7 line-clamp-2">
                     {book.title}
                   </h2>
 
                   {/* Short Note */}
-                  <p className="mt-3 min-h-[72px] text-sm leading-6 text-gray-600">
-                    {truncateText(book.shortNote, 100)}
+                  <p className="mt-3 text-sm leading-6 text-gray-600 line-clamp-2">
+                    {book.shortNote}
                   </p>
+                </div>
+                <div className="flex justify-between">
+                  <div className="flex items-center gap-2">
+                    <p className="text-yellow-800"><CiPen /></p>
+                    <p className="text-gray-500">সুমন সুবাহান</p>
+                  </div>
+                  <p className="my-2 text-blue-700 bg-gray-300 px-2 rounded-2xl">Views: {book.views}</p>
                 </div>
               </article>
             </Link>

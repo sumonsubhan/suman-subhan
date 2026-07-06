@@ -1,131 +1,88 @@
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
 import { getBooks } from "../../../../../services/getBooks";
-import DeleteBook from "@/components/admin/DeleteBook";
-import Pagination from "@/components/pagination/Pagination";
 
-export default async function Books({searchParams}) {
+const Books = async ({searchParams}) => {
+  
   const search = await searchParams;
   const page = Number(search.page) || 1;
-
-  const {books, totalPages} = await getBooks({
-    page,
-    limit: 10
-  });
+  const {books} = await getBooks({page, limit:10});
 
   return (
     <div>
       {/* Header */}
-      <div className="flex items-center justify-between mb-8">
-        <h1 className="text-2xl font-bold">
-          Total Books: {books.length}
-        </h1>
+      <div className="flex justify-between items-center border-b-2 border-gray-400 pb-2">
+        <h1 className="text-2xl font-bold">Books</h1>
 
-        <Link
-          href="/admin/books/add-book"
-          className="btn btn-primary"
-        >
+        <Link href="/books/add-book" className="btn btn-primary">
           Add Book
         </Link>
       </div>
 
-      {/* Empty State */}
-      {books.length === 0 ? (
-        <div className="bg-white rounded-xl shadow p-12 text-center">
-          <h2 className="text-xl font-semibold">
-            No books found
-          </h2>
+      {/* Table */}
+      <div className="mt-8 overflow-x-auto rounded-xl border border-gray-200 bg-white shadow">
+        <table className="table">
+          <thead className="bg-gray-100">
+            <tr>
+              <th>#</th>
+              <th>Cover</th>
+              <th>Title</th>
+              <th>Total Content</th>
+              <th>Creation Date</th>
+              <th>Action</th>
+            </tr>
+          </thead>
 
-          <p className="text-gray-500 mt-2">
-            Start by adding your first book.
-          </p>
-        </div>
-      ) : (
-        <div className="overflow-x-auto rounded-xl border bg-white">
-          <table className="table">
-            <thead className="bg-gray-100">
+          <tbody>
+            {books.length === 0 ? (
               <tr>
-                <th>Cover</th>
-                <th>Title</th>
-                <th>Category</th>
-                <th>Created</th>
-                <th className="text-center">Action</th>
+                <td colSpan={5} className="text-center py-10 text-gray-500">
+                  No Book found.
+                </td>
               </tr>
-            </thead>
+            ) : (
+              books.map((book, index) => (
+                <tr key={album._id}>
+                  <td>{index + 1}</td>
 
-            <tbody>
-              {books.map((book) => (
-                <tr key={book._id}>
-                  {/* Cover */}
                   <td>
                     <Image
                       src={book.coverImage}
                       alt={book.title}
-                      width={60}
-                      height={80}
-                      className="rounded object-cover border"
+                      width={70}
+                      height={50}
+                      className="rounded-lg object-cover"
                     />
                   </td>
 
-                  {/* Title */}
-                  <td>
-                    <div>
-                      <h2 className="font-semibold">
-                        {book.title}
-                      </h2>
+                  <td className="font-medium">{book.title}</td>
 
-                      <p className="text-sm text-gray-500 line-clamp-2 mt-1">
-                        {book.shortNote}
-                      </p>
-                    </div>
+                  <td>{book.totalContent}</td>
+                  
+                  <td>
+                    {new Date(book.createdAt).toLocaleDateString("en-US", {
+                      day: "numeric",
+                      month: "short",
+                      year: "numeric",
+                    })}
                   </td>
 
-                  {/* Category */}
                   <td>
-                    <span className="badge badge-outline capitalize">
-                      {book.category}
-                    </span>
-                  </td>
-
-                  {/* Created */}
-                  <td>
-                    {new Date(book.createdAt).toLocaleDateString(
-                      "en-GB",
-                      {
-                        day: "2-digit",
-                        month: "short",
-                        year: "numeric",
-                      }
-                    )}
-                  </td>
-
-                  {/* Action */}
-                  <td>
-                    <div className="flex justify-center gap-2">
-                      <Link
-                        href={`/admin/books/edit/${book._id}`}
-                        className="btn btn-sm btn-info"
-                      >
-                        Edit
-                      </Link>
-
-                      <DeleteBook
-                        id={book._id}
-                        imageId={book.coverImagePublicId}
-                      />
-                    </div>
+                    <Link
+                      href={`/admin/books/${book._id}`}
+                      className="btn btn-sm btn-primary"
+                    >
+                      View Book
+                    </Link>
                   </td>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
-      <Pagination
-        page={page}
-        totalPages={totalPages}
-        baseUrl={`/admin/books`}
-      />
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
-}
+};
+
+export default Books;

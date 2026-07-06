@@ -3,7 +3,12 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const NavLink = ({ href, children, className = "" }) => {
+const NavLink = ({
+  href,
+  children,
+  className = "",
+  onClick,
+}) => {
   const pathname = usePathname();
 
   const isActive =
@@ -14,6 +19,7 @@ const NavLink = ({ href, children, className = "" }) => {
   return (
     <Link
       href={href}
+      onClick={onClick}
       className={`${className} ${isActive ? "active" : ""}`}
     >
       {children}

@@ -1,4 +1,9 @@
-export default function AdminDashboard() {
+import Link from "next/link";
+import { getDashboardStats } from "../../../../services/getDashboardStats";
+
+export default async function AdminDashboard() {
+
+  const stats = await getDashboardStats();
   return (
     <div>
       <h1 className="text-2xl md:text-3xl font-bold">
@@ -10,25 +15,40 @@ export default function AdminDashboard() {
       </p>
 
       <div className="grid gap-4 mt-8 sm:grid-cols-2 xl:grid-cols-4">
-        <div className="bg-white rounded-xl shadow p-5">
+        <Link href="/admin/books" className="bg-white rounded-xl shadow p-5">
           <h3 className="text-gray-500">Books</h3>
-          <p className="text-3xl font-bold mt-2">12</p>
-        </div>
+          <p className="text-3xl font-bold mt-2">{stats.totalBooks}</p>
+        </Link>
 
-        <div className="bg-white rounded-xl shadow p-5">
+        <Link href="/admin/poems" className="bg-white rounded-xl shadow p-5">
+          <h3 className="text-gray-500">Poems</h3>
+          <p className="text-3xl font-bold mt-2">{stats.totalPoems}</p>
+        </Link>
+
+        <Link href="/admin/songs" className="bg-white rounded-xl shadow p-5">
           <h3 className="text-gray-500">Songs</h3>
-          <p className="text-3xl font-bold mt-2">25</p>
-        </div>
+          <p className="text-3xl font-bold mt-2">{stats.totalSongs}</p>
+        </Link>
 
-        <div className="bg-white rounded-xl shadow p-5">
-          <h3 className="text-gray-500">Albums</h3>
-          <p className="text-3xl font-bold mt-2">8</p>
-        </div>
+        <Link href="/admin/gallery" className="bg-white rounded-xl shadow p-5">
+          <h3 className="text-gray-500">Photos</h3>
+          <p className="text-3xl font-bold mt-2">{stats.totalPhotos}</p>
+        </Link>
 
-        <div className="bg-white rounded-xl shadow p-5">
+        <Link href="/admin/articles" className="bg-white rounded-xl shadow p-5">
           <h3 className="text-gray-500">Articles</h3>
-          <p className="text-3xl font-bold mt-2">42</p>
-        </div>
+          <p className="text-3xl font-bold mt-2">{stats.totalArticles}</p>
+        </Link>
+
+        <Link href="/admin/trending-books" className="bg-white rounded-xl shadow p-5">
+          <h3 className="text-gray-500">Trending Books</h3>
+          <p className="text-3xl font-bold mt-2">{stats.trendingBooks}</p>
+        </Link>
+
+        <Link href="/admin/events" className="bg-white rounded-xl shadow p-5">
+          <h3 className="text-gray-500">Events</h3>
+          <p className="text-3xl font-bold mt-2">{stats.totalEvents}</p>
+        </Link>
       </div>
     </div>
   );

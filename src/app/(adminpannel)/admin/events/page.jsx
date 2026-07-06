@@ -8,7 +8,7 @@ export default async function Events({searchParams}) {
   const search = await searchParams;
   const page = Number(search.page) || 1;
 
-  const {events, totalPages} = await getEvents({
+  const {events, totalPages, total} = await getEvents({
     page,
     limit: 10
   });
@@ -18,7 +18,7 @@ export default async function Events({searchParams}) {
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <h1 className="text-2xl font-bold">
-          Total Events: {events.length}
+          Total Events: {total}
         </h1>
 
         <Link

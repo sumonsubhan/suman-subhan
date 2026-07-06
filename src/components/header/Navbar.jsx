@@ -1,10 +1,13 @@
-import Link from "next/link";
+"use client";
+
 import React from "react";
+import { useState } from "react";
 import NavLink from "./NavLink";
 import Logo from "../logo/Logo";
 import { IoMdMenu } from "react-icons/io";
 
 const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const links = [
     { href: "/", label: "প্রচ্ছদ" },
     { href: "/about", label: "আপন আকর" },
@@ -22,17 +25,20 @@ const Navbar = () => {
         <Logo></Logo>
 
         <div className="dropdown dropdown-end">
-          <div tabIndex={0} role="button" className="btn btn-ghost">
-            <IoMdMenu />
-          </div>
+          <button onClick={() => setIsOpen(!isOpen)} className="btn btn-ghost">
+            <IoMdMenu size={30}/>
+          </button>
 
           <ul
-            tabIndex={0}
-            className="menu dropdown-content bg-gray-200 rounded-box z-10 w-56 p-2 shadow"
+            className={`menu dropdown-content bg-gray-200 rounded-box z-10 w-56 p-2 shadow ${
+              isOpen ? "block" : "hidden"
+            }`}
           >
             {links.map((link) => (
               <li key={link.href}>
-                <NavLink href={link.href}>{link.label}</NavLink>
+                <NavLink href={link.href} onClick={() => setIsOpen(false)}>
+                  {link.label}
+                </NavLink>
               </li>
             ))}
           </ul>
@@ -53,7 +59,6 @@ const Navbar = () => {
 
       {/* Desktop Navbar*/}
       <div className="hidden lg:flex justify-between items-center">
-
         <Logo></Logo>
 
         <div className="flex gap-4">

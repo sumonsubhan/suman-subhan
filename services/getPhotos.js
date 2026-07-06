@@ -1,16 +1,27 @@
 import { ObjectId } from "mongodb";
 import { getDb } from "@/lib/db";
 
-export async function getPhotos(albumId) {
+export async function getPhotos({
+  albumId,
+  page = 1,
+  limit = 10,
+} = {}) {
   const db = await getDb();
+
+  const query = {
+    albumId: new ObjectId(albumId),
+  };
+
+  const skip = (Number(page) - 1) * Number(limit);
+
+  // Count only photos of this album
+  const total = await db.collection("photos").countDocuments(query);
 
   const photos = await db
     .collection("photos")
     .aggregate([
       {
-        $match: {
-          albumId: new ObjectId(albumId),
-        },
+        $match: query,
       },
       {
         $lookup: {
@@ -29,12 +40,19 @@ export async function getPhotos(albumId) {
         },
       },
       {
+        $skip: skip,
+      },
+      {
+        $limit: Number(limit),
+      },
+      {
         $project: {
           _id: { $toString: "$_id" },
           albumId: { $toString: "$albumId" },
           imageUrl: 1,
           caption: 1,
           createdAt: 1,
+
           "album._id": { $toString: "$album._id" },
           "album.title": 1,
           "album.coverImage": 1,
@@ -43,6 +61,12 @@ export async function getPhotos(albumId) {
       },
     ])
     .toArray();
-    
-  return photos;
+
+  return {
+    photos,
+    total,
+    page: Number(page),
+    limit: Number(limit),
+    totalPages: Math.ceil(total / Number(limit)),
+  };
 }

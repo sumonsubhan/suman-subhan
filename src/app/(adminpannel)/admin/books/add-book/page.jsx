@@ -1,18 +1,14 @@
 "use client";
 
 import { addBook } from "@/actions/addBooks";
-import TiptapEditor from "@/components/editor/TipTapEditor";
-import { useEffect, useState } from "react";
-import { useForm, Controller } from "react-hook-form";
-
 import { BOOK_CATEGORIES } from "@/lib/bookCategories";
 
-export default function AddBook() {
-  const [message, setMessage] = useState("");
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
 
+export default function AddBook() {
   const {
     register,
-    control,
     watch,
     setValue,
     handleSubmit,
@@ -20,7 +16,6 @@ export default function AddBook() {
     formState: { errors, isSubmitting },
   } = useForm({
     defaultValues: {
-      content: "",
       categorySlug: "",
     },
   });
@@ -32,71 +27,72 @@ export default function AddBook() {
     const selected = BOOK_CATEGORIES.find(
       (item) => item.label === selectedCategory,
     );
-
     setValue("categorySlug", selected?.slug || "");
   }, [selectedCategory, setValue]);
 
-  const onSubmit = async (data) => {
-    console.log(data);
+  async function onSubmit(data) {
     const formData = new FormData();
 
     formData.append("title", data.title);
-    formData.append("bookName", data.bookName);
+    formData.append("coverImage", data.cover[0]);
     formData.append("category", data.category);
     formData.append("categorySlug", data.categorySlug);
-    formData.append("coverImage", data.cover[0]);
-    formData.append("shortNote", data.shortNote);
-    formData.append("content", data.content);
 
-    console.log(formData);
     const result = await addBook(formData);
 
-    setMessage(result.message);
+    alert(result.message);
 
     if (result.success) {
       reset();
     }
-  };
+  }
 
   return (
-    <section className="max-w-5xl mx-auto bg-white rounded-xl shadow p-8">
+    <div className="max-w-2xl mx-auto">
       <h1 className="text-3xl font-bold mb-8">Add New Book</h1>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        {/* Book Name */}
-
+        {/* Title */}
         <div>
-          <label className="font-medium">Title</label>
+          <label className="block mb-2 text-lg font-medium">Book Title</label>
 
           <input
+            type="text"
+            placeholder="Book title"
+            className="input input-bordered w-full"
             {...register("title", {
-              required: true,
+              required: "Book title is required",
+              minLength: {
+                value: 3,
+                message: "Minimum 3 characters",
+              },
             })}
-            className="input input-bordered w-full mt-2"
           />
 
           {errors.title && (
-            <p className="text-red-500 text-sm mt-1">Title is required.</p>
+            <p className="text-red-500 mt-1 text-sm">{errors.title.message}</p>
           )}
         </div>
 
+        {/* Cover */}
         <div>
-          <label className="font-medium">Book Name</label>
+          <label className="block mb-2 text-lg font-medium">Cover Photo</label>
 
           <input
-            {...register("bookName", {
-              required: true,
+            type="file"
+            accept="image/*"
+            className="file-input file-input-bordered w-full"
+            {...register("cover", {
+              required: "Cover image is required",
             })}
-            className="input input-bordered w-full mt-2"
           />
 
-          {errors.title && (
-            <p className="text-red-500 text-sm mt-1">Book name is required.</p>
+          {errors.cover && (
+            <p className="text-red-500 mt-1 text-sm">{errors.cover.message}</p>
           )}
         </div>
 
         {/* Category */}
-
         <div>
           <label className="font-medium">Category</label>
 
@@ -120,69 +116,10 @@ export default function AddBook() {
           )}
         </div>
 
-        {/* Slug */}
-        <input type="hidden" {...register("categorySlug")} />
-
-        {/* Cover */}
-        <div>
-          <label className="font-medium">Cover Image</label>
-
-          <input
-            type="file"
-            accept="image/*"
-            {...register("cover", { required: true })}
-            className="file-input file-input-bordered w-full mt-2"
-          />
-          {errors.cover && (
-            <p className="text-red-500 text-sm mt-1">
-              Cover image is required.
-            </p>
-          )}
-        </div>
-
-        {/* Short Note */}
-
-        <div>
-          <label className="font-medium">Short Note</label>
-
-          <textarea
-            rows={4}
-            {...register("shortNote", { required: true })}
-            className="textarea textarea-bordered w-full mt-2"
-            placeholder="Write a short introduction..."
-          />
-          {errors.shortNote && (
-            <p className="text-red-500 text-sm mt-1">Short note is required.</p>
-          )}
-        </div>
-
-        {/* Book Content */}
-
-        <div>
-          <label className="font-medium mb-2 block">Book Content</label>
-
-          <Controller
-            control={control}
-            name="content"
-            rules={{
-              required: true,
-            }}
-            render={({ field }) => (
-              <TiptapEditor value={field.value} onChange={field.onChange} />
-            )}
-          />
-
-          {errors.content && (
-            <p className="text-red-500 mt-2">Content is required.</p>
-          )}
-        </div>
-
         <button disabled={isSubmitting} className="btn btn-primary">
-          {isSubmitting ? "Uploading..." : "Add Book"}
+          {isSubmitting ? "Saving..." : "Add Book"}
         </button>
-
-        {message && <p className="text-green-600 font-medium">{message}</p>}
       </form>
-    </section>
+    </div>
   );
 }

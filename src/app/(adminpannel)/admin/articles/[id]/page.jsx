@@ -9,7 +9,7 @@ export default async function CategoryArticles({ params, searchParams }) {
   const page = Number(search.page) || 1;
   const { id } = await params;
 
-  const { articles, totalPages } = await getArticles({
+  const { articles, totalPages, total } = await getArticles({
     categoryId: id,
     page,
     limit: 10,
@@ -27,7 +27,7 @@ export default async function CategoryArticles({ params, searchParams }) {
           </h1>
 
           <p className="text-gray-500 mt-1">
-            Manage all articles in this category.
+            Total Articles: {total}
           </p>
         </div>
 

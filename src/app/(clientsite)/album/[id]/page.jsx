@@ -1,11 +1,18 @@
 import Image from "next/image";
 import { FaCameraRetro } from "react-icons/fa";
 import { getPhotos } from "../../../../../services/getPhotos";
+import Pagination from "@/components/pagination/Pagination";
 
-export default async function Photos({ params }) {
+export default async function Photos({ params, searchParams }) {
   const { id } = await params;
+  const search = await searchParams;
+  const page = Number(search.page) || 1;
 
-  const photos = await getPhotos(id);
+  const {photos, total, totalPages} = await getPhotos({
+    albumId: id,
+    page,
+    limit:8
+  });
 
   const album = photos.length > 0 ? photos[0].album : null;
 
@@ -28,7 +35,7 @@ export default async function Photos({ params }) {
 
         {photos.length > 0 && (
           <div className="mt-8 flex justify-center items-center gap-6 text-sm text-gray-500">
-            <span>{photos.length} টি ছবি</span>
+            <span>{total} টি ছবি</span>
 
             <span className="w-1.5 h-1.5 rounded-full bg-gray-400" />
 
@@ -100,6 +107,12 @@ export default async function Photos({ params }) {
           ))}
         </div>
       )}
+
+      <Pagination
+        page={page}
+        totalPages={totalPages}
+        baseUrl={`/album/${id}`}
+      />
     </section>
   );
 }

@@ -8,7 +8,7 @@ export default async function TrendingBooks({searchParams}) {
   const search = await searchParams;
   const page = Number(search.page) || 1;
 
-  const {books, totalPages} = await getTrendingBooks({
+  const {books, totalPages, total} = await getTrendingBooks({
     page,
     limit: 10
   });
@@ -18,7 +18,7 @@ export default async function TrendingBooks({searchParams}) {
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <h1 className="text-2xl font-bold">
-          Total Books: {books.length}
+          Total Books: {total}
         </h1>
 
         <Link

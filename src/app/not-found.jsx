@@ -31,13 +31,12 @@ export default function NotFound() {
             Go Home
           </Link>
 
-          <button
-            onClick={() => history.back()}
+          <Link href="/"
             className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-bgprimary px-6 py-3 font-medium text-bgprimary transition duration-300 hover:bg-bgprimary hover:text-white"
           >
             <FaArrowLeft />
             Go Back
-          </button>
+          </Link>
         </div>
       </div>
     </section>

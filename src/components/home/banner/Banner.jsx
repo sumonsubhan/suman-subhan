@@ -22,7 +22,7 @@ const Banner = () => {
         <div className="flex gap-4 my-6">
           <Link
             className="px-4 py-2 rounded bg-bgprimary text-white"
-            href="/books/category/নিবন্ধ"
+            href="/article-categories"
           >
             নিবন্ধ পড়ুন
           </Link>
