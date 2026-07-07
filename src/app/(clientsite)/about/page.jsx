@@ -70,7 +70,7 @@ export const metadata = {
 
 const About = () => {
   return (
-    <section className="my-8 px-4 md:px-6 lg:px-10 xl:px-30">
+    <section className="my-8">
       {/* Header */}
       <div className="flex flex-col items-center text-center gap-5">
         <p className="text-sm md:text-base uppercase tracking-wider text-gray-500">

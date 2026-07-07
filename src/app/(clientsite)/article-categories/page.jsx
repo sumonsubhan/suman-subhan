@@ -78,7 +78,7 @@ export default async function ArticleCategory() {
   }
 
   return (
-    <section className="px-4 sm:px-6 md:px-10 lg:px-14 my-8 lg:my-10">
+    <section className="my-8 lg:my-10">
       <div className="max-w-3xl">
         <h1 className="font-bold text-3xl md:text-4xl">লেখালোক</h1>
 

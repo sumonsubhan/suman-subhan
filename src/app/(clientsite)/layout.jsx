@@ -8,9 +8,9 @@ const anekBangla = Anek_Bangla({
 
 export default function WebsiteLayout({ children }) {
   return (
-    <div className={`${anekBangla.className} mx-auto w-11/12`}>
+    <div className={`${anekBangla.className} mx-auto max-w-11/12`}>
       <Navbar />
-      <main>{children}</main>
+      <main className="px-4 md:px-6 lg:px-30">{children}</main>
       <Footer />
     </div>
   );

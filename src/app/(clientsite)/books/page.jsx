@@ -67,7 +67,7 @@ export const metadata = {
 
 const Books = () => {
   return (
-    <div className="p-4 lg:px-30 py-5">
+    <div className="py-5">
       <div className="text-center space-y-6">
         <h1 className="text-4xl font-bold">অক্ষর বৃত্ত</h1>
 

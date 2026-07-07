@@ -76,7 +76,7 @@ const Albums = async () => {
 }
 
   return (
-    <section className="px-4 md:px-8 lg:px-12 xl:px-20 py-12">
+    <section className="py-10">
       {/* Header Section */}
       <div className="max-w-4xl mx-auto text-center">
         <p className="text-bgprimary font-medium mb-3">আলোকচিত্র সংগ্রহশালা</p>

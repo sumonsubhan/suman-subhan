@@ -21,7 +21,7 @@ export default async function Photos({ params, searchParams }) {
   const album = photos.length > 0 ? photos[0].album : null;
 
   return (
-    <section className="px-4 md:px-8 lg:px-12 xl:px-20 py-12">
+    <section className="py-10">
       {/* Album Header */}
       <div className="max-w-4xl mx-auto text-center mb-14">
         <p className="text-bgprimary font-medium">

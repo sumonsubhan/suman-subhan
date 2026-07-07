@@ -57,7 +57,7 @@ export const metadata = {
 
 export default function Home() {
   return (
-    <div className="flex flex-col gap-6 p-4 py-5 lg:px-30">
+    <div className="flex flex-col gap-6 py-5">
       <Banner />
       <NewBooks />
       <TrendingBooks />

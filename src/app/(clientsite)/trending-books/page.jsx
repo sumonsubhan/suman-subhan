@@ -81,8 +81,9 @@ const TrendingBooks = async ({ searchParams }) => {
       </section>
     );
   }
+
   return (
-    <section className="mx-auto px-4 py-10 md:px-6 lg:px-8">
+    <section className="py-10">
       {/* Header */}
       <div className="mb-10">
         <h1 className="text-3xl md:text-4xl font-bold text-bgprimary">
@@ -149,7 +150,7 @@ const TrendingBooks = async ({ searchParams }) => {
         page={page}
         totalPages={totalPages}
         baseUrl={`trending-books`}
-      ></Pagination>
+      />
     </section>
   );
 };

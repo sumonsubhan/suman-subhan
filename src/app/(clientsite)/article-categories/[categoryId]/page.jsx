@@ -30,7 +30,7 @@ const Articles = async ({ params, searchParams }) => {
   }
 
   return (
-    <section className="mx-auto max-w-7xl px-4 py-8 md:px-6 lg:px-8">
+    <section className="py-8">
       {/* Header */}
       <div className="mb-10">
         <h1 className="text-3xl font-bold text-bgprimary">

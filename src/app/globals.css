@@ -15,7 +15,7 @@ body {
 
 
 .btn1 {
-  @apply text-lg sm:text-sm lg:text-xl p-2 rounded-lg hover:bg-gray-300;
+  @apply text-lg sm:text-sm lg:text-2xl p-2 rounded-lg hover:bg-gray-300;
 }
 
 .active {

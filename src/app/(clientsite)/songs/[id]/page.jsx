@@ -31,7 +31,7 @@ export default async function VideoPlayerPage({ params }) {
     : currentSong.videoURL;
 
   return (
-    <section className="px-4 md:px-8 lg:px-12 xl:px-20 py-10">
+    <section className="py-10">
       <div className="grid grid-cols-1 xl:grid-cols-12 gap-10">
         {/* Main Content */}
         <div className="xl:col-span-8">
