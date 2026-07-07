@@ -29,7 +29,7 @@ export default function TrendingBookSlider({ books }) {
           slidesPerView: 2,
         },
         1400: {
-          slidesPerView: 3,
+          slidesPerView: 4,
         },
         2000: {
           slidesPerView: 4,

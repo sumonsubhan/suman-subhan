@@ -115,6 +115,8 @@ export default function AddBook() {
             <p className="text-red-500 text-sm mt-1">Category is required.</p>
           )}
         </div>
+        {/* Slug */}
+        <input type="hidden" {...register("categorySlug")} />
 
         <button disabled={isSubmitting} className="btn btn-primary">
           {isSubmitting ? "Saving..." : "Add Book"}

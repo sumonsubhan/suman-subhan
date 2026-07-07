@@ -3,8 +3,77 @@ import Link from "next/link";
 import React from "react";
 import { getAlbums } from "../../../../services/getAlbum";
 
+export const metadata = {
+  title: "কালের ক্যানভাস",
+
+  description:
+    "সুমন শুভানের আলোকচিত্র সংগ্রহশালা। জীবনের গুরুত্বপূর্ণ মুহূর্ত, ভ্রমণ, স্মৃতি এবং বিভিন্ন অনুষ্ঠানের ছবির অ্যালবাম দেখুন। Explore Suman Subhan's photo gallery, travel memories, events, and personal moments.",
+
+  keywords: [
+    // Bangla
+    "সুমন শুভান",
+    "আলোকচিত্র",
+    "ছবির অ্যালবাম",
+    "ফটো গ্যালারি",
+    "গ্যালারি",
+    "ছবি",
+    "স্মৃতি",
+    "ভ্রমণের ছবি",
+    "বাংলাদেশ",
+    "কালের ক্যানভাস",
+
+    // English
+    "Suman Subhan",
+    "Photo Gallery",
+    "Photo Album",
+    "Gallery",
+    "Photography",
+    "Travel Photos",
+    "Memories",
+    "Albums",
+    "Bangladesh",
+  ],
+
+  alternates: {
+    canonical: "/albums",
+  },
+
+  openGraph: {
+    title: "আলোকচিত্র সংগ্রহশালা | সুমন শুভান",
+    description:
+      "সুমন শুভানের জীবনের বিভিন্ন মুহূর্ত, ভ্রমণ ও স্মৃতির আলোকচিত্র সংগ্রহশালা।",
+    url: "/albums",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "সুমন শুভানের আলোকচিত্র সংগ্রহশালা",
+      },
+    ],
+  },
+
+  twitter: {
+    title: "আলোকচিত্র সংগ্রহশালা | সুমন শুভান",
+    description:
+      "সুমন শুভানের জীবনের বিভিন্ন মুহূর্ত, ভ্রমণ ও স্মৃতির আলোকচিত্র সংগ্রহশালা।",
+    images: ["/og-image.jpg"],
+  },
+};
+
 const Albums = async () => {
   const albums = await getAlbums();
+
+  if (!albums.length) {
+  return (
+    <section className="py-20 text-center">
+      <h1 className="text-3xl font-bold">আলোকচিত্র সংগ্রহশালা</h1>
+      <p className="mt-4 text-gray-600">
+        বর্তমানে কোনো অ্যালবাম নেই।
+      </p>
+    </section>
+  );
+}
 
   return (
     <section className="px-4 md:px-8 lg:px-12 xl:px-20 py-12">
@@ -22,6 +91,7 @@ const Albums = async () => {
           চালচিত্র।
         </p>
       </div>
+
 
       {/* Albums Grid */}
       <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">

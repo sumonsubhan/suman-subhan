@@ -3,6 +3,63 @@ import Image from "next/image";
 import { getTrendingBooks } from "../../../../services/getTrendingBooks";
 import Pagination from "@/components/pagination/Pagination";
 
+export const metadata = {
+  title: "ট্রেন্ডিং বই",
+
+  description:
+    "সুমন শুভানের সর্বাধিক জনপ্রিয় ও আলোচিত বইগুলোর সংগ্রহ। পাঠকদের পছন্দের ট্রেন্ডিং বাংলা বই, কবিতা, গল্প, উপন্যাস ও প্রবন্ধ আবিষ্কার করুন। Explore the most popular and trending books by Suman Subhan.",
+
+  keywords: [
+    // Bangla
+    "সুমন শুভান",
+    "ট্রেন্ডিং বই",
+    "জনপ্রিয় বই",
+    "বাংলা বই",
+    "বেস্ট সেলার",
+    "কবিতার বই",
+    "গল্পের বই",
+    "উপন্যাস",
+    "প্রবন্ধ",
+    "বাংলা সাহিত্য",
+
+    // English
+    "Suman Subhan",
+    "Trending Books",
+    "Popular Books",
+    "Best Selling Books",
+    "Bangla Books",
+    "Bengali Books",
+    "Poetry Books",
+    "Story Books",
+    "Novels",
+    "Essays",
+  ],
+
+  alternates: {
+    canonical: "/trending-books",
+  },
+
+  openGraph: {
+    title: "ট্রেন্ডিং বই | সুমন শুভান",
+    description: "সুমন শুভানের সর্বাধিক জনপ্রিয় ও আলোচিত বইগুলোর সংগ্রহ।",
+    url: "/trending-books",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "ট্রেন্ডিং বই | সুমন শুভান",
+      },
+    ],
+  },
+
+  twitter: {
+    title: "ট্রেন্ডিং বই | সুমন শুভান",
+    description: "সুমন শুভানের সর্বাধিক জনপ্রিয় ও আলোচিত বইগুলোর সংগ্রহ।",
+    images: ["/og-image.jpg"],
+  },
+};
+
 const TrendingBooks = async ({ searchParams }) => {
   const search = await searchParams;
 
@@ -13,17 +70,26 @@ const TrendingBooks = async ({ searchParams }) => {
     limit: 8,
   });
 
+  if (books.length === 0) {
+    return (
+      <section className="py-20 text-center">
+        <h1 className="text-3xl font-bold">ট্রেন্ডিং বই</h1>
+
+        <p className="mt-4 text-gray-600">
+          বর্তমানে কোনো ট্রেন্ডিং বই উপলব্ধ নেই।
+        </p>
+      </section>
+    );
+  }
   return (
-    <section className="mx-auto max-w-7xl px-4 py-10 md:px-6 lg:px-8">
+    <section className="mx-auto px-4 py-10 md:px-6 lg:px-8">
       {/* Header */}
       <div className="mb-10">
         <h1 className="text-3xl md:text-4xl font-bold text-bgprimary">
           ট্রেন্ডিং বই
         </h1>
 
-        <p className="mt-2 text-gray-500">
-          জনপ্রিয় ও সর্বাধিক আলোচিত বইসমূহ
-        </p>
+        <p className="mt-2 text-gray-500">জনপ্রিয় ও সর্বাধিক আলোচিত বইসমূহ</p>
       </div>
 
       {/* Books */}
@@ -62,9 +128,7 @@ const TrendingBooks = async ({ searchParams }) => {
                     })}
                   </span>
 
-                  <span className="text-gray-500">
-                    ✍️ সুমন সুবহান
-                  </span>
+                  <span className="text-gray-500">✍️ সুমন সুবহান</span>
                 </div>
 
                 <a
@@ -81,11 +145,11 @@ const TrendingBooks = async ({ searchParams }) => {
         ))}
       </div>
 
-        <Pagination
-            page={page}
-            totalPages={totalPages}
-            baseUrl={`trending-books`}
-        ></Pagination>
+      <Pagination
+        page={page}
+        totalPages={totalPages}
+        baseUrl={`trending-books`}
+      ></Pagination>
     </section>
   );
 };

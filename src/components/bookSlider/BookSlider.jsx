@@ -31,7 +31,7 @@ export default function BookSlider({ books }) {
           slidesPerView: 2,
         },
         1400: {
-          slidesPerView: 3,
+          slidesPerView: 4,
         },
         2000: {
           slidesPerView: 4,
@@ -59,7 +59,7 @@ export default function BookSlider({ books }) {
             {/* Content */}
             <div className="flex flex-1 flex-col p-4">
               {/* Category */}
-              <div className="mb-3 flex justify-between">
+              <div className="mb-4 flex justify-between">
                 <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-700">
                   {book.category}
                 </span>
@@ -70,18 +70,13 @@ export default function BookSlider({ books }) {
               </div>
 
               {/* Title */}
-              <h2 className="line-clamp-2 min-h-[52px] text-lg font-bold leading-6">
+              <h2 className="line-clamp-2 min-h-[52px] text-lg font-bold leading-6 border-b border-gray-200 my-4">
                 {book.title}
               </h2>
 
-              {/* Book */}
-              <p className="mt-2 line-clamp-1 text-sm text-gray-500">
-                {book.bookName}
-              </p>
-
               {/* Button */}
               <div
-                className="mt-5 rounded-lg bg-bgprimary py-2 text-center text-sm font-medium text-white transition hover:opacity-90"
+                className="rounded-lg bg-bgprimary py-2 text-center text-sm font-medium text-white transition hover:opacity-90"
               >
                 বইটি পড়ুন
               </div>

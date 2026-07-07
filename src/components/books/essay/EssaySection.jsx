@@ -17,7 +17,7 @@ const EssaySection = async () => {
       <div className="flex justify-between items-center mt-6 mb-4">
         <div className="flex gap-2 items-center">
           <IoBookSharp className="text-3xl" />
-          <h1 className="text-xl sm:text-2xl font-bold">প্রবন্ধ</h1>
+          <h1 className="text-xl sm:text-2xl font-bold">নিবন্ধ</h1>
         </div>
         <Link className="flex items-center gap-2" href={`/books/category/${categorySlug}`}>
           আরো দেখুন

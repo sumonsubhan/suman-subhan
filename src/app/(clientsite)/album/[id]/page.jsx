@@ -3,6 +3,10 @@ import { FaCameraRetro } from "react-icons/fa";
 import { getPhotos } from "../../../../../services/getPhotos";
 import Pagination from "@/components/pagination/Pagination";
 
+export const metadata = {
+  title: "কালের ক্যানভাস",
+}
+
 export default async function Photos({ params, searchParams }) {
   const { id } = await params;
   const search = await searchParams;

@@ -19,11 +19,11 @@ const Articles = async ({ params, searchParams }) => {
     return (
       <section className="py-24 text-center">
         <h1 className="text-3xl font-bold">
-          No articles found in this category
+          কোনো লেখা পাওয়া যায়নি
         </h1>
 
         <p className="mt-4 text-gray-500">
-          The requested articles do not exist.
+          এই বিভাগে বর্তমানে কোনো লেখা প্রকাশিত হয়নি।
         </p>
       </section>
     );

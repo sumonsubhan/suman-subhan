@@ -1,104 +1,97 @@
 import Image from "next/image";
-import { getBooks } from "../../../../../services/getBooks";
 import { incrementBookView } from "@/actions/incrementBookView";
+import { getContent } from "../../../../../services/getContent";
+import Pagination from "@/components/pagination/Pagination";
+import { CiPen } from "react-icons/ci";
+import Link from "next/link";
 
-export default async function BookDetails({ params }) {
+export default async function BookDetails({ params, searchParams }) {
+  const search = await searchParams;
+  const page = Number(search.page) || 1;
   const { id } = await params;
   await incrementBookView(id);
-  const book = await getBooks({ id });
+  const { contents, total, totalPages } = await getContent({
+    bookId: id,
+    page,
+    limit: 10,
+  });
 
-  if (!book) {
-    return (
-      <section className="py-24 text-center">
-        <h1 className="text-3xl font-bold">Book not found</h1>
-
-        <p className="mt-4 text-gray-500">The requested book does not exist.</p>
-      </section>
-    );
-  }
+  const book = contents[0]?.book;
 
   return (
-    <section className="py-10 lg:py-16">
-      <div className="mx-auto max-w-6xl px-4">
-        {/* Book Info */}
-        <div className="grid gap-10 lg:grid-cols-[280px_1fr]">
-          {/* Cover */}
-          <div className="flex justify-center">
-            <div className="relative aspect-[3/4] w-64 overflow-hidden rounded-2xl shadow-xl">
-              <Image
-                src={book.coverImage}
-                alt={book.title}
-                fill
-                sizes="256px"
-                className="object-cover"
-                priority
-              />
-            </div>
-          </div>
+    <section className="px-4 py-12 md:px-8 lg:px-12">
+      {/* Header */}
+      <div className="mb-10">
+        <h1 className="text-3xl font-bold md:text-4xl">
+          {book?.title ?? "Book"}
+        </h1>
 
-          {/* Details */}
-          <div className="flex flex-col justify-center">
-            <span className="mb-4 w-fit rounded-full bg-bgprimary/10 px-4 py-2 text-sm font-medium text-bgprimary">
-              {book.category}
-            </span>
-
-            <h1 className="text-4xl font-bold leading-tight md:text-5xl">
-              {book.title}
-            </h1>
-
-            <div className="flex gap-6 items-center mt-3">
-              <p className="text-lg text-gray-500">✍️ সুমন সুবাহান</p>
-              <p>Views: {book.views}</p>
-            </div>
-
-            <p className="mt-6 text-lg leading-8 text-gray-700">
-              {book.shortNote}
-            </p>
-
-            <div className="mt-8 border-t pt-5 text-sm text-gray-500">
-              প্রকাশিত:{" "}
-              {new Date(book.createdAt).toLocaleDateString("bn-BD", {
-                day: "numeric",
-                month: "long",
-                year: "numeric",
-              })}
-            </div>
-          </div>
-        </div>
-
-        {/* Reading Area */}
-        <article className="mx-auto mt-16 max-w-4xl rounded-3xl border border-[#e7dfcf] bg-[#f8f6f1] px-6 py-10 shadow-sm md:px-10 lg:px-16 lg:py-14">
-          <div
-             className="
-      book-content
-      prose
-      prose-lg
-      max-w-none
-
-      text-[18px]
-      leading-[2.25]
-      text-justify
-
-      prose-headings:mb-8
-      prose-headings:font-bold
-
-      prose-p:mb-7
-      prose-p:text-gray-800
-
-      prose-img:mx-auto
-      prose-img:rounded-xl
-      prose-img:shadow-lg
-
-      prose-blockquote:border-l-4
-      prose-blockquote:border-bgprimary
-      prose-blockquote:pl-6
-    "
-    dangerouslySetInnerHTML={{
-      __html: book.content,
-    }}
-          />
-        </article>
+        <p className="mt-2 text-gray-600">মোট অধ্যায়: {total}</p>
       </div>
+
+      {/* Empty State */}
+      {contents.length === 0 ? (
+        <div className="rounded-2xl border border-dashed border-gray-300 bg-gray-50 py-24 text-center">
+          <h2 className="text-2xl font-semibold">কোনো অধ্যায় পাওয়া যায়নি</h2>
+
+          <p className="mt-3 text-gray-500">
+            এই বিভাগে এখনো কোনো অধ্যায় যোগ করা হয়নি।
+          </p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {contents.map((content) => (
+            <Link
+              key={content._id}
+              href={`/books/content/${content._id}`}
+              className="group h-full"
+            >
+              <article className="flex h-full flex-col overflow-hidden rounded-2xl p-4 border border-gray-200 bg-gray-100 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                {/* Cover */}
+                <div className="relative aspect-[3/4] overflow-hidden rounded-xl">
+                  <Image
+                    src={content.coverImage}
+                    alt={content.title}
+                    fill
+                    sizes="
+                      (max-width:768px) 50vw,
+                      (max-width:1024px) 33vw,
+                      (max-width:1280px) 25vw,
+                      20vw
+                    "
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                </div>
+
+                {/* Content */}
+                <div className="flex flex-1 flex-col mt-3">
+                  {/* Title */}
+                  <h2 className="text-lg font-bold leading-7 line-clamp-2">
+                    {content.title}
+                  </h2>
+
+                  {/* Short Note */}
+                  <p className="mt-3 text-sm leading-6 text-gray-600 line-clamp-2">
+                    {content.shortNote}
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-2 my-2">
+                  <p className="text-yellow-800">
+                    <CiPen />
+                  </p>
+                  <p className="text-gray-500">সুমন সুবাহান</p>
+                </div>
+              </article>
+            </Link>
+          ))}
+        </div>
+      )}
+      <Pagination
+        page={page}
+        totalPages={totalPages}
+        baseUrl={`/books/${id}`}
+      />
     </section>
   );
 }

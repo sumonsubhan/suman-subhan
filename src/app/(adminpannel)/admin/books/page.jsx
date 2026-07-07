@@ -1,12 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
 import { getBooks } from "../../../../../services/getBooks";
+import DeleteBook from "@/components/admin/DeleteBook";
 
-const Books = async ({searchParams}) => {
-  
+const Books = async ({ searchParams }) => {
   const search = await searchParams;
   const page = Number(search.page) || 1;
-  const {books} = await getBooks({page, limit:10});
+  const { books } = await getBooks({ page, limit: 10 });
 
   return (
     <div>
@@ -14,7 +14,7 @@ const Books = async ({searchParams}) => {
       <div className="flex justify-between items-center border-b-2 border-gray-400 pb-2">
         <h1 className="text-2xl font-bold">Books</h1>
 
-        <Link href="/books/add-book" className="btn btn-primary">
+        <Link href="/admin/books/add-book" className="btn btn-primary">
           Add Book
         </Link>
       </div>
@@ -28,6 +28,7 @@ const Books = async ({searchParams}) => {
               <th>Cover</th>
               <th>Title</th>
               <th>Total Content</th>
+              <th>Category</th>
               <th>Creation Date</th>
               <th>Action</th>
             </tr>
@@ -42,7 +43,7 @@ const Books = async ({searchParams}) => {
               </tr>
             ) : (
               books.map((book, index) => (
-                <tr key={album._id}>
+                <tr key={book._id}>
                   <td>{index + 1}</td>
 
                   <td>
@@ -58,7 +59,9 @@ const Books = async ({searchParams}) => {
                   <td className="font-medium">{book.title}</td>
 
                   <td>{book.totalContent}</td>
-                  
+
+                  <td>{book.category}</td>
+
                   <td>
                     {new Date(book.createdAt).toLocaleDateString("en-US", {
                       day: "numeric",
@@ -68,12 +71,18 @@ const Books = async ({searchParams}) => {
                   </td>
 
                   <td>
-                    <Link
-                      href={`/admin/books/${book._id}`}
-                      className="btn btn-sm btn-primary"
-                    >
-                      View Book
-                    </Link>
+                    <div className="flex gap-2">
+                      <DeleteBook
+                        id={book._id}
+                        imageId={book.coverImagePublicId}
+                      />
+                      <Link
+                        href={`/admin/books/${book._id}`}
+                        className="btn btn-sm btn-primary"
+                      >
+                        View Book
+                      </Link>
+                    </div>
                   </td>
                 </tr>
               ))

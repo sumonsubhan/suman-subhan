@@ -9,6 +9,65 @@ import { FaSchool } from "react-icons/fa";
 import { TiWorld } from "react-icons/ti";
 import aboutImage from "../../../../public/asset/banner-about.jpg";
 
+export const metadata = {
+  title: "আপন আকর",
+
+  description:
+    "সুমন সুবহানের জীবন, শিক্ষা, সামরিক জীবন, সাহিত্যচর্চা, প্রকাশিত গ্রন্থ এবং সৃজনশীল যাত্রা সম্পর্কে বিস্তারিত জানুন। Learn about Suman Subhan's biography, education, military career, literary works, and creative journey.",
+
+  keywords: [
+    // Bangla
+    "সুমন সুবহান",
+    "সুমন সুবহান পরিচিতি",
+    "সুমন সুবহান জীবনী",
+    "লেখক সুমন সুবহান",
+    "কবি সুমন সুবহান",
+    "বাংলা সাহিত্যিক",
+    "বাংলাদেশের লেখক",
+    "সামরিক কর্মকর্তা",
+    "নিরাপত্তা বিশ্লেষক",
+    "প্রকাশিত গ্রন্থ",
+
+    // English
+    "Suman Subhan",
+    "Suman Subhan biography",
+    "About Suman Subhan",
+    "Bangladeshi author",
+    "Bengali writer",
+    "Poet",
+    "Novelist",
+    "Military officer",
+    "Security analyst",
+    "Bangla literature",
+  ],
+
+  alternates: {
+    canonical: "/about",
+  },
+
+  openGraph: {
+    title: "আমার সম্পর্কে | সুমন শুভান",
+    description:
+      "সুমন সুবহানের জীবন, সাহিত্য, সামরিক জীবন ও সৃজনশীল যাত্রা সম্পর্কে জানুন।",
+    url: "/about",
+    images: [
+      {
+        url: "/asset/banner-about.jpg",
+        width: 1200,
+        height: 630,
+        alt: "সুমন সুবহান",
+      },
+    ],
+  },
+
+  twitter: {
+    title: "আমার সম্পর্কে | সুমন শুভান",
+    description:
+      "সুমন সুবহানের জীবন, সাহিত্য, সামরিক জীবন ও সৃজনশীল যাত্রা সম্পর্কে জানুন।",
+    images: ["/asset/banner-about.jpg"],
+  },
+};
+
 const About = () => {
   return (
     <section className="my-8 px-4 md:px-6 lg:px-10 xl:px-30">
@@ -30,7 +89,7 @@ const About = () => {
       </div>
 
       {/* Main Content */}
-      <div className="flex flex-col lg:flex-row gap-10 my-12">
+      <article className="flex flex-col lg:flex-row gap-10 my-12">
         {/* Left Side */}
         <div className="w-full lg:max-w-md">
           <Image
@@ -38,6 +97,7 @@ const About = () => {
             alt="সুমন সুবহান"
             width={350}
             height={500}
+            priority
             className="w-full h-auto rounded-lg shadow-md object-cover"
           />
 
@@ -144,7 +204,7 @@ const About = () => {
             </div>
           </div>
         </div>
-      </div>
+      </article>
 
       {/* CTA */}
       <div className="flex justify-center mt-12">
