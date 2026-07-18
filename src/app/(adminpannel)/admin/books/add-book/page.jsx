@@ -3,10 +3,11 @@
 import { addBook } from "@/actions/addBooks";
 import { BOOK_CATEGORIES } from "@/lib/bookCategories";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 export default function AddBook() {
+  const [message, setMessage] = useState("");
   const {
     register,
     watch,
@@ -37,10 +38,11 @@ export default function AddBook() {
     formData.append("coverImage", data.cover[0]);
     formData.append("category", data.category);
     formData.append("categorySlug", data.categorySlug);
+    formData.append("purchaseURL", data.purchaseURL);
 
     const result = await addBook(formData);
 
-    alert(result.message);
+    setMessage(result.message);
 
     if (result.success) {
       reset();
@@ -115,12 +117,26 @@ export default function AddBook() {
             <p className="text-red-500 text-sm mt-1">Category is required.</p>
           )}
         </div>
+
         {/* Slug */}
         <input type="hidden" {...register("categorySlug")} />
+
+        {/* Purchase URL */}
+        <div>
+          <label className="font-medium">Purchase URL</label>
+
+          <input
+            {...register("purchaseURL")}
+            placeholder="eg: https://seller.rokomari.com/book/541457/akattor-purbapor"
+            className="input input-bordered w-full mt-2"
+          />
+        </div>
 
         <button disabled={isSubmitting} className="btn btn-primary">
           {isSubmitting ? "Saving..." : "Add Book"}
         </button>
+
+        <p className="text-green-500">{message}</p>
       </form>
     </div>
   );

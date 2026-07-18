@@ -9,24 +9,39 @@ export default async function BookDetails({ params, searchParams }) {
   const search = await searchParams;
   const page = Number(search.page) || 1;
   const { id } = await params;
+
   await incrementBookView(id);
+
   const { contents, total, totalPages } = await getContent({
     bookId: id,
     page,
-    limit: 10,
+    limit: 8,
   });
 
   const book = contents[0]?.book;
 
   return (
-    <section className="px-4 py-12 md:px-8 lg:px-12">
+    <section className="">
       {/* Header */}
-      <div className="mb-10">
+      <div className="my-10">
         <h1 className="text-3xl font-bold md:text-4xl">
           {book?.title ?? "Book"}
         </h1>
 
-        <p className="mt-2 text-gray-600">মোট অধ্যায়: {total}</p>
+        <div className="flex justify-between items-center mt-2 text-gray-600">
+          <p className="">মোট অধ্যায়: {total}</p>
+          <a
+            href={
+              book?.purchaseURL ||
+              "https://seller.rokomari.com/book/author/25823/sumon-subhan"
+            }
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-primary"
+          >
+            অর্ডার করুন
+          </a>
+        </div>
       </div>
 
       {/* Empty State */}

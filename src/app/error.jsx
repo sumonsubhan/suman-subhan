@@ -6,7 +6,7 @@ export default function Error() {
 
 
   return (
-    <section className="flex min-h-[70vh] items-center justify-center px-4 py-12">
+    <section className="flex min-h-[70vh] items-center justify-center px-4 py-12 bg-white">
       <div className="w-full max-w-2xl text-center">
         {/* Error Code */}
         <h1 className="text-7xl font-extrabold text-bgprimary md:text-8xl">

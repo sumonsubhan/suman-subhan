@@ -1,11 +1,11 @@
 import Image from "next/image";
 import { getContent } from "../../../../../../services/getContent";
+import CommentSection from "@/components/comments/CommentSection";
 
 
 export default async function BookDetails({ params }) {
   const { contentId } = await params;
   const content = await getContent({ id:contentId });
-  console.log(content);
 
   if (!content) {
     return (
@@ -96,6 +96,13 @@ export default async function BookDetails({ params }) {
           />
         </article>
       </div>
+      <CommentSection
+        contentId={contentId}
+        contentType={"book"}
+        contentTitle={content.title}
+        path={`/books/content/${contentId}`}
+
+      />
     </section>
   );
 }

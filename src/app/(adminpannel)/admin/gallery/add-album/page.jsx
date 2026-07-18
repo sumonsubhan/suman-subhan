@@ -1,9 +1,12 @@
 "use client";
 
 import { addAlbum } from "@/actions/addAlbum";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 export default function AddAlbum() {
+  const [message, setMessage] = useState("");
+
   const {
     register,
     handleSubmit,
@@ -20,7 +23,7 @@ export default function AddAlbum() {
 
     const result = await addAlbum(formData);
 
-    alert(result.message);
+    setMessage(result.message);
 
     if (result.success) {
       reset();
@@ -29,19 +32,12 @@ export default function AddAlbum() {
 
   return (
     <div className="max-w-2xl mx-auto">
-      <h1 className="text-3xl font-bold mb-8">
-        Add New Album
-      </h1>
+      <h1 className="text-3xl font-bold mb-8">Add New Album</h1>
 
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="space-y-6"
-      >
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         {/* Title */}
         <div>
-          <label className="block mb-2 text-lg font-medium">
-            Album Title
-          </label>
+          <label className="block mb-2 text-lg font-medium">Album Title</label>
 
           <input
             type="text"
@@ -57,17 +53,13 @@ export default function AddAlbum() {
           />
 
           {errors.title && (
-            <p className="text-red-500 mt-1 text-sm">
-              {errors.title.message}
-            </p>
+            <p className="text-red-500 mt-1 text-sm">{errors.title.message}</p>
           )}
         </div>
 
         {/* Cover */}
         <div>
-          <label className="block mb-2 text-lg font-medium">
-            Cover Photo
-          </label>
+          <label className="block mb-2 text-lg font-medium">Cover Photo</label>
 
           <input
             type="file"
@@ -79,17 +71,13 @@ export default function AddAlbum() {
           />
 
           {errors.cover && (
-            <p className="text-red-500 mt-1 text-sm">
-              {errors.cover.message}
-            </p>
+            <p className="text-red-500 mt-1 text-sm">{errors.cover.message}</p>
           )}
         </div>
 
         {/* Description */}
         <div>
-          <label className="block mb-2 text-lg font-medium">
-            Description
-          </label>
+          <label className="block mb-2 text-lg font-medium">Description</label>
 
           <textarea
             rows={5}
@@ -111,13 +99,11 @@ export default function AddAlbum() {
           )}
         </div>
 
-        <button
-          disabled={isSubmitting}
-          className="btn btn-primary"
-        >
+        <button disabled={isSubmitting} className="btn btn-primary">
           {isSubmitting ? "Saving..." : "Create Album"}
         </button>
       </form>
+      {message && <p className="text-green-600 font-medium">{message}</p>}
     </div>
   );
 }

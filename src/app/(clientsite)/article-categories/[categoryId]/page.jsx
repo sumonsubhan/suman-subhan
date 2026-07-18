@@ -82,6 +82,7 @@ const Articles = async ({ params, searchParams }) => {
                         year: "numeric",
                       })}
                     </span>
+                    <p>Views: {article.views}</p>
                   </div>
 
                   {/* Title */}

@@ -12,12 +12,12 @@ const Songs = async() => {
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-xl sm:text-2xl font-bold">
-          সুর
+          সুরসুধা
         </h1>
 
         <Link
           href="/songs"
-          className="flex items-center gap-2 text-sm sm:text-base"
+          className="flex items-center gap-2"
         >
           আরো দেখুন
           <FaArrowRightLong />

@@ -96,8 +96,11 @@ const TrendingBooks = async ({ searchParams }) => {
       {/* Books */}
       <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {books.map((book) => (
-          <article
+          <a
             key={book._id}
+            href={book?.purchaseURL || "https://seller.rokomari.com/book/author/25823/sumon-subhan"}
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex h-full flex-col rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
           >
             {/* Cover */}
@@ -132,17 +135,12 @@ const TrendingBooks = async ({ searchParams }) => {
                   <span className="text-gray-500">✍️ সুমন সুবহান</span>
                 </div>
 
-                <a
-                  href={book.purchaseURL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block rounded-lg bg-bgprimary py-2.5 text-center text-sm font-medium text-white transition hover:opacity-90"
-                >
+                <div className="block rounded-lg bg-bgprimary py-2.5 text-center text-sm font-medium text-white transition hover:opacity-90">
                   অর্ডার করুন
-                </a>
+                </div>
               </div>
             </div>
-          </article>
+          </a>
         ))}
       </div>
 

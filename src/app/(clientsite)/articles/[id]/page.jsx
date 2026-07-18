@@ -1,5 +1,7 @@
 import Image from "next/image";
 import { getArticles } from "../../../../../services/getArticle";
+import { incrementArticleView } from "@/actions/incrementArticleView";
+import CommentSection from "@/components/comments/CommentSection";
 
 export default async function ArticleDetails({ params }) {
   const { id } = await params;
@@ -17,6 +19,8 @@ export default async function ArticleDetails({ params }) {
       </section>
     );
   }
+
+  await incrementArticleView(id);
 
   return (
     <section className="py-10 lg:py-16">
@@ -59,6 +63,7 @@ export default async function ArticleDetails({ params }) {
                   year: "numeric",
                 })}
               </span>
+              <span>Views: {article.views}</span>
             </div>
           </div>
         </div>
@@ -96,6 +101,13 @@ export default async function ArticleDetails({ params }) {
           />
         </article>
       </div>
+
+      <CommentSection
+        contentId={article._id}
+        contentType="article"
+        contentTitle={article.title}
+        path={`/articles/${article._id}`}
+      />
     </section>
   );
 }

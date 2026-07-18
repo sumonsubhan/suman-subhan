@@ -2,6 +2,7 @@ import Banner from "@/components/home/banner/Banner";
 import Events from "@/components/home/events/Events";
 import NewBooks from "@/components/home/newBooks/NewBooks";
 import TrendingBooks from "@/components/home/trendingBooks/TrendingBooks";
+import Blogs from "@/components/home/videos/Blogs";
 import Poems from "@/components/home/videos/Poems";
 import Songs from "@/components/home/videos/Songs";
 
@@ -63,6 +64,7 @@ export default function Home() {
       <TrendingBooks />
       <Songs />
       <Poems />
+      <Blogs/>
       <Events />
     </div>
   );

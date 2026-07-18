@@ -39,6 +39,7 @@ export async function getArticles({
             shortNote: 1,
             content: 1,
             coverImage: 1,
+            views: 1,
             createdAt: 1,
             updatedAt: 1,
 
@@ -117,6 +118,7 @@ export async function getArticles({
       shortNote: 1,
       content: 1,
       coverImage: 1,
+      views: 1,
       createdAt: 1,
       updatedAt: 1,
 

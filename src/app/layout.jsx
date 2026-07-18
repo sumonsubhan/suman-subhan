@@ -99,7 +99,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="bn-BD" data-theme="light">
-      <body>{children}</body>
+      <body className="bg-pattern">{children}</body>
     </html>
   );
 }

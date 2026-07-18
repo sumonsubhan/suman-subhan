@@ -10,7 +10,7 @@ export async function getTrendingBooks({
 
   // Fetch single book
   if (id) {
-    const book = await db.collection("trendingBooks").findOne({
+    const book = await db.collection("books").findOne({
       _id: new ObjectId(id),
     });
 
@@ -26,13 +26,13 @@ export async function getTrendingBooks({
   const skip = (Number(page) - 1) * Number(limit);
 
   // Total books
-  const total = await db.collection("trendingBooks").countDocuments();
+  const total = await db.collection("books").countDocuments();
 
   // Fetch books
   const books = await db
-    .collection("trendingBooks")
+    .collection("books")
     .find()
-    .sort({ createdAt: -1 })
+    .sort({ views: -1 })
     .skip(skip)
     .limit(Number(limit))
     .toArray();

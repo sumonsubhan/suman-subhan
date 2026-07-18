@@ -9,7 +9,6 @@ import { addContent } from "@/actions/addContent";
 export default function AddContent() {
   const params = useParams();
   const id = params.id;
-  console.log(id);
 
   const [message, setMessage] = useState("");
 
@@ -29,8 +28,6 @@ export default function AddContent() {
     formData.append("coverImage", data.coverImage[0]);
     formData.append("shortNote", data.shortNote);
     formData.append("content", data.content);
-
-    console.log(formData);
 
     const result = await addContent(formData);
 

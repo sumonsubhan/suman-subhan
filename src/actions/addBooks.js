@@ -13,6 +13,7 @@ export async function addBook(formData) {
     const category = formData.get("category");
     const categorySlug = formData.get("categorySlug");
     const coverImage = formData.get("coverImage");
+    const purchaseURL = formData.get("purchaseURL")?.trim() || "";
 
     // Validation
     if (!title || !category || !categorySlug || !coverImage) {
@@ -47,6 +48,7 @@ export async function addBook(formData) {
       title,
       category,
       categorySlug,
+      purchaseURL,
       coverImage: uploadedImage.secure_url,
       coverImagePublicId: uploadedImage.public_id,
       views:0,

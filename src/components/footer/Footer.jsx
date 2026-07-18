@@ -11,7 +11,7 @@ import { BiLogoGmail } from "react-icons/bi";
 
 const Footer = () => {
   return (
-    <div className="bg-bgprimary text-white p-10 rounded flex flex-col lg:flex-row justify-between">
+    <div className="bg-[url('/asset/footer.svg')] text-white p-10 rounded flex flex-col lg:flex-row justify-between">
       {/* Left Side */}
       <section className="flex flex-col gap-2">
         <div>
@@ -40,7 +40,7 @@ const Footer = () => {
         </div>
 
         <div className="text-center">
-            © {new Date().getFullYear()} সর্বস্বত্ব সংরক্ষিত | বাংলা সাহিত্য ও সংস্কৃতি
+            © {new Date().getFullYear()} সর্বস্বত্ব সংরক্ষিত | সুমন সুবহান
         </div>
       </section>
     </div>

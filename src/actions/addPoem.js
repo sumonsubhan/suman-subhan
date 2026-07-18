@@ -12,13 +12,14 @@ export async function addPoem(formData) {
     const title = formData.get("title");
     const bookTitle = formData.get("bookTitle");
     const videoURL = formData.get("videoURL");
+    const purchaseURL = formData.get("purchaseURL")?.trim() || "";
     const description = formData.get("description");
     const image = formData.get("cover");
 
     if (!title || !bookTitle || !videoURL || !description || !image) {
       return {
         success: false,
-        message: "All fields are required.",
+        message: "All fields are required except purchase url.",
       };
     }
 
@@ -47,6 +48,7 @@ export async function addPoem(formData) {
       coverImage: uploadResult.secure_url,
       publicId: uploadResult.public_id,
       videoURL,
+      purchaseURL,
       description,
       createdAt: new Date(),
     });

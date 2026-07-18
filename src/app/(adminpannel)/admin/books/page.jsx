@@ -2,17 +2,18 @@ import Link from "next/link";
 import Image from "next/image";
 import { getBooks } from "../../../../../services/getBooks";
 import DeleteBook from "@/components/admin/DeleteBook";
+import Pagination from "@/components/pagination/Pagination";
 
 const Books = async ({ searchParams }) => {
   const search = await searchParams;
   const page = Number(search.page) || 1;
-  const { books } = await getBooks({ page, limit: 10 });
+  const { books, total, totalPages } = await getBooks({ page, limit: 10 });
 
   return (
     <div>
       {/* Header */}
       <div className="flex justify-between items-center border-b-2 border-gray-400 pb-2">
-        <h1 className="text-2xl font-bold">Books</h1>
+        <h1 className="text-2xl font-bold">Total Books: {total ? total : 0}</h1>
 
         <Link href="/admin/books/add-book" className="btn btn-primary">
           Add Book
@@ -90,6 +91,11 @@ const Books = async ({ searchParams }) => {
           </tbody>
         </table>
       </div>
+      <Pagination
+        page={page}
+        totalPages={totalPages}
+        baseUrl={`/admin/books`}
+      />
     </div>
   );
 };

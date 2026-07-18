@@ -25,7 +25,6 @@ export default function AddArticle() {
   });
 
   const onSubmit = async (data) => {
-    console.log(data);
     const formData = new FormData();
 
     formData.append("categoryId", id);

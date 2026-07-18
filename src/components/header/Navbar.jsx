@@ -19,7 +19,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="p-4">
+    <nav className="bg-[url('/asset/navbar.svg')] p-1 lg:p-3 sticky top-0 z-50 text-white rounded">
       {/* Mobile Nav*/}
       <div className="flex items-center justify-between md:hidden">
         <Logo></Logo>
@@ -30,7 +30,7 @@ const Navbar = () => {
           </button>
 
           <ul
-            className={`menu dropdown-content bg-gray-200 rounded-box z-10 w-56 p-2 shadow ${
+            className={`menu dropdown-content text-bgprimary bg-gray-200 rounded-box z-10 w-56 p-2 shadow ${
               isOpen ? "block" : "hidden"
             }`}
           >

@@ -16,14 +16,12 @@ export default function AddTrendingBook() {
   } = useForm();
 
   const onSubmit = async (data) => {
-    console.log(data);
     const formData = new FormData();
 
     formData.append("title", data.title);
     formData.append("purchaseURL", data.purchaseURL);
     formData.append("coverImage", data.cover[0]);
 
-    console.log(formData);
     const result = await addTrendingBook(formData);
 
     setMessage(result.message);

@@ -1,12 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getPoems } from "../../../../../services/getPoems";
+import getEmbedUrl from "@/lib/embededURL";
+import CommentSection from "@/components/comments/CommentSection";
 
 export default async function VideoPlayerPage({ params }) {
   const { id } = await params;
 
   // Current poem
-  const currentPoem = await getPoems({id});
+  const currentPoem = await getPoems({ id });
 
   if (!currentPoem) {
     return (
@@ -17,7 +19,7 @@ export default async function VideoPlayerPage({ params }) {
   }
 
   // All poems
-  const {poems} = await getPoems({limit:6});
+  const { poems } = await getPoems({ limit: 6 });
 
   // Related poems
   const relatedPoems = poems
@@ -25,9 +27,7 @@ export default async function VideoPlayerPage({ params }) {
     .slice(0, 5);
 
   // Convert YouTube watch URL to embed URL
-  const embedUrl = currentPoem.videoURL.includes("watch?v=")
-    ? currentPoem.videoURL.replace("watch?v=", "embed/")
-    : currentPoem.videoURL;
+  const embedUrl = getEmbedUrl(currentPoem.videoURL);
 
   return (
     <section className="py-10">
@@ -46,7 +46,7 @@ export default async function VideoPlayerPage({ params }) {
           </div>
 
           {/* Title */}
-          <h1 className="mt-6 text-3xl md:text-4xl font-bold leading-tight">
+          <h1 className="mt-6 block text-3xl md:text-4xl font-bold leading-tight hover:text-bgprimary transition-colors">
             {currentPoem.title}
           </h1>
 
@@ -59,9 +59,17 @@ export default async function VideoPlayerPage({ params }) {
                 year: "numeric",
               })}
             </p>
-            <p className="">
+            <a
+              href={
+                currentPoem.purchaseURL ||
+                "https://seller.rokomari.com/book/author/25823/sumon-subhan"
+              }
+              target="_blank"
+              rel="noopener noreferrer"
+              className=""
+            >
               বইঃ {currentPoem.bookTitle}
-            </p>
+            </a>
           </div>
 
           {/* Description */}
@@ -92,7 +100,7 @@ export default async function VideoPlayerPage({ params }) {
                     />
                   </div>
 
-                  <div className="flex-1">
+                  <div className="flex-1 min-w-0">
                     <h3 className="font-semibold line-clamp-2 group-hover:text-bgprimary transition-colors">
                       {poem.title}
                     </h3>
@@ -101,17 +109,15 @@ export default async function VideoPlayerPage({ params }) {
                       {poem.description}
                     </p>
 
-                    <div className="flex justify-between">
-                      <p className="mt-2 text-xs text-bgprimary">
+                    <div className="flex justify-between mt-2 text-xs text-bgprimary">
+                      <p>
                         {new Date(poem.createdAt).toLocaleDateString("bn-BD", {
                           day: "numeric",
                           month: "short",
                           year: "numeric",
                         })}
                       </p>
-                      <p className="mt-2 text-xs text-bgprimary">
-                        বইঃ {poem.bookTitle}
-                      </p>
+                      <p>বইঃ {poem.bookTitle}</p>
                     </div>
                   </div>
                 </Link>
@@ -120,6 +126,13 @@ export default async function VideoPlayerPage({ params }) {
           </div>
         </aside>
       </div>
+
+      <CommentSection
+        contentId={currentPoem._id}
+        contentType="poem"
+        contentTitle={currentPoem.title}
+        path={`/poems/${currentPoem._id}`}
+      />
     </section>
   );
 }

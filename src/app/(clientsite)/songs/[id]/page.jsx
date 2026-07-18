@@ -1,24 +1,24 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getSongs } from "../../../../../services/getSongs";
+import getEmbedUrl from "@/lib/embededURL";
+import CommentSection from "@/components/comments/CommentSection";
 
 export default async function VideoPlayerPage({ params }) {
   const { id } = await params;
   // Current song
-  const currentSong = await getSongs({id});
+  const currentSong = await getSongs({ id });
 
   if (!currentSong) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <h1 className="text-3xl font-bold">
-          Song Not Found
-        </h1>
+        <h1 className="text-3xl font-bold">Song Not Found</h1>
       </div>
     );
   }
 
   // Recernt songs
-  const {songs} = await getSongs({limit:6});
+  const { songs } = await getSongs({ limit: 6 });
 
   // Related songs
   const relatedSongs = songs
@@ -26,10 +26,7 @@ export default async function VideoPlayerPage({ params }) {
     .slice(0, 5);
 
   // Convert YouTube watch URL to embed URL
-  const embedUrl = currentSong.videoURL.includes("watch?v=")
-    ? currentSong.videoURL.replace("watch?v=", "embed/")
-    : currentSong.videoURL;
-
+  const embedUrl = getEmbedUrl(currentSong.videoURL);
   return (
     <section className="py-10">
       <div className="grid grid-cols-1 xl:grid-cols-12 gap-10">
@@ -69,9 +66,7 @@ export default async function VideoPlayerPage({ params }) {
         {/* Sidebar */}
         <aside className="xl:col-span-4">
           <div className="sticky top-24">
-            <h2 className="text-2xl font-bold mb-6">
-              আরও গান
-            </h2>
+            <h2 className="text-2xl font-bold mb-6">আরও গান</h2>
 
             <div className="space-y-5">
               {relatedSongs.map((song) => (
@@ -113,6 +108,13 @@ export default async function VideoPlayerPage({ params }) {
           </div>
         </aside>
       </div>
+
+      <CommentSection
+        contentId={currentSong._id}
+        contentType="song"
+        contentTitle={currentSong.title}
+        path={`/songs/${currentSong._id}`}
+      />
     </section>
   );
 }

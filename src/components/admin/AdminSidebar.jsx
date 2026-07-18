@@ -38,6 +38,14 @@ const menuItems = [
     name: "Events",
     href: "/admin/events",
   },
+  {
+    name: "Blogs",
+    href: "/admin/blogs",
+  },
+  {
+    name: "Comments",
+    href: "/admin/comments",
+  },
 ];
 
 export default function AdminSidebar() {

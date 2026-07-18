@@ -12,12 +12,12 @@ const {poems} = await getPoems({limit:4})
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-xl sm:text-2xl font-bold">
-         শ্রুতি
+         শব্দসুধা
         </h1>
 
         <Link
           href="/poems"
-          className="flex items-center gap-2 text-sm sm:text-base"
+          className="flex items-center gap-2"
         >
           আরো দেখুন
           <FaArrowRightLong />

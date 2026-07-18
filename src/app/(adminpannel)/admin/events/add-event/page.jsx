@@ -16,13 +16,11 @@ export default function AddEvents() {
   } = useForm();
 
   const onSubmit = async (data) => {
-    console.log(data);
     const formData = new FormData();
 
     formData.append("title", data.title);
     formData.append("coverImage", data.cover[0]);
 
-    console.log(formData);
     const result = await addEvent(formData);
 
     setMessage(result.message);

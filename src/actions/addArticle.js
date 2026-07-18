@@ -53,6 +53,7 @@ export async function addArticle(formData) {
       content,
       coverImage: uploadedImage.secure_url,
       coverImagePublicId: uploadedImage.public_id,
+      views:0,
       createdAt: new Date(),
       updatedAt: new Date(),
     });

@@ -2,6 +2,7 @@ import Image from "next/image";
 import { FaCameraRetro } from "react-icons/fa";
 import { getPhotos } from "../../../../../services/getPhotos";
 import Pagination from "@/components/pagination/Pagination";
+import CommentSection from "@/components/comments/CommentSection";
 
 export const metadata = {
   title: "কালের ক্যানভাস",
@@ -116,6 +117,13 @@ export default async function Photos({ params, searchParams }) {
         page={page}
         totalPages={totalPages}
         baseUrl={`/album/${id}`}
+      />
+
+      <CommentSection
+        contentId={album._id}
+        contentType="album"
+        contentTitle={album.title}
+        path={`/album/${album._id}`}
       />
     </section>
   );

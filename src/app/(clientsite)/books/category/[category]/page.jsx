@@ -19,7 +19,7 @@ export default async function CategoryBooks({ params, searchParams }) {
 
   const categoryName = books[0]?.category ?? "Books";
   return (
-    <section className="px-4 py-12 md:px-8 lg:px-12">
+    <section className="py-12">
       {/* Header */}
       <div className="mb-10">
         <h1 className="text-3xl font-bold md:text-4xl">{categoryName}</h1>
@@ -42,46 +42,57 @@ export default async function CategoryBooks({ params, searchParams }) {
             <Link
               key={book._id}
               href={`/books/${book._id}`}
-              className="group h-full"
+              className="flex h-full w-full flex-col rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
             >
-              <article className="flex h-full flex-col overflow-hidden rounded-2xl p-4 border border-gray-200 bg-gray-100 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
-                {/* Cover */}
-                <div className="bg-gray-50 py-2">
-                  <div className="relative mx-auto aspect-[3/4] w-50">
-                    <Image
-                      src={book.coverImage}
-                      alt={book.title}
-                      fill
-                      sizes="160px"
-                      className="rounded-lg object-cover shadow-md"
-                    />
+              {/* Cover */}
+              <div className="flex justify-center bg-gray-50 p-4">
+                <div className="relative aspect-[3/4] w-[200px]">
+                  <Image
+                    src={book.coverImage}
+                    alt={book.title}
+                    fill
+                    sizes="140px"
+                    className="rounded-lg object-cover shadow-md transition duration-300 group-hover:scale-105"
+                  />
+                </div>
+              </div>
+
+              {/* Content */}
+              <div className="flex flex-1 flex-col p-4">
+                {/* Title */}
+                <h2 className="h-14 overflow-hidden text-lg font-bold leading-7 line-clamp-2">
+                  {book.title}
+                </h2>
+
+                {/* Category & views*/}
+                <div className="flex justify-between mb-2">
+                  <p className="rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-700">
+                    {book.category}
+                  </p>
+                  <div className="bg-blue-100 px-3 py-1 text-xs font-medium text-blue-700 rounded-full">
+                    <p>Views: {book.views}</p>
                   </div>
                 </div>
 
-                {/* Content */}
-                <div className="flex flex-1 flex-col p-4">
-                  {/* Category */}
-                  <div className="mb-3 flex justify-between">
-                    <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-700">
-                      {book.category}
+                {/* Footer */}
+                <div className="mt-auto border-t border-gray-100 pt-4">
+                  <div className="mb-4 flex items-center justify-between">
+                    <span className="text-gray-400">
+                      {new Date(book.createdAt).toLocaleDateString("bn-BD", {
+                        day: "numeric",
+                        month: "short",
+                        year: "numeric",
+                      })}
                     </span>
-                    <div className="flex items-center gap-4  bg-blue-100 px-3 py-1 text-xs font-medium text-blue-700 rounded-2xl">
-                      <IoEye />
-                      <p>{book.views}</p>
-                    </div>
+
+                    <span className="text-gray-500">✍️ সুমন সুবহান</span>
                   </div>
 
-                  {/* Title */}
-                  <h2 className="line-clamp-2 min-h-[52px] text-lg font-bold leading-6 my-2">
-                    {book.title}
-                  </h2>
-
-                  {/* Button */}
-                  <div className="rounded-lg bg-bgprimary py-2 text-center text-sm font-medium text-white transition hover:opacity-90">
+                  <p className="block rounded-lg bg-bgprimary py-2.5 text-center text-sm font-medium text-white transition hover:opacity-90">
                     বইটি পড়ুন
-                  </div>
+                  </p>
                 </div>
-              </article>
+              </div>
             </Link>
           ))}
         </div>

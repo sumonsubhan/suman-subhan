@@ -91,7 +91,7 @@ export async function getContent({
       },
       {
         $sort: {
-          createdAt: 1,
+          createdAt: -1,
         },
       },
       {
@@ -119,6 +119,7 @@ export async function getContent({
           "book.coverImage": 1,
           "book.totalContent": 1,
           "book.views": 1,
+          "book.purchaseURL": 1,
         },
       },
     ])

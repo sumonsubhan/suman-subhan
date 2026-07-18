@@ -1,6 +1,5 @@
 "use client";
 
-
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { addPoem } from "@/actions/addPoem";
@@ -22,6 +21,7 @@ export default function AddPoem() {
     formData.append("bookTitle", data.bookTitle);
     formData.append("cover", data.cover[0]);
     formData.append("videoURL", data.videoURL);
+    formData.append("purchaseURL", data.purchaseURL);
     formData.append("description", data.description);
 
     const result = await addPoem(formData);
@@ -35,20 +35,13 @@ export default function AddPoem() {
 
   return (
     <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow p-8">
-      <h1 className="text-3xl font-bold mb-8">
-        Add New Poem
-      </h1>
+      <h1 className="text-3xl font-bold mb-8">Add New Poem</h1>
 
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="space-y-6"
-      >
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         {/* Title */}
 
         <div>
-          <label className="block mb-2 font-medium">
-            Poem Title
-          </label>
+          <label className="block mb-2 font-medium">Poem Title</label>
 
           <input
             type="text"
@@ -60,41 +53,14 @@ export default function AddPoem() {
           />
 
           {errors.title && (
-            <p className="text-red-500 text-sm mt-1">
-              {errors.title.message}
-            </p>
-          )}
-        </div>
-
-        {/*Book Title */}
-
-        <div>
-          <label className="block mb-2 font-medium">
-            Book Title
-          </label>
-
-          <input
-            type="text"
-            className="input input-bordered w-full"
-            placeholder="Enter Book title"
-            {...register("bookTitle", {
-              required: "Book title is required",
-            })}
-          />
-
-          {errors.bookTitle && (
-            <p className="text-red-500 text-sm mt-1">
-              {errors.bookTitle.message}
-            </p>
+            <p className="text-red-500 text-sm mt-1">{errors.title.message}</p>
           )}
         </div>
 
         {/* Cover */}
 
         <div>
-          <label className="block mb-2 font-medium">
-            Cover Image
-          </label>
+          <label className="block mb-2 font-medium">Cover Image</label>
 
           <input
             type="file"
@@ -106,18 +72,14 @@ export default function AddPoem() {
           />
 
           {errors.cover && (
-            <p className="text-red-500 text-sm mt-1">
-              {errors.cover.message}
-            </p>
+            <p className="text-red-500 text-sm mt-1">{errors.cover.message}</p>
           )}
         </div>
 
         {/* Video URL */}
 
         <div>
-          <label className="block mb-2 font-medium">
-            YouTube Video URL
-          </label>
+          <label className="block mb-2 font-medium">YouTube Video URL</label>
 
           <input
             type="url"
@@ -135,12 +97,41 @@ export default function AddPoem() {
           )}
         </div>
 
+        {/*Book Title */}
+        <div>
+          <label className="block mb-2 font-medium">Book Title</label>
+
+          <input
+            type="text"
+            className="input input-bordered w-full"
+            placeholder="Enter Book title"
+            {...register("bookTitle", {
+              required: "Book title is required",
+            })}
+          />
+
+          {errors.bookTitle && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.bookTitle.message}
+            </p>
+          )}
+        </div>
+
+        {/* Purchase URL */}
+        <div>
+          <label className="font-medium">Book Purchase URL (optional) </label>
+
+          <input
+            {...register("purchaseURL")}
+            placeholder="eg: https://seller.rokomari.com/book/541457/akattor-purbapor"
+            className="input input-bordered w-full mt-2"
+          />
+        </div>
+
         {/* Description */}
 
         <div>
-          <label className="block mb-2 font-medium">
-            Description
-          </label>
+          <label className="block mb-2 font-medium">Description</label>
 
           <textarea
             rows={5}
@@ -158,18 +149,11 @@ export default function AddPoem() {
           )}
         </div>
 
-        <button
-          disabled={isSubmitting}
-          className="btn btn-primary"
-        >
+        <button disabled={isSubmitting} className="btn btn-primary">
           {isSubmitting ? "Uploading..." : "Add Poem"}
         </button>
 
-        {message && (
-          <p className="text-green-600 font-medium">
-            {message}
-          </p>
-        )}
+        {message && <p className="text-green-600 font-medium">{message}</p>}
       </form>
     </div>
   );
