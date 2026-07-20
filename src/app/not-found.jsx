@@ -3,7 +3,7 @@ import { FaArrowLeft, FaHouse } from "react-icons/fa6";
 
 export default function NotFound() {
   return (
-    <section className="flex min-h-[80vh] items-center justify-center px-4 py-12">
+    <section className="flex min-h-[80vh] items-center justify-center px-4 py-12 bg-white">
       <div className="max-w-2xl text-center">
         {/* 404 */}
         <h1 className="text-8xl font-extrabold tracking-tight text-bgprimary md:text-9xl">

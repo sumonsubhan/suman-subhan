@@ -3,6 +3,7 @@
 import cloudinary from "@/lib/cloudinary";
 import { getDb } from "@/lib/db";
 import { requireAdmin } from "@/lib/requireAdmin";
+import validateImage from "@/lib/validateImage";
 
 export async function addBlog(formData) {
   await requireAdmin();
@@ -13,11 +14,18 @@ export async function addBlog(formData) {
     const videoURL = formData.get("videoURL")?.trim();
     const image = formData.get("cover");
 
+    // Validation
     if (!title || !videoURL || !description || !image) {
       return {
         success: false,
         message: "All fields are required.",
       };
+    }
+
+    const validation = validateImage(image, 5 * 1024 * 1024);
+
+    if (!validation.success) {
+      return validation;
     }
 
     const bytes = await image.arrayBuffer();

@@ -1,23 +1,22 @@
-import ApproveButton from "@/components/comments/ApproveButton";
 import DeleteButton from "@/components/comments/DeleteButton";
 import { getComments } from "../../../../../../services/getCommentsAdmin";
 import Pagination from "@/components/pagination/Pagination";
 
-export default async function PendingComments({searchParams}) {
+export default async function ApprovedComments({searchParams}) {
   const search = await searchParams;
   const page = Number(search.page) || 1;
 
   const { comments, total, totalPages } = await getComments({
-    approved: false,
+    approved: true,
     page: page,
     limit: 20,
   });
 
   return (
     <div className="space-y-6">
-      <h1 className="text-3xl font-bold">Pending Comments ({total})</h1>
+      <h1 className="text-3xl font-bold">Approved Comments ({total})</h1>
 
-      {comments.length === 0 && <p>No pending comments.</p>}
+      {comments.length === 0 && <p>No approved comments.</p>}
 
       {comments.map((comment) => (
         <div key={comment._id} className="rounded-lg border-2 border-gray-200 p-5 bg-white">
@@ -39,8 +38,7 @@ export default async function PendingComments({searchParams}) {
               </p>
             </div>
 
-            <div className="flex gap-2">
-              <ApproveButton id={comment._id} />
+            <div className="">
               <DeleteButton id={comment._id} />
             </div>
           </div>
@@ -52,7 +50,7 @@ export default async function PendingComments({searchParams}) {
       <Pagination
         page={page}
         totalPages={totalPages}
-        baseUrl={"/admin/comments/pending-comments"}
+        baseUrl={"/admin/comments/approved-comments"}
       />
     </div>
   );

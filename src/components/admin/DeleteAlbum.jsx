@@ -1,16 +1,16 @@
 "use client";
 
-import { deleteBook } from "@/actions/deleteBook";
+import { deleteAlbum } from "@/actions/deleteAlbum";
 import { useRouter } from "next/navigation";
 import { MdDelete } from "react-icons/md";
 import Swal from "sweetalert2";
 
-export default function DeleteBook({ id }) {
+export default function DeleteAlbum({ id }) {
   const router = useRouter();
 
   const handleDelete = async () => {
     const result = await Swal.fire({
-      title: "Delete Book?",
+      title: "Delete Album?",
       text: "This action cannot be undone.",
       icon: "warning",
       showCancelButton: true,
@@ -21,7 +21,7 @@ export default function DeleteBook({ id }) {
 
     if (!result.isConfirmed) return;
 
-    const response = await deleteBook(id);
+    const response = await deleteAlbum(id);
 
     if (response.success) {
       await Swal.fire({

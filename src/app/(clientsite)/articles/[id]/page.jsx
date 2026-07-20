@@ -34,7 +34,7 @@ export default async function ArticleDetails({ params }) {
               alt={article.title}
               fill
               priority
-              sizes="100vw"
+              sizes="(max-width: 1024px) 100vw, 1024px"
               className="object-cover"
             />
           </div>
@@ -72,6 +72,7 @@ export default async function ArticleDetails({ params }) {
         <article className="mx-auto mt-16 max-w-4xl rounded-3xl border border-[#e7dfcf] bg-[#f8f6f1] px-6 py-10 shadow-sm md:px-10 lg:px-16 lg:py-14">
           <div
             className="
+      no-select
       book-content
       prose
       prose-lg

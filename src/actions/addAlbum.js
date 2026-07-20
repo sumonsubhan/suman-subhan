@@ -3,6 +3,7 @@
 import cloudinary from "@/lib/cloudinary";
 import { getDb } from "@/lib/db";
 import { requireAdmin } from "@/lib/requireAdmin";
+import validateImage from "@/lib/validateImage";
 
 export async function addAlbum(formData) {
   await requireAdmin();
@@ -19,12 +20,18 @@ export async function addAlbum(formData) {
       };
     }
 
+    const validation = validateImage(image, 5 * 1024 * 1024);
+
+    if (!validation.success) {
+      return validation;
+    }
+
     // Convert image to buffer
     const bytes = await image.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
     // Upload to Cloudinary
-    const imageUrl = await new Promise((resolve, reject) => {
+    const uploadedImage = await new Promise((resolve, reject) => {
       cloudinary.uploader
         .upload_stream(
           {
@@ -32,8 +39,8 @@ export async function addAlbum(formData) {
           },
           (error, result) => {
             if (error) return reject(error);
-            resolve(result.secure_url);
-          }
+            resolve(result);
+          },
         )
         .end(buffer);
     });
@@ -44,7 +51,8 @@ export async function addAlbum(formData) {
     const result = await db.collection("albums").insertOne({
       title,
       description,
-      coverImage: imageUrl,
+      coverImage: uploadedImage.secure_url,
+      coverImagePublicId: uploadedImage.public_id,
       totalImages: 0,
       createdAt: new Date(),
     });

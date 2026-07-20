@@ -94,14 +94,7 @@ export default async function CategoryArticles({ params, searchParams }) {
 
                   {/* Actions */}
                   <td>
-                    <div className="flex justify-center gap-2">
-                      <Link
-                        href={`/admin/articles/${id}/edit-article/${article._id}`}
-                        className="btn btn-sm btn-outline btn-info"
-                      >
-                        Edit
-                      </Link>
-
+                    <div className="flex justify-center">
                       <DeleteArticle id={article._id}></DeleteArticle>
                     </div>
                   </td>

@@ -77,14 +77,7 @@ export default async function Songs({ searchParams }) {
                   </td>
 
                   <td>
-                    <div className="flex justify-center gap-2 items-center">
-                      <Link
-                        href={`/admin/songs/edit/${song._id}`}
-                        className="btn btn-sm btn-outline btn-info"
-                      >
-                        Edit
-                      </Link>
-
+                    <div className="flex justify-center">
                       <DeleteSong id={song._id} />
                     </div>
                   </td>

@@ -27,6 +27,11 @@ export async function deleteContent(contentId) {
       await cloudinary.uploader.destroy(content.imagePublicId);
     }
 
+    // Delete all comments for this content
+    await db.collection("comments").deleteMany({
+      contentId: new ObjectId(contentId),
+    });
+
     // Delete content
     await db.collection("bookContents").deleteOne({
       _id: new ObjectId(contentId),
@@ -41,7 +46,7 @@ export async function deleteContent(contentId) {
         $inc: {
           totalContent: -1,
         },
-      }
+      },
     );
 
     return {

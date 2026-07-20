@@ -22,34 +22,25 @@ export async function deleteBook(bookId) {
       };
     }
 
-    // Get all contents of this book
-    const contents = await db
-      .collection("bookContents")
-      .find({
-        bookId: new ObjectId(bookId),
-      })
-      .toArray();
+    // Check if the book has any content
+    const hasContent = await db.collection("bookContents").findOne({
+      bookId: new ObjectId(bookId),
+    });
 
-    // Delete book cover from Cloudinary
+    if (hasContent) {
+      return {
+        success: false,
+        message:
+          "This book cannot be deleted because it contains content. Please delete all book contents first.",
+      };
+    }
+
+    // Delete cover image from Cloudinary
     if (book.coverImagePublicId) {
       await cloudinary.uploader.destroy(book.coverImagePublicId);
     }
 
-    // Delete all content images
-    await Promise.all(
-      contents.map(async (content) => {
-        if (content.imagePublicId) {
-          await cloudinary.uploader.destroy(content.imagePublicId);
-        }
-      })
-    );
-
-    // Delete all contents
-    await db.collection("bookContents").deleteMany({
-      bookId: new ObjectId(bookId),
-    });
-
-    // Delete book
+    // Delete the book
     await db.collection("books").deleteOne({
       _id: new ObjectId(bookId),
     });

@@ -1,9 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
 import { getAlbums } from "../../../../../services/getAlbum";
+import DeleteAlbum from "@/components/admin/DeleteAlbum";
+import Pagination from "@/components/pagination/Pagination";
 
-const Albums = async () => {
-  const albums = await getAlbums();
+const Albums = async ({ searchParams }) => {
+  const search = await searchParams;
+  const page = Number(search.page) || 1;
+  const { albums, total, totalPages } = await getAlbums({ page, limit: 10 });
 
   return (
     <div>
@@ -55,7 +59,7 @@ const Albums = async () => {
                   <td className="font-medium">{album.title}</td>
 
                   <td>{album.totalImages}</td>
-                  
+
                   <td>
                     {new Date(album.createdAt).toLocaleDateString("en-US", {
                       day: "numeric",
@@ -64,7 +68,8 @@ const Albums = async () => {
                     })}
                   </td>
 
-                  <td>
+                  <td className="flex gap-2 items-center">
+                    <DeleteAlbum id={album._id} />
                     <Link
                       href={`/admin/gallery/${album._id}`}
                       className="btn btn-sm btn-primary"
@@ -78,6 +83,12 @@ const Albums = async () => {
           </tbody>
         </table>
       </div>
+
+      <Pagination
+       totalPages={totalPages}
+       page={page}
+       baseUrl={`/admin/gallery`}
+      />
     </div>
   );
 };

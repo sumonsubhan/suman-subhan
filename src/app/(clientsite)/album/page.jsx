@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { getAlbums } from "../../../../services/getAlbum";
+import Pagination from "@/components/pagination/Pagination";
 
 export const metadata = {
   title: "কালের ক্যানভাস",
@@ -61,19 +62,19 @@ export const metadata = {
   },
 };
 
-const Albums = async () => {
-  const albums = await getAlbums();
+const Albums = async ({ searchParams }) => {
+  const search = await searchParams;
+  const page = Number(search.page) || 1;
+  const { albums, total, totalPages } = await getAlbums({ page, limit: 12 });
 
-  if (!albums.length) {
-  return (
-    <section className="py-20 text-center">
-      <h1 className="text-3xl font-bold">আলোকচিত্র সংগ্রহশালা</h1>
-      <p className="mt-4 text-gray-600">
-        বর্তমানে কোনো অ্যালবাম নেই।
-      </p>
-    </section>
-  );
-}
+  if (total === 0) {
+    return (
+      <section className="py-20 text-center">
+        <h1 className="text-3xl font-bold">আলোকচিত্র সংগ্রহশালা</h1>
+        <p className="mt-4 text-gray-600">বর্তমানে কোনো অ্যালবাম নেই।</p>
+      </section>
+    );
+  }
 
   return (
     <section className="py-10">
@@ -91,7 +92,6 @@ const Albums = async () => {
           চালচিত্র।
         </p>
       </div>
-
 
       {/* Albums Grid */}
       <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -135,6 +135,12 @@ const Albums = async () => {
           হয়ে ধরা দেয়।
         </q>
       </div>
+
+      <Pagination
+      totalPages={totalPages}
+      page={page}
+      baseUrl={"/album"}
+      />
     </section>
   );
 };

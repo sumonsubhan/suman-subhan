@@ -4,27 +4,22 @@ import Pagination from "@/components/pagination/Pagination";
 import { getEvents } from "../../../../../services/getEvents";
 import DeleteEvent from "@/components/admin/DeleteEvent";
 
-export default async function Events({searchParams}) {
+export default async function Events({ searchParams }) {
   const search = await searchParams;
   const page = Number(search.page) || 1;
 
-  const {events, totalPages, total} = await getEvents({
+  const { events, totalPages, total } = await getEvents({
     page,
-    limit: 10
+    limit: 10,
   });
 
   return (
     <div>
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
-        <h1 className="text-2xl font-bold">
-          Total Events: {total}
-        </h1>
+        <h1 className="text-2xl font-bold">Total Events: {total}</h1>
 
-        <Link
-          href="/admin/events/add-event"
-          className="btn btn-primary"
-        >
+        <Link href="/admin/events/add-event" className="btn btn-primary">
           Add Event
         </Link>
       </div>
@@ -32,9 +27,7 @@ export default async function Events({searchParams}) {
       {/* Empty State */}
       {events.length === 0 ? (
         <div className="bg-white rounded-xl shadow p-12 text-center">
-          <h2 className="text-xl font-semibold">
-            No event found
-          </h2>
+          <h2 className="text-xl font-semibold">No event found</h2>
 
           <p className="text-gray-500 mt-2">
             Start by adding your first event.
@@ -56,9 +49,7 @@ export default async function Events({searchParams}) {
             <tbody>
               {events.map((event, index) => (
                 <tr key={event._id}>
-                  <td>
-                    {index+1}
-                  </td>
+                  <td>{index + 1}</td>
                   {/* Cover */}
                   <td>
                     <Image
@@ -73,34 +64,22 @@ export default async function Events({searchParams}) {
                   {/* Title */}
                   <td>
                     <div>
-                      <h2 className="font-semibold">
-                        {event.title}
-                      </h2>
+                      <h2 className="font-semibold">{event.title}</h2>
                     </div>
                   </td>
 
                   {/* Created */}
                   <td>
-                    {new Date(event.createdAt).toLocaleDateString(
-                      "en-GB",
-                      {
-                        day: "2-digit",
-                        month: "short",
-                        year: "numeric",
-                      }
-                    )}
+                    {new Date(event.createdAt).toLocaleDateString("en-GB", {
+                      day: "2-digit",
+                      month: "short",
+                      year: "numeric",
+                    })}
                   </td>
 
                   {/* Action */}
                   <td>
-                    <div className="flex justify-center gap-2">
-                      <Link
-                        href={`/admin/events/edit/${event._id}`}
-                        className="btn btn-sm btn-info"
-                      >
-                        Edit
-                      </Link>
-
+                    <div className="flex justify-center">
                       <DeleteEvent
                         id={event._id}
                         imageId={event.coverImagePublicId}

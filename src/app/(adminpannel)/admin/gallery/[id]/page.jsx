@@ -99,14 +99,7 @@ export default async function Photos({ params, searchParams }) {
 
                   {/* Actions */}
                   <td>
-                    <div className="flex justify-center gap-2">
-                      <Link
-                        href={`/admin/gallery/${id}/edit-photo/${photo._id}`}
-                        className="btn btn-sm btn-outline btn-info"
-                      >
-                        Edit
-                      </Link>
-
+                    <div className="flex justify-center">
                       <DeleteButton photoId={photo._id} />
                     </div>
                   </td>

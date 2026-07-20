@@ -3,10 +3,10 @@
 import cloudinary from "@/lib/cloudinary";
 import { getDb } from "@/lib/db";
 import { requireAdmin } from "@/lib/requireAdmin";
+import validateImage from "@/lib/validateImage";
 import { ObjectId } from "mongodb";
 
 export async function addArticle(formData) {
-  
   await requireAdmin();
 
   try {
@@ -24,7 +24,13 @@ export async function addArticle(formData) {
       };
     }
 
-    
+    const validation = validateImage(coverImage, 5 * 1024 * 1024);
+
+    if (!validation.success) {
+      return validation;
+    }
+
+
     // Upload image to Cloudinary
 
     const bytes = await coverImage.arrayBuffer();
@@ -53,7 +59,7 @@ export async function addArticle(formData) {
       content,
       coverImage: uploadedImage.secure_url,
       coverImagePublicId: uploadedImage.public_id,
-      views:0,
+      views: 0,
       createdAt: new Date(),
       updatedAt: new Date(),
     });

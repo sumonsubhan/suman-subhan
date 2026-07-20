@@ -1,5 +1,6 @@
 import ArticleClient from "@/components/articles/ArticleClient";
 import { getArticleCategories } from "../../../../services/getArticleCategories";
+import Pagination from "@/components/pagination/Pagination";
 
 export const metadata = {
   title: "লেখালোক",
@@ -65,8 +66,14 @@ export const metadata = {
   },
 };
 
-export default async function ArticleCategory() {
-  const categories = await getArticleCategories();
+export default async function ArticleCategory({searchParams}) {
+  const search = await searchParams;
+  const page = Number(search.page) || 1;
+
+  const { categories, total, totalPages } = await getArticleCategories({
+    page,
+    limit: 12,
+  });
 
   if (!categories.length) {
     return (
@@ -91,6 +98,12 @@ export default async function ArticleCategory() {
       </div>
 
       <ArticleClient categories={categories} />
+
+      <Pagination 
+      page={page}
+      totalPages={totalPages}
+      baseUrl={"/article-categories"}
+      />
     </section>
   );
 }

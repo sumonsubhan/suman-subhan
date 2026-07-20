@@ -71,13 +71,24 @@ export default function AddArticle() {
           <input
             type="file"
             accept="image/*"
-            {...register("cover", {required: true})}
-            className="file-input file-input-bordered w-full mt-2"
+            className="file-input file-input-bordered w-full"
+            {...register("cover", {
+              required: "Cover image is required",
+              validate: {
+                fileSize: (files) =>
+                  files?.[0]?.size <= 5 * 1024 * 1024 ||
+                  "Image must be smaller than 5 MB",
+
+                fileType: (files) =>
+                  ["image/jpeg", "image/png", "image/webp"].includes(
+                    files?.[0]?.type,
+                  ) || "Only JPG, PNG and WEBP images are allowed",
+              },
+            })}
           />
+
           {errors.cover && (
-            <p className="text-red-500 text-sm mt-1">
-              Cover image is required.
-            </p>
+            <p className="text-red-500 mt-1 text-sm">{errors.cover.message}</p>
           )}
         </div>
 
@@ -88,14 +99,12 @@ export default function AddArticle() {
 
           <textarea
             rows={4}
-            {...register("shortNote", {required: true})}
+            {...register("shortNote", { required: true })}
             className="textarea textarea-bordered w-full mt-2"
             placeholder="Write a short introduction..."
           />
           {errors.shortNote && (
-            <p className="text-red-500 text-sm mt-1">
-              Short note is required.
-            </p>
+            <p className="text-red-500 text-sm mt-1">Short note is required.</p>
           )}
         </div>
 

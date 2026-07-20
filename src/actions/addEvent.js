@@ -3,11 +3,11 @@
 import cloudinary from "@/lib/cloudinary";
 import { getDb } from "@/lib/db";
 import { requireAdmin } from "@/lib/requireAdmin";
+import validateImage from "@/lib/validateImage";
 
 export async function addEvent(formData) {
-
   await requireAdmin();
-  
+
   try {
     const title = formData.get("title")?.trim();
     const coverImage = formData.get("coverImage");
@@ -18,6 +18,12 @@ export async function addEvent(formData) {
         success: false,
         message: "All fields are required.",
       };
+    }
+
+    const validation = validateImage(coverImage, 5 * 1024 * 1024);
+
+    if (!validation.success) {
+      return validation;
     }
 
     // Upload image to Cloudinary

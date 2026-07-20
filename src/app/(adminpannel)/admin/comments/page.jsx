@@ -5,12 +5,12 @@ import Link from "next/link";
 import Pagination from "@/components/pagination/Pagination";
 
 
-export default async function AllComments({searchParams}) {
+export default async function PendingComments({searchParams}) {
   const search = await searchParams;
   const page = Number(search.page) || 1;
 
   const { comments, total, totalPages } = await getComments({
-    approved: true,
+    approved: false,
     page: page,
     limit: 20,
   });
@@ -20,13 +20,13 @@ export default async function AllComments({searchParams}) {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold">
-        All Comments ({total})
+        Pending Comments ({total})
       </h1>
-      <Link href="/admin/comments/pending-comments" className="btn btn-primary">Pending Comments</Link>
+      <Link href="/admin/comments/approved-comments" className="btn btn-primary">Approved Comments</Link>
       </div>
 
       {comments.length === 0 && (
-        <p>No comments found.</p>
+        <p>No pending comments found.</p>
       )}
 
       {comments.map((comment) => (
@@ -58,6 +58,7 @@ export default async function AllComments({searchParams}) {
 
             <div className="flex gap-2">
               <DeleteButton id={comment._id} />
+              <ApproveButton id={comment._id}/>
             </div>
           </div>
 

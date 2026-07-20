@@ -67,12 +67,22 @@ export default function AddPoem() {
             accept="image/*"
             className="file-input file-input-bordered w-full"
             {...register("cover", {
-              required: "Please select a cover image",
+              required: "Cover image is required",
+              validate: {
+                fileSize: (files) =>
+                  files?.[0]?.size <= 5 * 1024 * 1024 ||
+                  "Image must be smaller than 5 MB",
+
+                fileType: (files) =>
+                  ["image/jpeg", "image/png", "image/webp"].includes(
+                    files?.[0]?.type,
+                  ) || "Only JPG, PNG and WEBP images are allowed",
+              },
             })}
           />
 
           {errors.cover && (
-            <p className="text-red-500 text-sm mt-1">{errors.cover.message}</p>
+            <p className="text-red-500 mt-1 text-sm">{errors.cover.message}</p>
           )}
         </div>
 

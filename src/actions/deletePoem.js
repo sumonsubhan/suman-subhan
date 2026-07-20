@@ -6,7 +6,6 @@ import cloudinary from "@/lib/cloudinary";
 import { requireAdmin } from "@/lib/requireAdmin";
 
 export async function deletePoem(id) {
-
   await requireAdmin();
 
   try {
@@ -14,20 +13,25 @@ export async function deletePoem(id) {
 
     // Find the poem
     const poem = await db.collection("poems").findOne({
-      _id: new ObjectId(id)
-    })
+      _id: new ObjectId(id),
+    });
 
-    if(!poem){
+    if (!poem) {
       return {
         success: false,
-        message: "Poem not found"
-      }
+        message: "Poem not found",
+      };
     }
 
     // Delete from Cloudinary
-    if(poem.publicId){
+    if (poem.publicId) {
       await cloudinary.uploader.destroy(poem.publicId);
     }
+
+    // Delete all comments for this content
+    await db.collection("comments").deleteMany({
+      contentId: new ObjectId(id),
+    });
 
     // Delete from mongodb
     const result = await db.collection("poems").deleteOne({

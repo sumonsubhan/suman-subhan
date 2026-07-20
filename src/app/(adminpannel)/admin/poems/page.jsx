@@ -90,14 +90,7 @@ export default async function Poems({searchParams}) {
                   </td>
 
                   <td>
-                    <div className="flex justify-center gap-2 items-center">
-                      <Link
-                        href={`/admin/poems/edit/${poem._id}`}
-                        className="btn btn-sm btn-outline btn-info"
-                      >
-                        Edit
-                      </Link>
-
+                    <div className="flex justify-center">
                       <DeletePoem id={poem._id} />
                     </div>
                   </td>

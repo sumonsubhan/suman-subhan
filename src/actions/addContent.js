@@ -3,6 +3,7 @@
 import cloudinary from "@/lib/cloudinary";
 import { getDb } from "@/lib/db";
 import { requireAdmin } from "@/lib/requireAdmin";
+import validateImage from "@/lib/validateImage";
 import { ObjectId } from "mongodb";
 
 export async function addContent(formData) {
@@ -15,19 +16,21 @@ export async function addContent(formData) {
     const shortNote = formData.get("shortNote")?.trim();
     const content = formData.get("content");
 
-    if (
-      !bookId ||
-      !title ||
-      !coverImage ||
-      coverImage.size === 0 ||
-      !shortNote ||
-      !content
-    ) {
+
+    // Validation
+    if ( !bookId || !title || !coverImage || coverImage.size === 0 || !shortNote || !content ) {
       return {
         success: false,
         message: "All fields are required.",
       };
     }
+
+    const validation = validateImage(coverImage, 5 * 1024 * 1024);
+
+    if (!validation.success) {
+      return validation;
+    }
+
 
     const bytes = await coverImage.arrayBuffer();
     const buffer = Buffer.from(bytes);

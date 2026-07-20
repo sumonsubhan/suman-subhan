@@ -31,10 +31,6 @@ const menuItems = [
     href: "/admin/articles",
   },
   {
-    name: "Trending-Books",
-    href: "/admin/trending-books",
-  },
-  {
     name: "Events",
     href: "/admin/events",
   },

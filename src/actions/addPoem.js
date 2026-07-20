@@ -3,9 +3,9 @@
 import cloudinary from "@/lib/cloudinary";
 import { getDb } from "@/lib/db";
 import { requireAdmin } from "@/lib/requireAdmin";
+import validateImage from "@/lib/validateImage";
 
 export async function addPoem(formData) {
-
   await requireAdmin();
 
   try {
@@ -16,11 +16,18 @@ export async function addPoem(formData) {
     const description = formData.get("description");
     const image = formData.get("cover");
 
+    // Validation
     if (!title || !bookTitle || !videoURL || !description || !image) {
       return {
         success: false,
         message: "All fields are required except purchase url.",
       };
+    }
+
+    const validation = validateImage(image, 5 * 1024 * 1024);
+
+    if (!validation.success) {
+      return validation;
     }
 
     const bytes = await image.arrayBuffer();
@@ -35,7 +42,7 @@ export async function addPoem(formData) {
           (error, result) => {
             if (error) reject(error);
             else resolve(result);
-          }
+          },
         )
         .end(buffer);
     });

@@ -38,6 +38,7 @@ const Banner = () => {
           src={bannerImage}
           width={350}
           height={500}
+          priority
           alt="banner-image"
         />
       </div>

@@ -1,15 +1,21 @@
 import Link from "next/link";
 import Image from "next/image";
 import { getArticleCategories } from "../../../../../services/getArticleCategories";
+import DeleteArticleCategory from "@/components/admin/DeleteArticleCategory";
+import Pagination from "@/components/pagination/Pagination";
 
-const Articles = async () => {
-  const categories = await getArticleCategories();
+const Articles = async ({searchParams}) => {
+
+  const search = await searchParams;
+  const page = Number(search.page) || 1;
+
+  const {categories, total, totalPages} = await getArticleCategories({page, limit: 10});
 
   return (
     <div>
       {/* Header */}
       <div className="flex justify-between items-center border-b-2 border-gray-400 pb-2">
-        <h1 className="text-2xl font-bold">Articles</h1>
+        <h1 className="text-2xl font-bold">Article Categories ({total? total : 0})</h1>
 
         <Link href="/admin/articles/add-category" className="btn btn-primary">
           Add Category
@@ -65,12 +71,17 @@ const Articles = async () => {
                   </td>
 
                   <td>
-                    <Link
+                   <div className="flex gap-2">
+                    <DeleteArticleCategory id={category._id}/>
+
+                     <Link
                       href={`/admin/articles/${category._id}`}
                       className="btn btn-sm btn-primary"
                     >
                       Show Category
                     </Link>
+                    
+                   </div>
                   </td>
                 </tr>
               ))
@@ -78,6 +89,12 @@ const Articles = async () => {
           </tbody>
         </table>
       </div>
+
+      <Pagination
+      totalPages={totalPages}
+      page={page}
+      baseUrl={"/admin/articles"}
+      />
     </div>
   );
 };

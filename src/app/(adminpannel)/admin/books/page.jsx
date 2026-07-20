@@ -75,7 +75,6 @@ const Books = async ({ searchParams }) => {
                     <div className="flex gap-2">
                       <DeleteBook
                         id={book._id}
-                        imageId={book.coverImagePublicId}
                       />
                       <Link
                         href={`/admin/books/${book._id}`}

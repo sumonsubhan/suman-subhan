@@ -100,14 +100,8 @@ export default async function BookContents({ params, searchParams }) {
 
                   {/* Actions */}
                   <td>
-                    <div className="flex justify-center gap-2">
+                    <div className="flex justify-center">
                         <DeleteContent id={content._id}/>
-                      <Link
-                        href={`/admin/books/content/${content._id}/edit`}
-                        className="btn btn-sm btn-outline btn-info"
-                      >
-                        Edit
-                      </Link>
                     </div>
                   </td>
                 </tr>

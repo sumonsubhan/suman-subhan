@@ -1,3 +1,4 @@
+import DisableRightClick from "@/components/security/DisableRightClick";
 import "./globals.css";
 
 export const metadata = {
@@ -99,7 +100,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="bn-BD" data-theme="light">
-      <body className="bg-pattern">{children}</body>
+      <body className="bg-pattern">
+        <DisableRightClick />
+        {children}
+      </body>
     </html>
   );
 }

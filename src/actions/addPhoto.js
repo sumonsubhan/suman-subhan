@@ -3,22 +3,29 @@
 import cloudinary from "@/lib/cloudinary";
 import { getDb } from "@/lib/db";
 import { requireAdmin } from "@/lib/requireAdmin";
+import validateImage from "@/lib/validateImage";
 import { ObjectId } from "mongodb";
 
 export async function addPhoto(formData) {
-
   await requireAdmin();
-  
+
   try {
     const albumId = formData.get("albumId");
     const caption = formData.get("caption")?.trim();
     const image = formData.get("photo");
 
+    // Validation
     if (!albumId || !caption || !image || image.size === 0) {
       return {
         success: false,
         message: "All fields are required.",
       };
+    }
+
+    const validation = validateImage(image, 10 * 1024 * 1024);
+
+    if (!validation.success) {
+      return validation;
     }
 
     const bytes = await image.arrayBuffer();

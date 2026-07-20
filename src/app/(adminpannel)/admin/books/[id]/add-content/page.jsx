@@ -69,7 +69,17 @@ export default function AddContent() {
             accept="image/*"
             className="file-input file-input-bordered w-full"
             {...register("coverImage", {
-              required: "Please select an image",
+              required: "Cover image is required",
+              validate: {
+                fileSize: (files) =>
+                  files?.[0]?.size <= 5 * 1024 * 1024 ||
+                  "Image must be smaller than 5 MB",
+
+                fileType: (files) =>
+                  ["image/jpeg", "image/png", "image/webp"].includes(
+                    files?.[0]?.type,
+                  ) || "Only JPG, PNG and WEBP images are allowed",
+              },
             })}
           />
 
@@ -104,7 +114,6 @@ export default function AddContent() {
             </p>
           )}
         </div>
-
 
         {/* Book Content */}
 

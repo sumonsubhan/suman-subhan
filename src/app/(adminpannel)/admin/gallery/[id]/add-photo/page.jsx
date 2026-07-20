@@ -49,7 +49,17 @@ export default function AddPhoto() {
             accept="image/*"
             className="file-input file-input-bordered w-full"
             {...register("photo", {
-              required: "Please select an image",
+              required: "Photo is required",
+              validate: {
+                fileSize: (files) =>
+                  files?.[0]?.size <= 10 * 1024 * 1024 ||
+                  "Image must be smaller than 10 MB",
+
+                fileType: (files) =>
+                  ["image/jpeg", "image/png", "image/webp"].includes(
+                    files?.[0]?.type,
+                  ) || "Only JPG, PNG and WEBP images are allowed",
+              },
             })}
           />
 

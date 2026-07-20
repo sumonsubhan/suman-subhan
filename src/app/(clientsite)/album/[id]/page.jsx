@@ -6,36 +6,45 @@ import CommentSection from "@/components/comments/CommentSection";
 
 export const metadata = {
   title: "কালের ক্যানভাস",
-}
+};
 
 export default async function Photos({ params, searchParams }) {
   const { id } = await params;
   const search = await searchParams;
   const page = Number(search.page) || 1;
 
-  const {photos, total, totalPages} = await getPhotos({
+  const { photos, total, totalPages } = await getPhotos({
     albumId: id,
     page,
-    limit:8
+    limit: 8,
   });
 
-  const album = photos.length > 0 ? photos[0].album : null;
+  if (photos.length === 0) {
+    return (
+      <section className="py-24 text-center">
+        <h1 className="text-3xl font-bold">কোনো ছবি পাওয়া যায়নি</h1>
 
+        <p className="mt-4 text-gray-500">
+          এই এলবামে বর্তমানে কোনো ছবি প্রকাশিত হয়নি।
+        </p>
+      </section>
+    );
+  }
+
+  const album = photos.length > 0 ? photos[0].album : null;
+  
   return (
     <section className="py-10">
       {/* Album Header */}
       <div className="max-w-4xl mx-auto text-center mb-14">
-        <p className="text-bgprimary font-medium">
-          আলোকচিত্র সংগ্রহশালা
-        </p>
+        <p className="text-bgprimary font-medium">আলোকচিত্র সংগ্রহশালা</p>
 
         <h1 className="mt-3 text-3xl md:text-4xl lg:text-5xl font-bold">
           {album?.title || "Photo Gallery"}
         </h1>
 
         <p className="mt-5 text-gray-600 leading-8 text-base md:text-lg">
-          {album?.description ||
-            "এই অ্যালবামে এখনও কোনো ছবি যোগ করা হয়নি।"}
+          {album?.description || "এই অ্যালবামে এখনও কোনো ছবি যোগ করা হয়নি।"}
         </p>
 
         {photos.length > 0 && (
@@ -61,9 +70,7 @@ export default async function Photos({ params, searchParams }) {
         <div className="rounded-2xl border border-dashed border-gray-300 py-28 text-center bg-gray-50">
           <FaCameraRetro className="mx-auto text-5xl text-gray-400" />
 
-          <h2 className="mt-6 text-2xl font-semibold">
-            কোনো ছবি পাওয়া যায়নি
-          </h2>
+          <h2 className="mt-6 text-2xl font-semibold">কোনো ছবি পাওয়া যায়নি</h2>
 
           <p className="mt-3 text-gray-500">
             এই অ্যালবামে এখনো কোনো ছবি যোগ করা হয়নি।

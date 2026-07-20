@@ -14,7 +14,7 @@ export async function getDashboardStats() {
     totalPoems,
     totalEvents,
     totalPhotos,
-    trendingBooks
+    totalBlogs,
   ] = await Promise.all([
     db.collection("books").estimatedDocumentCount(),
     db.collection("articles").estimatedDocumentCount(),
@@ -22,7 +22,7 @@ export async function getDashboardStats() {
     db.collection("poems").estimatedDocumentCount(),
     db.collection("events").estimatedDocumentCount(),
     db.collection("photos").estimatedDocumentCount(),
-    db.collection("trendingBooks").estimatedDocumentCount(),
+    db.collection("blogs").estimatedDocumentCount(),
   ]);
 
   return {
@@ -32,6 +32,6 @@ export async function getDashboardStats() {
     totalPoems,
     totalEvents,
     totalPhotos,
-    trendingBooks,
+    totalBlogs,
   };
 }

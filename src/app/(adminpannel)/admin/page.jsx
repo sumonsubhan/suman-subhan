@@ -40,9 +40,9 @@ export default async function AdminDashboard() {
           <p className="text-3xl font-bold mt-2">{stats.totalArticles}</p>
         </Link>
 
-        <Link href="/admin/trending-books" className="bg-white rounded-xl shadow p-5">
-          <h3 className="text-gray-500">Trending Books</h3>
-          <p className="text-3xl font-bold mt-2">{stats.trendingBooks}</p>
+        <Link href="/admin/blogs" className="bg-white rounded-xl shadow p-5">
+          <h3 className="text-gray-500">Total Blogs</h3>
+          <p className="text-3xl font-bold mt-2">{stats.totalBlogs}</p>
         </Link>
 
         <Link href="/admin/events" className="bg-white rounded-xl shadow p-5">

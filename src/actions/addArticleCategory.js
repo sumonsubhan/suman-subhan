@@ -3,9 +3,9 @@
 import cloudinary from "@/lib/cloudinary";
 import { getDb } from "@/lib/db";
 import { requireAdmin } from "@/lib/requireAdmin";
+import validateImage from "@/lib/validateImage";
 
 export async function addArticleCategory(formData) {
-
   await requireAdmin();
 
   try {
@@ -21,12 +21,18 @@ export async function addArticleCategory(formData) {
       };
     }
 
+    const validation = validateImage(image, 5 * 1024 * 1024);
+
+    if (!validation.success) {
+      return validation;
+    }
+
     // Convert image to buffer
     const bytes = await image.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
     // Upload to Cloudinary
-    const imageUrl = await new Promise((resolve, reject) => {
+    const uploadImage = await new Promise((resolve, reject) => {
       cloudinary.uploader
         .upload_stream(
           {
@@ -34,8 +40,8 @@ export async function addArticleCategory(formData) {
           },
           (error, result) => {
             if (error) return reject(error);
-            resolve(result.secure_url);
-          }
+            resolve(result);
+          },
         )
         .end(buffer);
     });
@@ -46,7 +52,8 @@ export async function addArticleCategory(formData) {
     const result = await db.collection("articleCategories").insertOne({
       title,
       description,
-      coverImage: imageUrl,
+      coverImage: uploadImage.secure_url,
+      coverImagePublicId: uploadImage.public_id,
       totalArticles: 0,
       createdAt: new Date(),
     });

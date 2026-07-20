@@ -3,11 +3,11 @@
 import cloudinary from "@/lib/cloudinary";
 import { getDb } from "@/lib/db";
 import { requireAdmin } from "@/lib/requireAdmin";
+import validateImage from "@/lib/validateImage";
 
 export async function addBook(formData) {
-
   await requireAdmin();
-  
+
   try {
     const title = formData.get("title")?.trim();
     const category = formData.get("category");
@@ -23,6 +23,13 @@ export async function addBook(formData) {
       };
     }
 
+    const validation = validateImage(coverImage, 5 * 1024 * 1024);
+
+    if (!validation.success) {
+      return validation;
+    }
+
+    
     // Upload image to Cloudinary
 
     const bytes = await coverImage.arrayBuffer();
@@ -51,7 +58,7 @@ export async function addBook(formData) {
       purchaseURL,
       coverImage: uploadedImage.secure_url,
       coverImagePublicId: uploadedImage.public_id,
-      views:0,
+      views: 0,
       totalContent: 0,
       createdAt: new Date(),
       updatedAt: new Date(),

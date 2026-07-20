@@ -7,9 +7,8 @@ import { getDb } from "@/lib/db";
 import { requireAdmin } from "@/lib/requireAdmin";
 
 export async function deleteArticle(id) {
-
   await requireAdmin();
-  
+
   try {
     const db = await getDb();
 
@@ -29,6 +28,11 @@ export async function deleteArticle(id) {
     if (article.coverImagePublicId) {
       await cloudinary.uploader.destroy(article.coverImagePublicId);
     }
+
+    // Delete all comments for this content
+    await db.collection("comments").deleteMany({
+      contentId: new ObjectId(id),
+    });
 
     // Delete article
     const result = await db.collection("articles").deleteOne({
@@ -51,7 +55,7 @@ export async function deleteArticle(id) {
         $inc: {
           totalArticles: -1,
         },
-      }
+      },
     );
 
     revalidatePath("/admin/articles");

@@ -6,28 +6,32 @@ import cloudinary from "@/lib/cloudinary";
 import { requireAdmin } from "@/lib/requireAdmin";
 
 export async function deleteBlog(id) {
-
   await requireAdmin();
-  
+
   try {
     const db = await getDb();
 
     // Find the song
     const blog = await db.collection("blogs").findOne({
-      _id: new ObjectId(id)
-    })
+      _id: new ObjectId(id),
+    });
 
-    if(!blog){
+    if (!blog) {
       return {
         success: false,
-        message: "Song not found"
-      }
+        message: "Song not found",
+      };
     }
 
     // Delete from Cloudinary
-    if(blog.publicId){
+    if (blog.publicId) {
       await cloudinary.uploader.destroy(blog.publicId);
     }
+
+    // Delete all comments for this content
+    await db.collection("comments").deleteMany({
+      contentId: new ObjectId(id),
+    });
 
     // Delete from mongodb
     const result = await db.collection("blogs").deleteOne({
