@@ -6,11 +6,11 @@ export const metadata = {
   title: "সুর ও শ্রুতি",
 
   description:
-    "সুমন শুভানের লেখা ও সুরে বাংলা গানের ভিডিও সংগ্রহ। মৌলিক বাংলা গান, সঙ্গীত, গীতিকবিতা ও সুরের এক সমৃদ্ধ ভাণ্ডার। Listen to original Bengali songs written and composed by Suman Subhan.",
+    "সুমন সুবহানের লেখা ও সুরে বাংলা গানের ভিডিও সংগ্রহ। মৌলিক বাংলা গান, সঙ্গীত, গীতিকবিতা ও সুরের এক সমৃদ্ধ ভাণ্ডার। Listen to original Bengali songs written and composed by Suman Subhan.",
 
   keywords: [
     // Bangla
-    "সুমন শুভান",
+    "সুমন সুবহান",
     "সুরসুধা",
     "বাংলা গান",
     "মৌলিক গান",
@@ -38,22 +38,22 @@ export const metadata = {
   },
 
   openGraph: {
-    title: "সুর ও শ্রুতি | সুমন শুভান",
-    description: "সুমন শুভানের লেখা ও সুরে বাংলা গানের ভিডিও সংগ্রহ।",
+    title: "সুর ও শ্রুতি | সুমন সুবহান",
+    description: "সুমন সুবহানের লেখা ও সুরে বাংলা গানের ভিডিও সংগ্রহ।",
     url: "/songs",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "সুর ও শ্রুতি | সুমন শুভান",
+        alt: "সুর ও শ্রুতি | সুমন সুবহান",
       },
     ],
   },
 
   twitter: {
-    title: "সুর ও শ্রুতি | সুমন শুভান",
-    description: "সুমন শুভানের লেখা ও সুরে বাংলা গানের ভিডিও সংগ্রহ।",
+    title: "সুর ও শ্রুতি | সুমন সুবহান",
+    description: "সুমন সুবহানের লেখা ও সুরে বাংলা গানের ভিডিও সংগ্রহ।",
     images: ["/og-image.jpg"],
   },
 };

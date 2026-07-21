@@ -4,7 +4,7 @@ export const poems = [
     bookName: "নিষিদ্ধ ইশতাহার",
     cover:
       "https://sumansubhan.com/admin/postimages/0735fa7c8a51860037cefbc36ed5cf1a.jpg",
-    title: "শুভাগত আমার বন্ধু",
+    title: "সুবহাগত আমার বন্ধু",
     description: "আমি নিজেই তো পত্রিকার পাতায় হেডলাইন দেখে- মর্গে ছুটে",
     video: "https://www.youtube.com/embed/gLr_JO_kMhY?si=56J_FgMpPDtPYj9",
   },
@@ -70,7 +70,7 @@ export const poems = [
     bookName: "নিষিদ্ধ ইশতাহার",
     cover:
       "https://sumansubhan.com/admin/postimages/0735fa7c8a51860037cefbc36ed5cf1a.jpg",
-    title: "শুভাগত আমার বন্ধু",
+    title: "সুবহাগত আমার বন্ধু",
     description: "আমি নিজেই তো পত্রিকার পাতায় হেডলাইন দেখে- মর্গে ছুটে",
     video: "https://www.youtube.com/embed/gLr_JO_kMhY?si=56J_FgMpPDtPYj9",
   },

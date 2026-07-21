@@ -46,7 +46,7 @@ export const metadata = {
   },
 
   openGraph: {
-    title: "আমার সম্পর্কে | সুমন শুভান",
+    title: "আমার সম্পর্কে | সুমন সুবহান",
     description:
       "সুমন সুবহানের জীবন, সাহিত্য, সামরিক জীবন ও সৃজনশীল যাত্রা সম্পর্কে জানুন।",
     url: "/about",
@@ -61,7 +61,7 @@ export const metadata = {
   },
 
   twitter: {
-    title: "আমার সম্পর্কে | সুমন শুভান",
+    title: "আমার সম্পর্কে | সুমন সুবহান",
     description:
       "সুমন সুবহানের জীবন, সাহিত্য, সামরিক জীবন ও সৃজনশীল যাত্রা সম্পর্কে জানুন।",
     images: ["/asset/banner-about.jpg"],

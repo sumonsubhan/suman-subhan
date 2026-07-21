@@ -5,15 +5,15 @@ export const metadata = {
   metadataBase: new URL("https://sumansubhan.com"),
 
   title: {
-    default: "সুমন শুভান | বাংলা বই, গান, কবিতা ও সংস্কৃতি",
-    template: "%s | সুমন শুভান",
+    default: "সুমন সুবহান | বাংলা বই, গান, কবিতা ও সংস্কৃতি",
+    template: "%s | সুমন সুবহান",
   },
 
   description:
     "বাংলা বই, গান, কবিতা, সাহিত্য, সাংস্কৃতিক অনুষ্ঠান এবং শিক্ষামূলক বিষয়বস্তুর একটি সমৃদ্ধ সংগ্রহ।",
 
   keywords: [
-    "সুমন শুভান",
+    "সুমন সুবহান",
     "বাংলা বই",
     "বাংলা সাহিত্য",
     "বাংলা গান",
@@ -26,7 +26,7 @@ export const metadata = {
     "Bangla poems",
   ],
 
-  applicationName: "সুমন শুভান",
+  applicationName: "সুমন সুবহান",
 
   authors: [
     {
@@ -56,8 +56,8 @@ export const metadata = {
   openGraph: {
     type: "website",
     locale: "bn_BD",
-    siteName: "সুমন শুভান",
-    title: "সুমন শুভান | বাংলা বই, গান, কবিতা ও সংস্কৃতি",
+    siteName: "সুমন সুবহান",
+    title: "সুমন সুবহান | বাংলা বই, গান, কবিতা ও সংস্কৃতি",
     description:
       "বাংলা বই, গান, কবিতা, সাহিত্য, সাংস্কৃতিক অনুষ্ঠান এবং শিক্ষামূলক বিষয়বস্তুর একটি সমৃদ্ধ সংগ্রহ।",
     url: "https://sumansubhan.com",
@@ -66,14 +66,14 @@ export const metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "সুমন শুভান",
+        alt: "সুমন সুবহান",
       },
     ],
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "সুমন শুভান | বাংলা বই, গান, কবিতা ও সংস্কৃতি",
+    title: "সুমন সুবহান | বাংলা বই, গান, কবিতা ও সংস্কৃতি",
     description:
       "বাংলা বই, গান, কবিতা, সাহিত্য, সাংস্কৃতিক অনুষ্ঠান এবং শিক্ষামূলক বিষয়বস্তুর একটি সমৃদ্ধ সংগ্রহ।",
     images: ["/og-image.jpg"],

@@ -6,11 +6,11 @@ export const metadata = {
   title: "শব্দসুধা",
 
   description:
-    "সুমন শুভানের কবিতা ও আবৃত্তির ভিডিও সংগ্রহ। বাংলা কবিতা, আবৃত্তি, সাহিত্য এবং কাব্যিক অনুভূতির এক সমৃদ্ধ ভাণ্ডার। Watch and listen to Bengali poems and recitations by Suman Subhan.",
+    "সুমন সুবহানের কবিতা ও আবৃত্তির ভিডিও সংগ্রহ। বাংলা কবিতা, আবৃত্তি, সাহিত্য এবং কাব্যিক অনুভূতির এক সমৃদ্ধ ভাণ্ডার। Watch and listen to Bengali poems and recitations by Suman Subhan.",
 
   keywords: [
     // Bangla
-    "সুমন শুভান",
+    "সুমন সুবহান",
     "শব্দসুধা",
     "বাংলা কবিতা",
     "কবিতা",
@@ -37,22 +37,22 @@ export const metadata = {
   },
 
   openGraph: {
-    title: "শব্দসুধা | সুমন শুভান",
-    description: "সুমন শুভানের কবিতা ও আবৃত্তির ভিডিও সংগ্রহ।",
+    title: "শব্দসুধা | সুমন সুবহান",
+    description: "সুমন সুবহানের কবিতা ও আবৃত্তির ভিডিও সংগ্রহ।",
     url: "/poems",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "শব্দসুধা | সুমন শুভান",
+        alt: "শব্দসুধা | সুমন সুবহান",
       },
     ],
   },
 
   twitter: {
-    title: "শব্দসুধা | সুমন শুভান",
-    description: "সুমন শুভানের কবিতা ও আবৃত্তির ভিডিও সংগ্রহ।",
+    title: "শব্দসুধা | সুমন সুবহান",
+    description: "সুমন সুবহানের কবিতা ও আবৃত্তির ভিডিও সংগ্রহ।",
     images: ["/og-image.jpg"],
   },
 };
