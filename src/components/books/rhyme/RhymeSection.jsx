@@ -10,7 +10,7 @@ const RhymeSection = async() => {
   const categorySlug = "rhymes";
   const {books} = await getBooks({
     categorySlug: categorySlug,
-    limit: 5
+    limit: 8,
   })
   return (
     <div>

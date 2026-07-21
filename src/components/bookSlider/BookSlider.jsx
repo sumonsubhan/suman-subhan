@@ -9,19 +9,40 @@ import "swiper/css/pagination";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function BookSlider({ books }) {
+export default function BookSlider({ books = [] }) {
+  // No books
+  if (books.length === 0) {
+    return null;
+  }
+
+  // Loop only when enough slides exist
+  // Desktop shows maximum 4 slides
+  const enableLoop = books.length > 4;
+
+  // Pagination is useful only when there is more than one book
+  const enablePagination = books.length > 1;
+
   return (
     <Swiper
       slidesPerView={1}
       spaceBetween={20}
-      loop
-      autoplay={{
-        delay: 3500,
-        disableOnInteraction: false,
-      }}
-      pagination={{
-        clickable: true,
-      }}
+      loop={enableLoop}
+      autoplay={
+        enableLoop
+          ? {
+              delay: 3500,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: true,
+            }
+          : false
+      }
+      pagination={
+        enablePagination
+          ? {
+              clickable: true,
+            }
+          : false
+      }
       breakpoints={{
         640: {
           slidesPerView: 1,
@@ -30,9 +51,6 @@ export default function BookSlider({ books }) {
           slidesPerView: 2,
         },
         1400: {
-          slidesPerView: 4,
-        },
-        2000: {
           slidesPerView: 4,
         },
       }}
@@ -52,8 +70,8 @@ export default function BookSlider({ books }) {
                   src={book.coverImage}
                   alt={book.title}
                   fill
-                  sizes="140px"
-                  className="rounded-lg object-cover shadow-md transition duration-300 group-hover:scale-105"
+                  sizes="200px"
+                  className="rounded-lg object-cover shadow-md"
                 />
               </div>
             </div>
@@ -65,12 +83,13 @@ export default function BookSlider({ books }) {
                 {book.title}
               </h2>
 
-              {/* Category & views*/}
-              <div className="flex justify-between mb-2">
+              {/* Category & Views */}
+              <div className="mb-2 flex justify-between">
                 <p className="rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-700">
                   {book.category}
                 </p>
-                <div className="bg-blue-100 px-3 py-1 text-xs font-medium text-blue-700 rounded-full">
+
+                <div className="rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-700">
                   <p>Views: {book.views}</p>
                 </div>
               </div>

@@ -11,7 +11,7 @@ const StorySection = async() => {
   const categorySlug = "story-books";
   const {books} = await getBooks({
   categorySlug: categorySlug,
-  limit: 5,
+  limit: 8,
 });
 
   return (

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { getContent } from "../../../../../../services/getContent";
 import CommentSection from "@/components/comments/CommentSection";
+import Link from "next/link";
 
 export default async function BookDetails({ params }) {
   const { contentId } = await params;
@@ -49,7 +50,13 @@ export default async function BookDetails({ params }) {
 
             <div className="flex gap-6 items-center mt-3 text-lg text-gray-500">
               <p>✍️ সুমন সুবাহান</p>
-              <p>Book: {content.book.title}</p>
+              <a
+                href={content.book.purchaseURL}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Book: {content.book.title}
+              </a>
             </div>
 
             <div className="mt-8 border-t pt-5 text-sm text-gray-500">

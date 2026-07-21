@@ -5,7 +5,7 @@ import { getTrendingBooks } from '../../../../services/getTrendingBooks';
 import TrendingBookSlider from '@/components/bookSlider/TrendingBookSlider';
 
 const TrendingBooks = async() => {
-   const {books} = await getTrendingBooks({limit:6})
+   const {books} = await getTrendingBooks({limit:8})
     return (
     <div className="my-10">
       <div className="flex justify-between items-center mb-4">
