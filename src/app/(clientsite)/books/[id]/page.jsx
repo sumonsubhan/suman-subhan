@@ -1,16 +1,15 @@
 import Image from "next/image";
-import { incrementBookView } from "@/actions/incrementBookView";
 import { getContent } from "../../../../../services/getContent";
 import Pagination from "@/components/pagination/Pagination";
 import { CiPen } from "react-icons/ci";
 import Link from "next/link";
+import BookViewTracker from "@/components/viewsTracker/BookViewTracker";
 
 export default async function BookDetails({ params, searchParams }) {
   const search = await searchParams;
   const page = Number(search.page) || 1;
   const { id } = await params;
 
-  await incrementBookView(id);
 
   const { contents, total, totalPages } = await getContent({
     bookId: id,
@@ -22,6 +21,9 @@ export default async function BookDetails({ params, searchParams }) {
 
   return (
     <section className="">
+      {/* Incriment book view */}
+      <BookViewTracker bookId={id}/>
+
       {/* Header */}
       <div className="my-10">
         <h1 className="text-3xl font-bold md:text-4xl">

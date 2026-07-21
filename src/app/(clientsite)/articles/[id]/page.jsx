@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { getArticles } from "../../../../../services/getArticle";
-import { incrementArticleView } from "@/actions/incrementArticleView";
 import CommentSection from "@/components/comments/CommentSection";
+import ArticleViewTracker from "@/components/viewsTracker/ArticleViewTracker";
 
 export default async function ArticleDetails({ params }) {
   const { id } = await params;
@@ -20,10 +20,10 @@ export default async function ArticleDetails({ params }) {
     );
   }
 
-  await incrementArticleView(id);
 
   return (
     <section className="py-10 lg:py-16">
+      <ArticleViewTracker articleId={id}/>
       <div className="mx-auto max-w-6xl px-4">
         {/* Article Info */}
         <div className="mx-auto max-w-5xl">
