@@ -15,7 +15,7 @@ export default function ArticleCategories({ categories }) {
               src={category.coverImage}
               alt={category.title}
               width={400}
-              height={220}
+              height={200}
               className="rounded-lg w-full object-cover"
             />
 
@@ -24,7 +24,7 @@ export default function ArticleCategories({ categories }) {
                 {category.title}
               </h2>
 
-              <p className="mt-2 text-gray-600">
+              <p className="mt-2 text-gray-600 line-clamp-2">
                 {category.description}
               </p>
             </div>

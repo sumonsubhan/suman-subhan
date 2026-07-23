@@ -20,7 +20,7 @@ export default async function BookDetails({ params, searchParams }) {
   const book = contents[0]?.book;
 
   return (
-    <section className="">
+    <section className="my-6">
       {/* Incriment book view */}
       <BookViewTracker bookId={id}/>
 

@@ -4,14 +4,13 @@ import DeletePoem from "@/components/admin/DeletePoem";
 import { getPoems } from "../../../../../services/getPoems";
 import Pagination from "@/components/pagination/Pagination";
 
-
-export default async function Poems({searchParams}) {
+export default async function Poems({ searchParams }) {
   const search = await searchParams;
   const page = Number(search.page) || 1;
 
-  const {poems, totalPages, total} = await getPoems({
+  const { poems, totalPages, total } = await getPoems({
     page,
-    limit:10,
+    limit: 10,
   });
 
   return (
@@ -19,19 +18,12 @@ export default async function Poems({searchParams}) {
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-3xl font-bold">
-            Poems
-          </h1>
+          <h1 className="text-3xl font-bold">Poems</h1>
 
-          <p className="text-gray-500 mt-1">
-            Total Poems: {total}
-          </p>
+          <p className="text-gray-500 mt-1">Total Poems: {total}</p>
         </div>
 
-        <Link
-          href="/admin/poems/add-poem"
-          className="btn btn-primary"
-        >
+        <Link href="/admin/poems/add-poem" className="btn btn-primary">
           Add Poem
         </Link>
       </div>
@@ -39,9 +31,7 @@ export default async function Poems({searchParams}) {
       {/* Empty State */}
       {poems.length === 0 ? (
         <div className="bg-white rounded-xl shadow p-12 text-center">
-          <h2 className="text-2xl font-semibold">
-            No poems Found
-          </h2>
+          <h2 className="text-2xl font-semibold">No poems Found</h2>
 
           <p className="mt-2 text-gray-500">
             Add your first poem to get started.
@@ -76,9 +66,7 @@ export default async function Poems({searchParams}) {
                   </td>
 
                   <td>
-                    <h2 className="font-semibold">
-                      {poem.title}
-                    </h2>
+                    <h2 className="font-semibold">{poem.title}</h2>
                   </td>
 
                   <td>
@@ -90,7 +78,13 @@ export default async function Poems({searchParams}) {
                   </td>
 
                   <td>
-                    <div className="flex justify-center">
+                    <div className="flex justify-center gap-2">
+                      <Link
+                        href={`/admin/poems/edit/${poem._id}`}
+                        className="btn btn-sm btn-warning"
+                      >
+                        Edit
+                      </Link>
                       <DeletePoem id={poem._id} />
                     </div>
                   </td>

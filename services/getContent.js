@@ -40,6 +40,7 @@ export async function getContent({
             shortNote: 1,
             content: 1,
             coverImage: 1,
+            imagePublicId: 1,
             createdAt: 1,
             updatedAt: 1,
 
@@ -92,7 +93,7 @@ export async function getContent({
       },
       {
         $sort: {
-          createdAt: -1,
+          createdAt: 1,
         },
       },
       {

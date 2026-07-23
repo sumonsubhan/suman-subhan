@@ -5,15 +5,14 @@ import DeleteButton from "@/components/bookCard/DeleteButton/DeleteButton";
 import Pagination from "@/components/pagination/Pagination";
 
 export default async function Photos({ params, searchParams }) {
-
   const { id } = await params;
   const search = await searchParams;
   const page = Number(search.page) || 1;
 
-  const {photos, total, totalPages} = await getPhotos({
+  const { photos, total, totalPages } = await getPhotos({
     albumId: id,
     page,
-    limit:10
+    limit: 10,
   });
 
   const album = photos.length > 0 ? photos[0].album : null;
@@ -27,9 +26,7 @@ export default async function Photos({ params, searchParams }) {
             {album?.title || "Photo Gallery"}
           </h1>
 
-          <p className="text-gray-500 mt-1">
-            Total Photos: {total}
-          </p>
+          <p className="text-gray-500 mt-1">Total Photos: {total}</p>
         </div>
 
         <Link
@@ -43,9 +40,7 @@ export default async function Photos({ params, searchParams }) {
       {/* Empty State */}
       {photos.length === 0 ? (
         <div className="bg-white rounded-xl shadow text-center py-20">
-          <h2 className="text-2xl font-semibold">
-            No Photos Found
-          </h2>
+          <h2 className="text-2xl font-semibold">No Photos Found</h2>
 
           <p className="mt-2 text-gray-500">
             Upload your first photo to this album.
@@ -83,9 +78,7 @@ export default async function Photos({ params, searchParams }) {
 
                   {/* Caption */}
                   <td className="max-w-sm">
-                    <p className="line-clamp-2">
-                      {photo.caption}
-                    </p>
+                    <p className="line-clamp-2">{photo.caption}</p>
                   </td>
 
                   {/* Created */}
@@ -99,7 +92,13 @@ export default async function Photos({ params, searchParams }) {
 
                   {/* Actions */}
                   <td>
-                    <div className="flex justify-center">
+                    <div className="flex justify-center gap-2">
+                      <Link
+                        href={`/admin/gallery/${id}/edit-photo/${photo._id}`}
+                        className="btn btn-sm btn-warning"
+                      >
+                        Edit
+                      </Link>
                       <DeleteButton photoId={photo._id} />
                     </div>
                   </td>
@@ -110,7 +109,7 @@ export default async function Photos({ params, searchParams }) {
         </div>
       )}
 
-      <Pagination 
+      <Pagination
         page={page}
         totalPages={totalPages}
         baseUrl={`/admin/gallery/${id}`}

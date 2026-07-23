@@ -77,7 +77,13 @@ export default async function Blogs({ searchParams }) {
                   </td>
 
                   <td>
-                    <div className="flex justify-center">
+                    <div className="flex justify-center gap-2">
+                      <Link
+                        href={`/admin/blogs/edit/${blog._id}`}
+                        className="btn btn-sm btn-warning"
+                      >
+                        Edit
+                      </Link>
                       <DeleteBlog id={blog._id} />
                     </div>
                   </td>

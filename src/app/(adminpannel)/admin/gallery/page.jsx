@@ -51,8 +51,8 @@ const Albums = async ({ searchParams }) => {
                       src={album.coverImage}
                       alt={album.title}
                       width={70}
-                      height={50}
-                      className="rounded-lg object-cover"
+                      height={20}
+                      className="rounded-lg object-cover h-auto w-auto"
                     />
                   </td>
 
@@ -68,14 +68,22 @@ const Albums = async ({ searchParams }) => {
                     })}
                   </td>
 
-                  <td className="flex gap-2 items-center">
-                    <DeleteAlbum id={album._id} />
-                    <Link
-                      href={`/admin/gallery/${album._id}`}
-                      className="btn btn-sm btn-primary"
-                    >
-                      Show Album
-                    </Link>
+                  <td>
+                    <div className="flex gap-2 items-center">
+                      <Link
+                        href={`/admin/gallery/edit-album/${album._id}`}
+                        className="btn btn-sm btn-warning"
+                      >
+                        Edit
+                      </Link>
+                      <DeleteAlbum id={album._id} />
+                      <Link
+                        href={`/admin/gallery/${album._id}`}
+                        className="btn btn-sm btn-primary"
+                      >
+                        Show Album
+                      </Link>
+                    </div>
                   </td>
                 </tr>
               ))
@@ -85,9 +93,9 @@ const Albums = async ({ searchParams }) => {
       </div>
 
       <Pagination
-       totalPages={totalPages}
-       page={page}
-       baseUrl={`/admin/gallery`}
+        totalPages={totalPages}
+        page={page}
+        baseUrl={`/admin/gallery`}
       />
     </div>
   );

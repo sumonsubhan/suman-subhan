@@ -53,6 +53,7 @@ export async function addPhoto(formData) {
       publicId: uploadResult.public_id,
       caption,
       createdAt: new Date(),
+      updatedAt:new Date(),
     });
 
     await db.collection("albums").updateOne(

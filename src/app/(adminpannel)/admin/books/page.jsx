@@ -51,9 +51,9 @@ const Books = async ({ searchParams }) => {
                     <Image
                       src={book.coverImage}
                       alt={book.title}
-                      width={70}
-                      height={50}
-                      className="rounded-lg object-cover"
+                      width={50}
+                      height={20}
+                      className="rounded-lg object-cover h-auto w-auto"
                     />
                   </td>
 
@@ -73,9 +73,14 @@ const Books = async ({ searchParams }) => {
 
                   <td>
                     <div className="flex gap-2">
-                      <DeleteBook
-                        id={book._id}
-                      />
+                      <Link
+                        href={`/admin/books/edit/${book._id}`}
+                        className="btn btn-sm btn-warning"
+                      >
+                        Edit
+                      </Link>
+
+                      <DeleteBook id={book._id} />
                       <Link
                         href={`/admin/books/${book._id}`}
                         className="btn btn-sm btn-primary"

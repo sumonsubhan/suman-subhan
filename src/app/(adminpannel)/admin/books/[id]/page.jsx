@@ -28,7 +28,9 @@ export default async function BookContents({ params, searchParams }) {
           </h1>
 
           <div className="flex gap-6 items-center mt-2">
-            <p className="text-gray-500">Total Contents: {total? total: ""}</p>
+            <p className="text-gray-500">
+              Total Contents: {total ? total : ""}
+            </p>
             <p>Category: {book?.category}</p>
           </div>
         </div>
@@ -100,8 +102,14 @@ export default async function BookContents({ params, searchParams }) {
 
                   {/* Actions */}
                   <td>
-                    <div className="flex justify-center">
-                        <DeleteContent id={content._id}/>
+                    <div className="flex justify-center gap-2">
+                      <Link
+                        href={`/admin/books/${book._id}/edit-content/${content._id}`}
+                        className="btn btn-sm btn-warning"
+                      >
+                        Edit
+                      </Link>
+                      <DeleteContent id={content._id} />
                     </div>
                   </td>
                 </tr>

@@ -79,7 +79,14 @@ export default async function Events({ searchParams }) {
 
                   {/* Action */}
                   <td>
-                    <div className="flex justify-center">
+                    <div className="flex justify-center gap-2">
+                      <Link
+                        href={`/admin/events/edit/${event._id}`}
+                        className="btn btn-sm btn-warning"
+                      >
+                        Edit
+                      </Link>
+
                       <DeleteEvent
                         id={event._id}
                         imageId={event.coverImagePublicId}

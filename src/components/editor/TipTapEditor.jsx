@@ -31,6 +31,7 @@ import { LuHeading1, LuHeading2, LuHeading3 } from "react-icons/lu";
 
 export default function TiptapEditor({ value, onChange }) {
   const editor = useEditor({
+    immediatelyRender: false,
     extensions: [
       StarterKit,
 

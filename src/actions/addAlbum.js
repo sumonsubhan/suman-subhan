@@ -55,6 +55,7 @@ export async function addAlbum(formData) {
       coverImagePublicId: uploadedImage.public_id,
       totalImages: 0,
       createdAt: new Date(),
+      updatedAt: new Date(),
     });
 
     if (!result.acknowledged) {

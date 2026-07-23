@@ -23,7 +23,7 @@ export default function AdminHeader({ onMenuClick, user }) {
             alt="user.name"
             width={30}
             height={25}
-            className="rounded-full"
+            className="rounded-full h-auto w-auto"
           ></Image>
          </div>
 

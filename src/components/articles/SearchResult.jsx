@@ -32,7 +32,7 @@ export default function SearchResult({
             alt={article.title}
             width={220}
             height={140}
-            className="rounded-lg object-cover"
+            className="rounded-lg object-cover h-auto w-auto"
           />
 
           <div className="flex-1">

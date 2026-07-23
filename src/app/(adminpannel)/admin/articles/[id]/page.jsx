@@ -26,9 +26,7 @@ export default async function CategoryArticles({ params, searchParams }) {
             {category?.title || "Articles"}
           </h1>
 
-          <p className="text-gray-500 mt-1">
-            Total Articles: {total}
-          </p>
+          <p className="text-gray-500 mt-1">Total Articles: {total}</p>
         </div>
 
         <Link
@@ -94,7 +92,13 @@ export default async function CategoryArticles({ params, searchParams }) {
 
                   {/* Actions */}
                   <td>
-                    <div className="flex justify-center">
+                    <div className="flex justify-center gap-2">
+                      <Link
+                        href={`/admin/articles/edit-article/${article._id}`}
+                        className="btn btn-sm btn-warning"
+                      >
+                        Edit
+                      </Link>
                       <DeleteArticle id={article._id}></DeleteArticle>
                     </div>
                   </td>

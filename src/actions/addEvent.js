@@ -35,7 +35,7 @@ export async function addEvent(formData) {
       cloudinary.uploader
         .upload_stream(
           {
-            folder: "trendingBooks",
+            folder: "events",
           },
           (error, result) => {
             if (error) return reject(error);

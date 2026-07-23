@@ -34,12 +34,12 @@ const Banner = () => {
 
       <div>
         <Image
-          className="rounded"
           src={bannerImage}
+          alt="Banner Image"
           width={350}
           height={500}
           priority
-          alt="banner-image"
+          className="rounded w-full h-auto max-w-auto"
         />
       </div>
     </div>

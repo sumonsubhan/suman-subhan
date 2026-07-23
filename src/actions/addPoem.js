@@ -58,6 +58,7 @@ export async function addPoem(formData) {
       purchaseURL,
       description,
       createdAt: new Date(),
+      updatedAt: new Date(),
     });
 
     return {

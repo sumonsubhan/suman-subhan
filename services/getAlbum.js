@@ -1,29 +1,51 @@
 import { getDb } from "@/lib/db";
+import { ObjectId } from "mongodb";
 
-export async function getAlbums({ page = 1, limit = 12 } = {}) {
+export async function getAlbums({
+  id,
+  page = 1,
+  limit = 12
+} = {}) {
+
   const db = await getDb();
 
-  const skip = (Number(page) - 1) * Number(limit);
+  // Single album
+  if(id){
 
-  // Total albums
+    const album = await db.collection("albums").findOne({
+      _id:new ObjectId(id)
+    });
+
+    if(!album) return null;
+
+    return {
+      ...album,
+      _id:album._id.toString()
+    }
+
+  }
+
+  const skip = (Number(page)-1)*Number(limit);
+
   const total = await db.collection("albums").countDocuments();
 
-  const albums = await db
-    .collection("albums")
+  const albums = await db.collection("albums")
     .find({})
-    .sort({ createdAt: -1 })
+    .sort({
+      createdAt:-1
+    })
     .skip(skip)
     .limit(Number(limit))
     .toArray();
 
   return {
-    albums: albums.map((album) => ({
+    albums:albums.map(album=>({
       ...album,
-      _id: album._id.toString(),
+      _id:album._id.toString()
     })),
     total,
-    page: Number(page),
-    limit: Number(limit),
-    totalPages: Math.ceil(total / limit),
+    page:Number(page),
+    limit:Number(limit),
+    totalPages:Math.ceil(total/limit)
   }
 }

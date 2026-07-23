@@ -56,6 +56,7 @@ export async function addArticleCategory(formData) {
       coverImagePublicId: uploadImage.public_id,
       totalArticles: 0,
       createdAt: new Date(),
+      updatedAt: new Date(),
     });
 
     if (!result.acknowledged) {
