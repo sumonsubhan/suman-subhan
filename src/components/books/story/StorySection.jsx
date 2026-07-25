@@ -1,5 +1,3 @@
-import NewBooks from "@/components/home/newBooks/NewBooks";
-
 import Link from "next/link";
 import React from "react";
 import { FaArrowRightLong } from "react-icons/fa6";

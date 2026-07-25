@@ -11,20 +11,20 @@ import { BiLogoGmail } from "react-icons/bi";
 
 const Footer = () => {
   return (
-    <div className="bg-[url('/asset/footer.svg')] text-white p-10 rounded flex flex-col lg:flex-row justify-between">
+    <div className="bg-[url('/asset/footer.svg')] text-white p-4 rounded flex flex-col lg:flex-row justify-between">
       {/* Left Side */}
-      <section className="flex flex-col gap-2">
+      <section className="flex flex-col">
         <div>
             <Logo></Logo>
         </div>
-        <p className="my-6">
-          বাঙালি হৃদয়ের স্পন্দনে শব্দের কারুকাজ। আমরা সাহিত্যের প্রতিটি<br/>বিন্দুতে
+        <p className="mt-4">
+          বাঙালি হৃদয়ের স্পন্দনে শব্দের কারুকাজ। সাহিত্যের প্রতিটি<br/>বিন্দুতে
           জীবনের গভীরতা খুঁজে ফিরি।
         </p>
       </section>
 
       {/* Right side */}
-      <section className="flex flex-col gap-6 text-sm">
+      <section className="flex flex-col gap-4 text-sm mt-10 lg:mt-0">
         <div className="flex justify-center gap-6">
           <Link href="/">প্রাইভেসি পলিসি</Link>
           <Link href="/">শর্তাবলী</Link>

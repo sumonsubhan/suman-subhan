@@ -7,10 +7,10 @@ import TrendingBookSlider from '@/components/bookSlider/TrendingBookSlider';
 const TrendingBooks = async() => {
    const {books} = await getTrendingBooks({limit:8})
     return (
-    <div className="my-10">
+    <div className="mt-6">
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-xl sm:text-2xl font-bold">
-          ট্রেন্ডিং বই
+          পাঠক সমাদৃত
         </h1>
         <Link className="flex items-center gap-2" href="/trending-books">
           আরো দেখুন

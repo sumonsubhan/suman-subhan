@@ -12,7 +12,7 @@ const Blogs = async() => {
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-xl sm:text-2xl font-bold">
-          সুর ও শ্রুতি
+          কথার কোলাজ
         </h1>
 
         <Link

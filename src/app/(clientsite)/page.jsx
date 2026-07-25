@@ -1,6 +1,5 @@
 import Banner from "@/components/home/banner/Banner";
 import Events from "@/components/home/events/Events";
-import NewBooks from "@/components/home/newBooks/NewBooks";
 import TrendingBooks from "@/components/home/trendingBooks/TrendingBooks";
 import Blogs from "@/components/home/videos/Blogs";
 import Poems from "@/components/home/videos/Poems";
@@ -62,7 +61,6 @@ export default function Home() {
   return (
     <div className="flex flex-col gap-6 py-5">
       <Banner />
-      <NewBooks />
       <TrendingBooks />
       <Songs />
       <Poems />

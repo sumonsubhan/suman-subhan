@@ -1,4 +1,3 @@
-import NewBooks from "@/components/home/newBooks/NewBooks";
 import BookSlider from "@/components/bookSlider/BookSlider";
 import Link from "next/link";
 import React from "react";
