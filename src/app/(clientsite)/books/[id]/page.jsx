@@ -76,7 +76,7 @@ export default async function BookDetails({ params, searchParams }) {
                       (max-width:1280px) 25vw,
                       20vw
                     "
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
 

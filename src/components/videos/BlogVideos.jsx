@@ -17,7 +17,7 @@ const BlogVideos = ({blogs}) => {
                 alt={blog.title}
                 width={400}
                 height={500}
-                className="w-full h-[220px] object-cover"
+                
               />
 
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">

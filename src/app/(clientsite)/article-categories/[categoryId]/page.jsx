@@ -62,7 +62,7 @@ const Articles = async ({ params, searchParams }) => {
                       sizes="(max-width:768px) 100vw,
                              (max-width:1024px) 320px,
                              360px"
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="transition-transform duration-500 group-hover:scale-105"
                     />
                   </div>
                 </div>

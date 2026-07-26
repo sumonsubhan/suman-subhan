@@ -79,7 +79,7 @@ export default async function ArticleDetails({ params }) {
       max-w-none
 
       text-[18px]
-      leading-[2.25]
+      leading-8
       text-justify
 
       prose-headings:mb-8

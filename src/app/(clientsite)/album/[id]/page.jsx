@@ -84,7 +84,7 @@ export default async function Photos({ params, searchParams }) {
               className="overflow-hidden rounded-2xl bg-white shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300"
             >
               {/* Image */}
-              <div className="relative aspect-[4/3] overflow-hidden">
+              <div className="relative aspect-[4/3]">
                 <Image
                   src={photo.imageUrl}
                   alt={photo.caption}
@@ -93,7 +93,7 @@ export default async function Photos({ params, searchParams }) {
                          (max-width:1024px)50vw,
                          (max-width:1280px)33vw,
                          25vw"
-                  className="object-cover transition-transform duration-500 hover:scale-105"
+                  className="transition-transform duration-500 hover:scale-105"
                 />
               </div>
 

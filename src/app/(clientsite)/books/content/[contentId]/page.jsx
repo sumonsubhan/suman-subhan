@@ -32,8 +32,6 @@ export default async function BookDetails({ params }) {
                 alt={content.title}
                 fill
                 sizes="256px"
-                className="object-cover"
-                priority
               />
             </div>
           </div>
@@ -81,7 +79,7 @@ export default async function BookDetails({ params }) {
       max-w-none
 
       text-[18px]
-      leading-[2.25]
+      leading-8
       text-justify
 
       prose-headings:mb-8
