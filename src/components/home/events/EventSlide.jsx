@@ -55,7 +55,7 @@ const EventSlide = ({ events = [] }) => {
                 alt={event.title || "Event Image"}
                 fill
                 sizes="(max-width: 768px) 100vw, 1000px"
-                className="rounded-xl object-cover"
+                className="rounded-xl"
               />
             </div>
           </SwiperSlide>

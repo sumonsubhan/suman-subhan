@@ -4,7 +4,7 @@ import { getTrendingBooks } from "../../../../services/getTrendingBooks";
 import Pagination from "@/components/pagination/Pagination";
 
 export const metadata = {
-  title: "ট্রেন্ডিং বই",
+  title: "পাঠক সমাদৃত",
 
   description:
     "সুমন সুবহানের সর্বাধিক জনপ্রিয় ও আলোচিত বইগুলোর সংগ্রহ। পাঠকদের পছন্দের ট্রেন্ডিং বাংলা বই, কবিতা, গল্প, উপন্যাস ও প্রবন্ধ আবিষ্কার করুন। Explore the most popular and trending books by Suman Subhan.",
@@ -12,7 +12,7 @@ export const metadata = {
   keywords: [
     // Bangla
     "সুমন সুবহান",
-    "ট্রেন্ডিং বই",
+    "পাঠক সমাদৃত",
     "জনপ্রিয় বই",
     "বাংলা বই",
     "বেস্ট সেলার",
@@ -40,7 +40,7 @@ export const metadata = {
   },
 
   openGraph: {
-    title: "ট্রেন্ডিং বই | সুমন সুবহান",
+    title: "পাঠক সমাদৃত | সুমন সুবহান",
     description: "সুমন সুবহানের সর্বাধিক জনপ্রিয় ও আলোচিত বইগুলোর সংগ্রহ।",
     url: "/trending-books",
     images: [
@@ -48,13 +48,13 @@ export const metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "ট্রেন্ডিং বই | সুমন সুবহান",
+        alt: "পাঠক সমাদৃত | সুমন সুবহান",
       },
     ],
   },
 
   twitter: {
-    title: "ট্রেন্ডিং বই | সুমন সুবহান",
+    title: "পাঠক সমাদৃত | সুমন সুবহান",
     description: "সুমন সুবহানের সর্বাধিক জনপ্রিয় ও আলোচিত বইগুলোর সংগ্রহ।",
     images: ["/og-image.jpg"],
   },
@@ -73,10 +73,10 @@ const TrendingBooks = async ({ searchParams }) => {
   if (books.length === 0) {
     return (
       <section className="py-20 text-center">
-        <h1 className="text-3xl font-bold">ট্রেন্ডিং বই</h1>
+        <h1 className="text-3xl font-bold">পাঠক সমাদৃত</h1>
 
         <p className="mt-4 text-gray-600">
-          বর্তমানে কোনো ট্রেন্ডিং বই উপলব্ধ নেই।
+          বর্তমানে কোনো পাঠক সমাদৃত উপলব্ধ নেই।
         </p>
       </section>
     );
@@ -87,7 +87,7 @@ const TrendingBooks = async ({ searchParams }) => {
       {/* Header */}
       <div className="mb-10">
         <h1 className="text-3xl md:text-4xl font-bold text-bgprimary">
-          ট্রেন্ডিং বই
+          পাঠক সমাদৃত
         </h1>
 
         <p className="mt-2 text-gray-500">জনপ্রিয় ও সর্বাধিক আলোচিত বইসমূহ</p>
@@ -98,7 +98,10 @@ const TrendingBooks = async ({ searchParams }) => {
         {books.map((book) => (
           <a
             key={book._id}
-            href={book?.purchaseURL || "https://seller.rokomari.com/book/author/25823/sumon-subhan"}
+            href={
+              book?.purchaseURL ||
+              "https://seller.rokomari.com/book/author/25823/sumon-subhan"
+            }
             target="_blank"
             rel="noopener noreferrer"
             className="flex h-full flex-col rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"

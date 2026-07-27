@@ -3,7 +3,7 @@ import { getBlogs } from "../../../../services/getBlogs";
 import BlogVideos from "@/components/videos/BlogVideos";
 
 export const metadata = {
-  title: "সুর ও শ্রুতি",
+  title: "কথার কোলাজ",
 
   description:
     "সুমন সুবহানের লেখা ও সুরে বাংলা গানের ভিডিও সংগ্রহ। মৌলিক বাংলা গান, সঙ্গীত, গীতিকবিতা ও সুরের এক সমৃদ্ধ ভাণ্ডার। Listen to original Bengali songs written and composed by Suman Subhan.",
@@ -38,7 +38,7 @@ export const metadata = {
   },
 
   openGraph: {
-    title: "সুর ও শ্রুতি | সুমন সুবহান",
+    title: "কথার কোলাজ | সুমন সুবহান",
     description: "সুমন সুবহানের লেখা ও সুরে বাংলা গানের ভিডিও সংগ্রহ।",
     url: "/songs",
     images: [
@@ -46,13 +46,13 @@ export const metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "সুর ও শ্রুতি | সুমন সুবহান",
+        alt: "কথার কোলাজ | সুমন সুবহান",
       },
     ],
   },
 
   twitter: {
-    title: "সুর ও শ্রুতি | সুমন সুবহান",
+    title: "কথার কোলাজ | সুমন সুবহান",
     description: "সুমন সুবহানের লেখা ও সুরে বাংলা গানের ভিডিও সংগ্রহ।",
     images: ["/og-image.jpg"],
   },
@@ -71,7 +71,7 @@ const Blogs = async ({ searchParams }) => {
   if (blogs.length === 0) {
   return (
     <section className="py-20 text-center">
-      <h1 className="text-3xl font-bold">সুর ও শ্রুতি</h1>
+      <h1 className="text-3xl font-bold">কথার কোলাজ</h1>
 
       <p className="mt-4 text-gray-600">
         বর্তমানে কোনো ভিডিও নেই।
@@ -82,11 +82,10 @@ const Blogs = async ({ searchParams }) => {
 
   return (
     <div className="py-10">
-      <h1 className="text-3xl md:text-4xl font-bold">সুর ও শ্রুতি</h1>
+      <h1 className="text-3xl md:text-4xl font-bold">কথার কোলাজ</h1>
 
       <p className="mt-5 mb-10 text-gray-600 leading-relaxed">
-        নিজস্ব কথা ও সুরের এক নান্দনিক মেলবন্ধন। ভাবনার গভীরে লালিত সুরগুলোই
-        এখানে গান হয়ে শ্রোতার মন ছুঁয়ে যাওয়ার অপেক্ষায়।
+        বই, কবিতা, অভিজ্ঞতা এবং জীবনের নানা অনুভূতির গল্প নিয়ে সাজানো ভিডিও কোলাজ।
       </p>
 
       <BlogVideos blogs={blogs}/>
