@@ -28,12 +28,17 @@ import {
 } from "react-icons/fa";
 
 import { LuHeading1, LuHeading2, LuHeading3 } from "react-icons/lu";
+import { QuoteMark } from "./extentions/QuoteMark";
+import { FaQuoteLeft } from "react-icons/fa6";
+import Small from "./extentions/Small";
 
 export default function TiptapEditor({ value, onChange }) {
   const editor = useEditor({
     immediatelyRender: false,
     extensions: [
       StarterKit,
+      QuoteMark,
+      Small,
 
       Placeholder.configure({
         placeholder: "Write your book...",
@@ -125,6 +130,14 @@ export default function TiptapEditor({ value, onChange }) {
         <button
           type="button"
           className="btn btn-sm"
+          onClick={() => editor.chain().focus().toggleSmall().run()}
+        >
+          Small
+        </button>
+
+        <button
+          type="button"
+          className="btn btn-sm"
           onClick={() =>
             editor.chain().focus().toggleHeading({ level: 1 }).run()
           }
@@ -171,6 +184,14 @@ export default function TiptapEditor({ value, onChange }) {
         <button
           type="button"
           className="btn btn-sm"
+          onClick={() => editor.chain().focus().toggleQuote().run()}
+        >
+          <FaQuoteLeft />
+        </button>
+
+        <button
+          type="button"
+          className="btn btn-sm"
           onClick={() => editor.chain().focus().toggleBlockquote().run()}
         >
           <FaQuoteRight />
@@ -198,13 +219,6 @@ export default function TiptapEditor({ value, onChange }) {
           onClick={() => editor.chain().focus().setTextAlign("right").run()}
         >
           <FaAlignRight />
-        </button>
-        <button
-          type="button"
-          className="btn btn-sm"
-          onClick={() => editor.chain().focus().setLink({ href: url }).run()}
-        >
-          <FaLink />
         </button>
       </div>
 

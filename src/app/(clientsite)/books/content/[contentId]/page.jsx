@@ -85,7 +85,7 @@ export default async function BookDetails({ params }) {
       prose-headings:mb-8
       prose-headings:font-bold
 
-      prose-p:mb-7
+      prose-p:mb-1
       prose-p:text-gray-800
 
       prose-img:mx-auto
