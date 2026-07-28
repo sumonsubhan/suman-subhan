@@ -82,7 +82,7 @@ const Articles = async ({ params, searchParams }) => {
                         year: "numeric",
                       })}
                     </span>
-                    <p>Views: {article.views}</p>
+                    <p>ভিউস: {article.views.toLocaleString("bn-BD")}</p>
                   </div>
 
                   {/* Title */}

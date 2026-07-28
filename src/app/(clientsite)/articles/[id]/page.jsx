@@ -63,7 +63,7 @@ export default async function ArticleDetails({ params }) {
                   year: "numeric",
                 })}
               </span>
-              <span>Views: {article.views}</span>
+              <span>ভিউস: {article.views.toLocaleString("bn-BD")}</span>
             </div>
           </div>
         </div>
