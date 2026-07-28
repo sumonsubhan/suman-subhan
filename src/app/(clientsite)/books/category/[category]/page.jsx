@@ -70,7 +70,7 @@ export default async function CategoryBooks({ params, searchParams }) {
                     {book.category}
                   </p>
                   <div className="bg-blue-100 px-3 py-1 text-xs font-medium text-blue-700 rounded-full">
-                    <p>Views: {book.views}</p>
+                    <p>ভিউস: {book.views.toLocaleString("bn-BD")}</p>
                   </div>
                 </div>
 
