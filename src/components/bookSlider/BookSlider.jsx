@@ -44,14 +44,20 @@ export default function BookSlider({ books = [] }) {
           : false
       }
       breakpoints={{
-        640: {
+        1: {
           slidesPerView: 1,
         },
-        768: {
+        500: {
           slidesPerView: 2,
         },
-        1400: {
+        1050: {
+          slidesPerView: 3,
+        },
+        1200: {
           slidesPerView: 4,
+        },
+        1600: {
+          slidesPerView: 5,
         },
       }}
       modules={[Autoplay, Pagination]}

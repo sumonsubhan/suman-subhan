@@ -97,7 +97,7 @@ export default async function BookDetails({ params, searchParams }) {
                   <p className="text-yellow-800">
                     <CiPen />
                   </p>
-                  <p className="text-gray-500">সুমন সুবাহান</p>
+                  <p className="text-gray-500">সুমন সুবহান</p>
                 </div>
               </article>
             </Link>

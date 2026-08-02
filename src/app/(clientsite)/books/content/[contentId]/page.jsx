@@ -47,7 +47,7 @@ export default async function BookDetails({ params }) {
             </h1>
 
             <div className="flex gap-6 items-center mt-3 text-lg text-gray-500">
-              <p>✍️ সুমন সুবাহান</p>
+              <p>✍️ সুমন সুবহান</p>
               <a
                 href={content.book.purchaseURL}
                 target="_blank"

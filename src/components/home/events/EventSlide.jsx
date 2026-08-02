@@ -19,7 +19,7 @@ const EventSlide = ({ events = [] }) => {
   const enableLoop = events.length > 1;
 
   return (
-    <div className="h-[150px] p-4 md:h-[250px] lg:h-[350px]">
+    <div className="h-[150px] p-4 md:h-[250px] lg:h-[350px] 2xl:h-[420px]">
       <Swiper
         direction="vertical"
         slidesPerView={1}
