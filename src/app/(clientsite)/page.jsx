@@ -64,7 +64,7 @@ export default function Home() {
       <TrendingBooks />
       <Songs />
       <Poems />
-      <Blogs/>
+      <Blogs />
       <Events />
     </div>
   );
