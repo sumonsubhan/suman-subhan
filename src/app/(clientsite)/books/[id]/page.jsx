@@ -31,7 +31,7 @@ export default async function BookDetails({ params, searchParams }) {
         </h1>
 
         <div className="flex justify-between items-center mt-2 text-gray-600">
-          <p className="">মোট অধ্যায়: {total}</p>
+          <p className="">মোট অধ্যায়: {total.toLocaleString("bn-BD")}</p>
           <a
             href={
               book?.purchaseURL ||
