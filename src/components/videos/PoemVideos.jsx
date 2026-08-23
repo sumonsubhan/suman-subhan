@@ -30,27 +30,34 @@ const PoemVideos = ({ poems }) => {
           </Link>
 
           <div className="p-4">
-            <h2 className="font-bold text-lg mb-2 line-clamp-2">
+            <h2 className="font-bold text-lg mb-2 line-clamp-1">
               {poem.title}
             </h2>
 
             <p className="text-gray-600 text-sm line-clamp-2">
               {poem.description}
             </p>
-            <a
-              href={
-                poem?.purchaseURL ||
-                "https://seller.rokomari.com/book/author/25823/sumon-subhan"
-              }
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex max-w-fit bg-gray-300 rounded-2xl p-1 mt-4 mb-2"
-            >
-              <div className="flex items-center gap-2 px-2">
-                <IoBook size={18} />
-                <p>{poem.bookTitle}</p>
+
+            <div className="flex justify-between items-center mt-4 mb-2">
+              <a
+                href={
+                  poem?.purchaseURL ||
+                  "https://seller.rokomari.com/book/author/25823/sumon-subhan"
+                }
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex max-w-fit bg-blue-100 text-blue-700 rounded-2xl p-1"
+              >
+                <div className="flex items-center gap-2 px-2 text-xs">
+                  <IoBook size={18} />
+                  <p className="line-clamp-1">{poem.bookTitle}</p>
+                </div>
+              </a>
+
+              <div className="rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-700">
+                <p>ভিউস: {poem.views.toLocaleString("bn-BD")}</p>
               </div>
-            </a>
+            </div>
           </div>
         </div>
       ))}

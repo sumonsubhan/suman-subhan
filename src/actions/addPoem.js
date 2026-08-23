@@ -57,6 +57,7 @@ export async function addPoem(formData) {
       videoURL,
       purchaseURL,
       description,
+      views: 0,
       createdAt: new Date(),
       updatedAt: new Date(),
     });

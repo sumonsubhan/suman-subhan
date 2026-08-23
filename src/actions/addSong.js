@@ -53,7 +53,9 @@ export async function addSong(formData) {
       publicId: uploadResult.public_id,
       videoURL,
       description,
+      views: 0,
       createdAt: new Date(),
+      updatedAt: new Date(),
     });
 
     return {

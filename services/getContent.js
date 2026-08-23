@@ -41,6 +41,7 @@ export async function getContent({
             content: 1,
             coverImage: 1,
             imagePublicId: 1,
+            views: 1,
             createdAt: 1,
             updatedAt: 1,
 
@@ -111,6 +112,7 @@ export async function getContent({
           shortNote: 1,
           content: 1,
           coverImage: 1,
+          views: 1,
           createdAt: 1,
           updatedAt: 1,
 

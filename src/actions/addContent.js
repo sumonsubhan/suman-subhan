@@ -58,6 +58,7 @@ export async function addContent(formData) {
       title,
       shortNote,
       content,
+      views: 0,
       createdAt: new Date(),
       updatedAt: new Date(),
     });

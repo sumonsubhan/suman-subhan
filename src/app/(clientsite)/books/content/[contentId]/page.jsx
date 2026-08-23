@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { getContent } from "../../../../../../services/getContent";
 import CommentSection from "@/components/comments/CommentSection";
-import Link from "next/link";
+import BookContentViewTracker from "@/components/viewsTracker/BookContentViewTracker";
 
 export default async function BookDetails({ params }) {
   const { contentId } = await params;
@@ -21,6 +21,9 @@ export default async function BookDetails({ params }) {
 
   return (
     <section className="py-10 lg:py-16">
+      {/* Increment Content Views */}
+      <BookContentViewTracker contentId={contentId} />
+
       <div className="mx-auto max-w-6xl px-4">
         {/* Book Info */}
         <div className="grid gap-10 lg:grid-cols-[280px_1fr]">
@@ -46,7 +49,7 @@ export default async function BookDetails({ params }) {
               {content.title}
             </h1>
 
-            <div className="flex gap-6 items-center mt-3 text-lg text-gray-500">
+            <div className="flex flex-wrap gap-6 items-center mt-3 text-lg text-gray-500">
               <p>✍️ সুমন সুবহান</p>
               <a
                 href={content.book.purchaseURL}
@@ -57,13 +60,18 @@ export default async function BookDetails({ params }) {
               </a>
             </div>
 
-            <div className="mt-8 border-t pt-5 text-sm text-gray-500">
-              প্রকাশিত:{" "}
-              {new Date(content.createdAt).toLocaleDateString("bn-BD", {
-                day: "numeric",
-                month: "long",
-                year: "numeric",
-              })}
+            <div className="flex items-center mt-8 border-t pt-5 gap-4">
+              <div className="text-sm text-gray-500 rounded-full bg-gray-200 px-3 py-1 font-medium">
+                প্রকাশিত:{" "}
+                {new Date(content.createdAt).toLocaleDateString("bn-BD", {
+                  day: "numeric",
+                  month: "long",
+                  year: "numeric",
+                })}
+              </div>
+              <div className="rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-700">
+                <p>ভিউস: {content.views.toLocaleString("bn-BD")}</p>
+              </div>
             </div>
           </div>
         </div>

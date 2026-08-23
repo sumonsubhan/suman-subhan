@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getPoems } from "../../../../../services/getPoems";
 import getEmbedUrl from "@/lib/embededURL";
 import CommentSection from "@/components/comments/CommentSection";
+import PoemViewTracker from "@/components/viewsTracker/PoemViewTracker";
 
 export default async function VideoPlayerPage({ params }) {
   const { id } = await params;
@@ -31,6 +32,9 @@ export default async function VideoPlayerPage({ params }) {
 
   return (
     <section className="py-10">
+      {/* Incriment Poem view */}
+      <PoemViewTracker poemId={id} />
+      
       <div className="grid grid-cols-1 xl:grid-cols-12 gap-10">
         {/* Main Content */}
         <div className="xl:col-span-8">
@@ -50,8 +54,8 @@ export default async function VideoPlayerPage({ params }) {
             {currentPoem.title}
           </h1>
 
-          {/* Date */}
-          <div className="flex gap-6 items-center mt-3 font-semibold text-gray-500">
+          {/* Date, BookName, Views */}
+          <div className="flex flex-wrap gap-6 items-center mt-3 font-semibold text-gray-500">
             <p className="">
               {new Date(currentPoem.createdAt).toLocaleDateString("bn-BD", {
                 day: "numeric",
@@ -70,10 +74,14 @@ export default async function VideoPlayerPage({ params }) {
             >
               বইঃ {currentPoem.bookTitle}
             </a>
+
+            <div className="rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-700">
+              <p>ভিউস: {currentPoem.views.toLocaleString("bn-BD")}</p>
+            </div>
           </div>
 
           {/* Description */}
-          <p className="mt-6 text-bgprimary leading-8 text-xl">
+          <p className="mt-6 text-gray-700 leading-8 text-lg text-justify">
             {currentPoem.description}
           </p>
         </div>

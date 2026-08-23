@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getSongs } from "../../../../../services/getSongs";
 import getEmbedUrl from "@/lib/embededURL";
 import CommentSection from "@/components/comments/CommentSection";
+import SongViewTracker from "@/components/viewsTracker/SongViewTracker";
 
 export default async function VideoPlayerPage({ params }) {
   const { id } = await params;
@@ -29,6 +30,9 @@ export default async function VideoPlayerPage({ params }) {
   const embedUrl = getEmbedUrl(currentSong.videoURL);
   return (
     <section className="py-10">
+      {/* Incriment Poem view */}
+      <SongViewTracker songId={id} />
+
       <div className="grid grid-cols-1 xl:grid-cols-12 gap-10">
         {/* Main Content */}
         <div className="xl:col-span-8">
@@ -48,17 +52,23 @@ export default async function VideoPlayerPage({ params }) {
             {currentSong.title}
           </h1>
 
-          {/* Date */}
-          <p className="mt-3 text-sm text-gray-500">
-            {new Date(currentSong.createdAt).toLocaleDateString("bn-BD", {
-              day: "numeric",
-              month: "long",
-              year: "numeric",
-            })}
-          </p>
+          {/* Date & views*/}
+          <div className="flex items-center mt-3 gap-4">
+            <p className="text-xs font-bold text-gray-500 bg-gray-200 rounded-full px-3 py-1">
+              {new Date(currentSong.createdAt).toLocaleDateString("bn-BD", {
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+              })}
+            </p>
+
+            <div className="rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-700">
+              <p>ভিউস: {currentSong.views.toLocaleString("bn-BD")}</p>
+            </div>
+          </div>
 
           {/* Description */}
-          <p className="mt-6 text-gray-700 leading-8 text-lg">
+          <p className="mt-6 text-gray-700 leading-8 text-lg text-justify">
             {currentSong.description}
           </p>
         </div>

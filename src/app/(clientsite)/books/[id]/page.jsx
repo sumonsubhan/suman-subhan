@@ -10,7 +10,6 @@ export default async function BookDetails({ params, searchParams }) {
   const page = Number(search.page) || 1;
   const { id } = await params;
 
-
   const { contents, total, totalPages } = await getContent({
     bookId: id,
     page,
@@ -22,7 +21,7 @@ export default async function BookDetails({ params, searchParams }) {
   return (
     <section className="my-6">
       {/* Incriment book view */}
-      <BookViewTracker bookId={id}/>
+      <BookViewTracker bookId={id} />
 
       {/* Header */}
       <div className="my-10">
@@ -93,11 +92,17 @@ export default async function BookDetails({ params, searchParams }) {
                   </p>
                 </div>
 
-                <div className="flex items-center gap-2 my-2">
-                  <p className="text-yellow-800">
-                    <CiPen />
-                  </p>
-                  <p className="text-gray-500">সুমন সুবহান</p>
+                <div className="my-2 flex justify-between">
+                  <div className="flex items-center gap-2">
+                    <p className="text-yellow-800">
+                      <CiPen />
+                    </p>
+                    <p className="text-gray-500">সুমন সুবহান</p>
+                  </div>
+
+                  <div className="rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-700">
+                    <p>ভিউস: {content.views.toLocaleString("bn-BD")}</p>
+                  </div>
                 </div>
               </article>
             </Link>

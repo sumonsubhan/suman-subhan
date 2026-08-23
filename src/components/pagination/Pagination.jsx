@@ -7,7 +7,7 @@ export default function Pagination({
   baseUrl,
 }) {
   return (
-    <div className="mt-12 flex flex-wrap justify-center gap-2">
+    <div className="mt-10 flex flex-wrap justify-center gap-2">
       <Link
         href={`${baseUrl}?page=${page - 1}`}
         className={`btn btn-sm ${
