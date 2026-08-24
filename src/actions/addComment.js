@@ -11,7 +11,7 @@ const ALLOWED_TYPES = [
   "poem",
   "song",
   "blog",
-  "album"
+  "photo"
 ];
 
 export async function addComment(formData) {

@@ -5,16 +5,33 @@ import { getDb } from "@/lib/db";
 import { requireAdmin } from "@/lib/requireAdmin";
 import { ObjectId } from "mongodb";
 
-export async function deletePhoto(photoId) {
-
+export async function deletePhoto({
+  id,
+  subAlbumId,
+  albumId,
+}) {
   await requireAdmin();
 
   try {
+    // Validate IDs
+    if (
+      !ObjectId.isValid(id) ||
+      !ObjectId.isValid(subAlbumId) ||
+      !ObjectId.isValid(albumId)
+    ) {
+      return {
+        success: false,
+        message: "Invalid ID.",
+      };
+    }
+
     const db = await getDb();
 
-    // Find the photo first
+    // Find photo
     const photo = await db.collection("photos").findOne({
-      _id: new ObjectId(photoId),
+      _id: new ObjectId(id),
+      subAlbumId: new ObjectId(subAlbumId),
+      albumId: new ObjectId(albumId),
     });
 
     if (!photo) {
@@ -24,22 +41,53 @@ export async function deletePhoto(photoId) {
       };
     }
 
-    // Delete from Cloudinary
-    await cloudinary.uploader.destroy(photo.publicId);
+    // Delete image from Cloudinary
+    if (photo.publicId) {
+      await cloudinary.uploader.destroy(
+        photo.publicId
+      );
+    }
 
-    // Delete from MongoDB
-    await db.collection("photos").deleteOne({
-      _id: new ObjectId(photoId),
-    });
+    // Delete photo from MongoDB
+    const result = await db
+      .collection("photos")
+      .deleteOne({
+        _id: new ObjectId(id),
+      });
 
-    // Update album photo count
-    await db.collection("albums").updateOne(
+    if (!result.deletedCount) {
+      return {
+        success: false,
+        message: "Failed to delete photo.",
+      };
+    }
+
+    // Decrease sub album photo count
+    await db.collection("subAlbums").updateOne(
       {
-        _id: photo.albumId,
+        _id: new ObjectId(subAlbumId),
       },
       {
         $inc: {
           totalImages: -1,
+        },
+        $set: {
+          updatedAt: new Date(),
+        },
+      }
+    );
+
+    // Decrease main album photo count
+    await db.collection("albums").updateOne(
+      {
+        _id: new ObjectId(albumId),
+      },
+      {
+        $inc: {
+          totalImages: -1,
+        },
+        $set: {
+          updatedAt: new Date(),
         },
       }
     );
@@ -49,7 +97,7 @@ export async function deletePhoto(photoId) {
       message: "Photo deleted successfully.",
     };
   } catch (error) {
-    console.error(error);
+    console.error("Delete Photo Error:", error);
 
     return {
       success: false,

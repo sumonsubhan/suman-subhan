@@ -2,71 +2,49 @@ import { ObjectId } from "mongodb";
 import { getDb } from "@/lib/db";
 
 export async function getPhotos({
-  albumId,
+  subAlbumId,
   page = 1,
-  limit = 10,
+  limit = 12,
 } = {}) {
   const db = await getDb();
 
   const query = {
-    albumId: new ObjectId(albumId),
+    subAlbumId: new ObjectId(subAlbumId),
   };
 
-  const skip = (Number(page) - 1) * Number(limit);
+  const skip =
+    (Number(page) - 1) * Number(limit);
 
-  // Count only photos of this album
-  const total = await db.collection("photos").countDocuments(query);
+  const total = await db
+    .collection("photos")
+    .countDocuments(query);
 
   const photos = await db
     .collection("photos")
-    .aggregate([
-      {
-        $match: query,
-      },
-      {
-        $lookup: {
-          from: "albums",
-          localField: "albumId",
-          foreignField: "_id",
-          as: "album",
-        },
-      },
-      {
-        $unwind: "$album",
-      },
-      {
-        $sort: {
-          createdAt: -1,
-        },
-      },
-      {
-        $skip: skip,
-      },
-      {
-        $limit: Number(limit),
-      },
-      {
-        $project: {
-          _id: { $toString: "$_id" },
-          albumId: { $toString: "$albumId" },
-          imageUrl: 1,
-          caption: 1,
-          createdAt: 1,
-
-          "album._id": { $toString: "$album._id" },
-          "album.title": 1,
-          "album.coverImage": 1,
-          "album.description": 1,
-        },
-      },
-    ])
+    .find(query)
+    .sort({
+      createdAt: -1,
+    })
+    .skip(skip)
+    .limit(Number(limit))
     .toArray();
 
   return {
-    photos,
+    photos: photos.map((photo) => ({
+      ...photo,
+      _id: photo._id.toString(),
+      albumId: photo.albumId.toString(),
+      subAlbumId: photo.subAlbumId.toString(),
+    })),
+
     total,
+
     page: Number(page),
+
     limit: Number(limit),
-    totalPages: Math.ceil(total / Number(limit)),
+
+    totalPages: Math.ceil(
+      total / Number(limit)
+    ),
   };
 }

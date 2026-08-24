@@ -1,119 +1,126 @@
-import Image from "next/image";
 import Link from "next/link";
-import { getPhotos } from "../../../../../../services/getPhotos";
-import DeleteButton from "@/components/bookCard/DeleteButton/DeleteButton";
+import Image from "next/image";
+import { getAlbums } from "../../../../../../services/getAlbum";
+import { getSubAlbums } from "../../../../../../services/getSubAlbums";
 import Pagination from "@/components/pagination/Pagination";
+import DeleteSubAlbum from "@/components/admin/DeleteSubAlbum";
 
-export default async function Photos({ params, searchParams }) {
+export default async function AlbumDetails({ params, searchParams }) {
   const { id } = await params;
   const search = await searchParams;
+
   const page = Number(search.page) || 1;
 
-  const { photos, total, totalPages } = await getPhotos({
+  const album = await getAlbums({ id });
+
+  const { subAlbums, total, totalPages } = await getSubAlbums({
     albumId: id,
     page,
     limit: 10,
   });
 
-  const album = photos.length > 0 ? photos[0].album : null;
+  if (!album) {
+    return <div className="text-center py-20">Album not found.</div>;
+  }
 
   return (
-    <section>
+    <div>
       {/* Header */}
-      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between mb-8">
+      <div className="flex justify-between items-center border-b-2 border-gray-400 pb-4">
         <div>
-          <h1 className="text-3xl font-bold">
-            {album?.title || "Photo Gallery"}
-          </h1>
+          <h1 className="text-2xl font-bold">{album.title}</h1>
 
-          <p className="text-gray-500 mt-1">Total Photos: {total}</p>
+          <p className="text-gray-500 mt-1">{total} events</p>
         </div>
 
         <Link
-          href={`/admin/gallery/${id}/add-photo`}
+          href={`/admin/gallery/${id}/add-sub-album`}
           className="btn btn-primary"
         >
-          Add Photo
+          Add Event
         </Link>
       </div>
 
-      {/* Empty State */}
-      {photos.length === 0 ? (
-        <div className="bg-white rounded-xl shadow text-center py-20">
-          <h2 className="text-2xl font-semibold">No Photos Found</h2>
+      {/* Events */}
+      <div className="mt-8">
+        {subAlbums.length === 0 ? (
+          <div className="text-center py-20 text-gray-500">
+            No events found.
+          </div>
+        ) : (
+          <div className="overflow-x-auto rounded-xl border bg-white shadow">
+            <table className="table">
+              <thead className="bg-gray-100">
+                <tr>
+                  <th>#</th>
+                  <th>Cover</th>
+                  <th>Event</th>
+                  <th>Total Photos</th>
+                  <th>Creation Date</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
 
-          <p className="mt-2 text-gray-500">
-            Upload your first photo to this album.
-          </p>
-        </div>
-      ) : (
-        <div className="overflow-x-auto rounded-xl bg-white shadow">
-          <table className="table">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Photo</th>
-                <th>Caption</th>
-                <th>Created</th>
-                <th className="text-center">Action</th>
-              </tr>
-            </thead>
+              <tbody>
+                {subAlbums.map((subAlbum, index) => (
+                  <tr key={subAlbum._id}>
+                    <td>{index + 1}</td>
 
-            <tbody>
-              {photos.map((photo, index) => (
-                <tr key={photo._id}>
-                  {/* Serial */}
-                  <td>{index + 1}</td>
+                    <td>
+                      <Image
+                        src={subAlbum.coverImage}
+                        alt={subAlbum.title}
+                        width={70}
+                        height={50}
+                        className="rounded-lg object-cover"
+                      />
+                    </td>
 
-                  {/* Image */}
-                  <td>
-                    <Image
-                      src={photo.imageUrl}
-                      alt={photo.caption}
-                      width={80}
-                      height={80}
-                      className="rounded-lg object-cover w-20 h-20"
-                    />
-                  </td>
+                    <td className="font-medium">{subAlbum.title}</td>
 
-                  {/* Caption */}
-                  <td className="max-w-sm">
-                    <p className="line-clamp-2">{photo.caption}</p>
-                  </td>
+                    <td>{subAlbum.totalImages}</td>
 
-                  {/* Created */}
-                  <td>
-                    {new Date(photo.createdAt).toLocaleDateString("bn-BD", {
-                      day: "numeric",
-                      month: "short",
-                      year: "numeric",
-                    })}
-                  </td>
+                    <td>
+                      {new Date(subAlbum.createdAt).toLocaleDateString(
+                        "en-US",
+                        {
+                          day: "numeric",
+                          month: "short",
+                          year: "numeric",
+                        },
+                      )}
+                    </td>
 
-                  {/* Actions */}
-                  <td>
-                    <div className="flex justify-center gap-2">
+                    <td className="flex gap-2">
                       <Link
-                        href={`/admin/gallery/${id}/edit-photo/${photo._id}`}
+                        href={`/admin/gallery/${id}/sub-album/edit/${subAlbum._id}`}
                         className="btn btn-sm btn-warning"
                       >
                         Edit
                       </Link>
-                      <DeleteButton photoId={photo._id} />
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
+
+                      <DeleteSubAlbum id={subAlbum._id} albumId={id} />
+
+                      <Link
+                        href={`/admin/gallery/${id}/sub-album/${subAlbum._id}`}
+                        className="btn btn-sm btn-primary"
+                      >
+                        Show Photos
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
 
       <Pagination
         page={page}
         totalPages={totalPages}
         baseUrl={`/admin/gallery/${id}`}
       />
-    </section>
+    </div>
   );
 }
