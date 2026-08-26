@@ -56,7 +56,7 @@ export default async function BookDetails({ params }) {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Book: {content.book.title}
+                বই: {content.book.title}
               </a>
             </div>
 
